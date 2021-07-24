@@ -7,18 +7,23 @@ use AdminDisplay;
 use AdminDisplayFilter;
 use AdminForm;
 use AdminFormElement;
-use App\Model\Country;
+use Illuminate\Database\Eloquent\Model;
 use SleepingOwl\Admin\Contracts\Display\DisplayInterface;
 use SleepingOwl\Admin\Contracts\Form\FormInterface;
+use SleepingOwl\Admin\Contracts\Initializable;
+use SleepingOwl\Admin\Form\Buttons\Cancel;
+use SleepingOwl\Admin\Form\Buttons\Save;
+use SleepingOwl\Admin\Form\Buttons\SaveAndClose;
+use SleepingOwl\Admin\Form\Buttons\SaveAndCreate;
 use SleepingOwl\Admin\Section;
 
 /**
  * Class Contacts
  *
- * @property \App\Model\Gallery_foto $model
+ * @property \App\Models\Gallery_foto $model
  *
  */
-class Gallery_foto extends Section
+class Gallery_foto extends Section implements Initializable
 {
     /**
      *
@@ -36,6 +41,11 @@ class Gallery_foto extends Section
         return 'Галерея';
     }
 
+    public function initialize()
+    {
+        $this->addToNavigation()->setPriority(300)->setIcon('fa fa-lightbulb-o')->setTitle('Галерея');
+    }
+
     /**
      * @return DisplayInterface
      */
@@ -46,7 +56,7 @@ class Gallery_foto extends Section
 
              AdminColumn::image('photo', 'Photo<br/><small>(image)</small>')
                     ->setHtmlAttribute('class', 'hidden-sm hidden-xs foobar')
-                    ->setWidth('100px'),
+                    ->setWidth('200px'),
 
             AdminColumn::link('title', 'Название')
                 ->setSearchCallback(function($column, $query, $search){
@@ -57,7 +67,10 @@ class Gallery_foto extends Section
                     $query->orderBy('title', $direction);
                 }),
 
-            AdminColumn::boolean('published', 'Опублековано'),
+            AdminColumn::custom('Опубликовано', function ($instance) {
+                return $instance->published ? '<i class="fa fa-check"></i>' : '<i class="fa fa-minus"></i>';
+            })->setWidth('25px')->setHtmlAttribute('class', 'text-center'),
+
             AdminColumn::text('created_at', 'Дата создания/изменения', 'updated_at')
                 ->setWidth('160px')
                 ->setOrderable(function($query, $direction) {
@@ -73,20 +86,7 @@ class Gallery_foto extends Section
             ->setDisplaySearch(true)
             ->paginate(25)
             ->setColumns($columns)
-            ->setHtmlAttribute('class', 'table-primary table-hover th-center')
-        ;
-
-        $display->setColumnFilters([
-            AdminColumnFilter::select()
-                ->setModelForOptions(\App\Models\Gallery_foto::class, 'title')
-                ->setLoadOptionsQueryPreparer(function($element, $query) {
-                    return $query;
-                })
-                ->setDisplay('title')
-                ->setColumnName('title')
-                ->setPlaceholder('Все названия'),
-        ]);
-        $display->getColumnFilters()->setPlacement('card.heading');
+            ->setHtmlAttribute('class', 'table-primary table-hover th-center');
 
         return $display;
     }
@@ -97,27 +97,32 @@ class Gallery_foto extends Section
      *
      * @return FormInterface
      */
-    public function onEdit($id)
+    public function onEdit($id = null)
     {
-        $form = AdminForm::panel()->addScript('custom-image', '/customjs/customimage.js', ['admin-default']);
+
+        $form = AdminForm::panel()->addScript('custom-image', '/    js/customimage.js', ['admin-default']);
 
         $form->setItems(
             AdminFormElement::columns()
-                ->addColumn(function() {
+                ->addColumn(function () {
                     return [
-                        AdminFormElement::text('firstName', 'First Name')->required('Please, type first name'),
-                        AdminFormElement::text('lastName', 'Last Name')->required(),
-                        AdminFormElement::text('phone', 'Phone'),
-                        AdminFormElement::text('address', 'Address'),
+                        AdminFormElement::text('title', 'Название')->required(),
+//           категории                 AdminFormElement::text('categories', 'категории'),
                     ];
-                })->addColumn(function() {
+                })->addColumn(function () {
                     return [
-                        AdminFormElement::image('photo', 'Photo')->setView(view('admin.custom.image')),
-                        AdminFormElement::date('birthday', 'Birthday')->setFormat('d.m.Y'),
-                        AdminFormElement::hidden('user_id')->setDefaultValue(auth()->user()->id),
+                        AdminFormElement::image('image', 'Фото'),
+                        AdminFormElement::datetime('updated_at', 'Дата'),
                     ];
                 })
         );
+
+        $form->getButtons()->setButtons([
+            'save'  => new Save(),
+            'save_and_close'  => new SaveAndClose(),
+            'save_and_create'  => new SaveAndCreate(),
+            'cancel'  => (new Cancel()),
+        ]);
 
         return $form;
     }
@@ -128,5 +133,10 @@ class Gallery_foto extends Section
     public function onCreate()
     {
         return $this->onEdit(null);
+    }
+
+    public function isDeletable(Model $model)
+    {
+        return true;
     }
 }

@@ -15,7 +15,7 @@ use Illuminate\Support\Facades\Route;
 Route::get('/categ/{id}', [App\Http\Controllers\CategoriesNewsController::class, 'manyToMany']);
 
 Route::get('/', function () {
-    return view('welcome');
+    return view('index');
 });
 
 Route::get('/dashboard', function () {
