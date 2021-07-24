@@ -23,6 +23,7 @@ use SleepingOwl\Admin\Navigation\Page;
 
 return [
 
+
     // Examples
     // [
     //    'title' => 'Content',

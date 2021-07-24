@@ -3,10 +3,11 @@
 namespace App\Http\Admin;
 
 use AdminColumn;
-use AdminColumnFilter;
 use AdminDisplay;
 use AdminForm;
 use AdminFormElement;
+use App\Models\User;
+
 use Illuminate\Database\Eloquent\Model;
 use SleepingOwl\Admin\Contracts\Display\DisplayInterface;
 use SleepingOwl\Admin\Contracts\Form\FormInterface;
@@ -20,13 +21,15 @@ use SleepingOwl\Admin\Section;
 /**
  * Class Users
  *
- * @property \App\Models\User $model
+ * @property User $model
  *
- * @see https://sleepingowladmin.ru/#/ru/model_configuration_section
+ * @see http://sleepingowladmin.ru/docs/model_configuration_section
  */
 class Users extends Section implements Initializable
 {
     /**
+     * @see http://sleepingowladmin.ru/docs/model_configuration#ограничение-прав-доступа
+     *
      * @var bool
      */
     protected $checkAccess = false;
@@ -34,104 +37,92 @@ class Users extends Section implements Initializable
     /**
      * @var string
      */
-    protected $title;
+    protected $title = 'Пользователи';
+
 
     /**
      * @var string
      */
-    protected $alias;
+    protected $alias = 'users';
 
     /**
-     * Initialize class.
-     */
-    public function initialize()
-    {
-        $this->addToNavigation()->setPriority(100)->setIcon('fa fa-lightbulb-o')->setTitle('Пользователи');
-    }
-
-    /**
-     * @param array $payload
-     *
      * @return DisplayInterface
      */
+
+    public function initialize()
+    {
+        $this->addToNavigation()->setPriority(100)->setIcon('fa fa-lightbulb-o')
+            ->setTitle('Пользователи');
+    }
+
     public function onDisplay($payload = [])
     {
         $columns = [
-            AdminColumn::text('id', '#')->setWidth('50px')->setHtmlAttribute('class', 'text-center'),
-            AdminColumn::link('name', 'Name', 'created_at')
-                ->setSearchCallback(function($column, $query, $search){
+            AdminColumn::link('name', 'Имя')->setHtmlAttribute('class', 'text-center')
+                ->setWidth('200px')
+                ->setSearchCallback(function ($column, $query, $search) {
                     return $query
-                        ->orWhere('name', 'like', '%'.$search.'%')
-                        ->orWhere('created_at', 'like', '%'.$search.'%')
-                    ;
+                        ->orWhere('name', 'like', '%' . $search . '%');
                 })
-                ->setOrderable(function($query, $direction) {
-                    $query->orderBy('created_at', $direction);
-                })
-            ,
-            AdminColumn::email('email', 'Email')->setOrderable(function($query, $direction){
-                $query->orderBy('email', $direction);
-            })-> setHtmlAttribute('class', 'text-center'),
+                ->setOrderable(function ($query, $direction) {
+                    $query->orderBy('name', $direction);
+                }),
 
-            AdminColumn::boolean('name', 'On'),
-            AdminColumn::text('created_at', 'Created / updated', 'updated_at')
+            AdminColumn::email('email', 'Email')->setOrderable(function ($query, $direction) {
+                $query->orderBy('email', $direction);
+            })->setHtmlAttribute('class', 'text-center'),
+
+            AdminColumn::text('created_at', 'Дата создания/изменения', 'updated_at')
                 ->setWidth('160px')
-                ->setOrderable(function($query, $direction) {
+                ->setOrderable(function ($query, $direction) {
                     $query->orderBy('updated_at', $direction);
                 })
                 ->setSearchable(false)
             ,
         ];
 
-        $display = AdminDisplay::datatables()
-            ->setName('firstdatatables')
+        return AdminDisplay::datatables()
+            ->setName('usersdatatables')
             ->setOrder([[0, 'asc']])
             ->setDisplaySearch(true)
             ->paginate(25)
             ->setColumns($columns)
-            ->setHtmlAttribute('class', 'table-primary table-hover th-center')
-        ;
-
-        $display->setColumnFilters([
-            AdminColumnFilter::select()
-                ->setModelForOptions(\App\Models\User::class, 'name')
-                ->setLoadOptionsQueryPreparer(function($element, $query) {
-                    return $query;
-                })
-                ->setDisplay('name')
-                ->setColumnName('name')
-                ->setPlaceholder('All names')
-            ,
-        ]);
-        $display->getColumnFilters()->setPlacement('card.heading');
-
-        return $display;
+            ->setHtmlAttribute('class', 'table-primary table-hover th-center');
     }
+
 
     /**
      * @param int|null $id
-     * @param array $payload
      *
      * @return FormInterface
      */
-    public function onEdit($id = null, $payload = [])
+    public function onEdit(int $id = null): FormInterface
     {
-        $form = AdminForm::card()->addBody([
-            AdminFormElement::columns()->addColumn([
-                AdminFormElement::text('name', 'Name')
-                    ->required()
-                ,
-                AdminFormElement::html('<hr>'),
-                AdminFormElement::datetime('created_at')
-                    ->setVisible(true)
-                    ->setReadonly(false)
-                ,
-                AdminFormElement::html('last AdminFormElement without comma')
-            ], 'col-xs-12 col-sm-6 col-md-4 col-lg-4')->addColumn([
-                AdminFormElement::text('id', 'ID')->setReadonly(true),
-                AdminFormElement::html('last AdminFormElement without comma')
-            ], 'col-xs-12 col-sm-6 col-md-8 col-lg-8'),
-        ]);
+        if($id != null){
+            $password = AdminFormElement::password('password', 'Пароль')
+                ->required()
+                ->addValidationRule('min:6')
+                ->HashWithBcrypt();
+
+            } else {
+            $password = AdminFormElement::password('password', 'Пароль')->setVisible(false)
+                ->setReadonly(true);
+        }
+
+        if($id != null){
+            $date = AdminFormElement::datetime('updated_at', 'Дата');
+        } else {
+            $date = AdminFormElement::datetime('created_at', 'Дата');
+        }
+
+        $form = AdminForm::form()->setElements([
+            AdminFormElement::text('name', 'Имя')->required(),
+            $password,
+            AdminFormElement::text('email', 'Email')->required(),
+            $date->setVisible(true)
+                ->setReadonly(false)
+                ->required(),
+            ]);
 
         $form->getButtons()->setButtons([
             'save'  => new Save(),
@@ -146,24 +137,13 @@ class Users extends Section implements Initializable
     /**
      * @return FormInterface
      */
-    public function onCreate($payload = [])
+    public function onCreate()
     {
-        return $this->onEdit(null, $payload);
+        return $this->onEdit(null);
     }
 
-    /**
-     * @return bool
-     */
     public function isDeletable(Model $model)
     {
         return true;
-    }
-
-    /**
-     * @return void
-     */
-    public function onRestore($id)
-    {
-        // remove if unused
     }
 }

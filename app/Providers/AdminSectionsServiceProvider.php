@@ -2,6 +2,10 @@
 
 namespace App\Providers;
 
+use App\Models\Gallery_foto;
+use App\Models\News;
+use App\Models\User;
+use SleepingOwl\Admin\Admin;
 use SleepingOwl\Admin\Providers\AdminSectionsServiceProvider as ServiceProvider;
 
 class AdminSectionsServiceProvider extends ServiceProvider
@@ -12,16 +16,18 @@ class AdminSectionsServiceProvider extends ServiceProvider
      */
     protected $sections = [
    // \App\Role::class => 'App\Http\Admin\Roles',
-    \App\Models\User::class => 'App\Http\Admin\Users',
+        User::class => 'App\Http\Admin\Users',
+        News::class => 'App\Http\Admin\News',
+        Gallery_foto::class  => 'App\Http\Admin\Gallery_foto',
     ];
 
     /**
      * Register sections.
      *
-     * @param \SleepingOwl\Admin\Admin $admin
+     * @param Admin $admin
      * @return void
      */
-    public function boot(\SleepingOwl\Admin\Admin $admin)
+    public function boot(Admin $admin)
     {
     	//
 
