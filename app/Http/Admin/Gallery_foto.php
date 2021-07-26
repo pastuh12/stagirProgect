@@ -20,7 +20,7 @@ use SleepingOwl\Admin\Section;
 /**
  * Class Contacts
  *
- * @property \App\Models\Gallery_foto $model
+ * @property \App\Models\Gallery_photo $model
  *
  */
 class Gallery_foto extends Section implements Initializable

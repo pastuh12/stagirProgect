@@ -5,17 +5,12 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class Comments extends Model
+class NewsCategory extends Model
 {
     use HasFactory;
-
     protected $fillable = [
-        'new_id',
-        'author',
-        'text',
+        'news_id',
     ];
 
-    protected $attributes = [
-        'published' => false,
-    ];
+
 }

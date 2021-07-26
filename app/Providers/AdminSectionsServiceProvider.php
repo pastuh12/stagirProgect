@@ -2,7 +2,8 @@
 
 namespace App\Providers;
 
-use App\Models\Gallery_foto;
+use App\Models\Comment;
+use App\Models\Gallery_photo;
 use App\Models\News;
 use App\Models\User;
 use SleepingOwl\Admin\Admin;
@@ -18,7 +19,8 @@ class AdminSectionsServiceProvider extends ServiceProvider
    // \App\Role::class => 'App\Http\Admin\Roles',
         User::class => 'App\Http\Admin\Users',
         News::class => 'App\Http\Admin\News',
-        Gallery_foto::class  => 'App\Http\Admin\Gallery_foto',
+        Gallery_photo::class  => 'App\Http\Admin\Gallery_foto',
+        Comment::class => 'App\Http\Admin\Comments',
     ];
 
     /**

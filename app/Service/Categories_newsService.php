@@ -3,14 +3,14 @@
 
 namespace App\Service;
 
-use App\Models\Categories_news;
+use App\Models\NewsCategory;
 
 
 class Categories_newsService
 {
 //    public function categoriesForThisNews(int $id)
 //    {
-//        $categories = Categories_news::class->where('news_id', $id)->get();
+//        $categories = NewsCategory::class->where('news_id', $id)->get();
 //
 //    }
 }

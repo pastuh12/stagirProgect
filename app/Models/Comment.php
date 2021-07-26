@@ -5,17 +5,17 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class Categories extends Model
+class Comment extends Model
 {
     use HasFactory;
 
     protected $fillable = [
-        'title',
+        'new_id',
+        'author',
+        'text',
     ];
 
-    public function news()
-    {
-        return $this->belongsToMany(News::class);
-    }
-
+    protected $attributes = [
+        'published' => false,
+    ];
 }
