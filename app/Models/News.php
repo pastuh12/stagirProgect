@@ -12,13 +12,12 @@ class News extends Model
 
     protected $fillable = [
         'title',
-        'author',
+        'author_id',
         'text',
-        'created_at',
     ];
 
     protected $attributes = [
-        'published' => false,
+        'is_published' => false,
         'views' => 0,
     ];
 

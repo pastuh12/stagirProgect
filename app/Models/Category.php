@@ -13,6 +13,8 @@ class Category extends Model
         'title',
     ];
 
+    public $timestamps = false;
+
     public function news()
     {
         return $this->belongsToMany(News::class);

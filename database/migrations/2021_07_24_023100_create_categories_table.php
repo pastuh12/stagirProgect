@@ -15,9 +15,18 @@ class CreateCategoriesTable extends Migration
     {
         Schema::create('categories', function (Blueprint $table) {
             $table->id();
-            $table->char('title', 50);
-            $table->timestamps();
+            $table->string('title');
+            $table->boolean('is_active')->default(1);
+        });
 
+        Schema::create('categories_galleries', function (Blueprint $table) {
+            $table->bigInteger('category_id');
+            $table->bigInteger('gallery_id');
+        });
+
+        Schema::create('categories_news', function (Blueprint $table) {
+            $table->bigInteger('category_id');
+            $table->bigInteger('news_id');
         });
     }
 
@@ -28,6 +37,8 @@ class CreateCategoriesTable extends Migration
      */
     public function down()
     {
+        Schema::dropIfExists('categories_news');
+        Schema::dropIfExists('categories_galleries');
         Schema::dropIfExists('categories');
     }
 }
