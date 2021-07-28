@@ -7,6 +7,7 @@ use AdminDisplay;
 use AdminDisplayFilter;
 use AdminForm;
 use AdminFormElement;
+use App\Models\Category;
 use Illuminate\Database\Eloquent\Model;
 use SleepingOwl\Admin\Contracts\Display\DisplayInterface;
 use SleepingOwl\Admin\Contracts\Form\FormInterface;
@@ -54,7 +55,7 @@ class Gallery extends Section implements Initializable
 
         $columns = [
 
-             AdminColumn::image('photo', 'Photo<br/><small>(image)</small>')
+             AdminColumn::image('image', 'Photo<br/><small>(image)</small>')
                     ->setHtmlAttribute('class', 'hidden-sm hidden-xs foobar')
                     ->setWidth('200px'),
 
@@ -66,11 +67,7 @@ class Gallery extends Section implements Initializable
                 ->setOrderable(function($query, $direction) {
                     $query->orderBy('title', $direction);
                 }),
-
-            AdminColumn::custom('Опубликовано', function ($instance) {
-                return $instance->published ? '<i class="fa fa-check"></i>' : '<i class="fa fa-minus"></i>';
-            })->setWidth('25px')->setHtmlAttribute('class', 'text-center'),
-
+            AdminColumn::lists('category.title', 'Категории')->setWidth('200px'),
             AdminColumn::text('created_at', 'Дата создания/изменения', 'updated_at')
                 ->setWidth('160px')
                 ->setOrderable(function($query, $direction) {
@@ -81,7 +78,7 @@ class Gallery extends Section implements Initializable
         ];
 
         $display = AdminDisplay::datatables()
-            ->setName('Gallerydatatables')
+            ->setName('gallerydatatables')
             ->setOrder([[0, 'asc']])
             ->setDisplaySearch(true)
             ->paginate(25)
@@ -107,7 +104,7 @@ class Gallery extends Section implements Initializable
                 ->addColumn(function () {
                     return [
                         AdminFormElement::text('title', 'Название')->required(),
-//           категории                 AdminFormElement::text('categories', 'категории'),
+                        AdminFormElement::multiselect('category', 'Категории', Category::class)->setDisplay('title'),
                     ];
                 })->addColumn(function () {
                     return [

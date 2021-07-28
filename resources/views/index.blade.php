@@ -14,144 +14,10 @@
 </head>
 
 <body>
-@include('components.newsSite.header-index')
+@include('components.newsSite.header')
 <main>
-    <!-- Trending Area Start -->
-    <div class="trending-area fix">
-        <div class="container">
-            <div class="trending-main">
-                <!-- Trending Tittle -->
-                <div class="row">
-                    <div class="col-lg-12">
-                        <div class="trending-tittle">
-                            <strong>Trending now</strong>
-                            <!-- <p>Rem ipsum dolor sit amet, consectetur adipisicing elit.</p> -->
-                            <div class="trending-animated">
-                                <ul id="js-news" class="js-hidden">
-                                    <li class="news-item">Bangladesh dolor sit amet, consectetur adipisicing elit.</li>
-                                    <li class="news-item">Spondon IT sit amet, consectetur.......</li>
-                                    <li class="news-item">Rem ipsum dolor sit amet, consectetur adipisicing elit.</li>
-                                </ul>
-                            </div>
 
-                        </div>
-                    </div>
-                </div>
-                <div class="row">
-                    <div class="col-lg-8">
-                        <!-- Trending Top -->
-                        <div class="trending-top mb-30">
-                            <div class="trend-top-img">
-                                <img src="{{asset('/assets/img/trending/trending_top.jpg')}}" alt="">
-                                <div class="trend-top-cap">
-                                    <span>Appetizers</span>
-                                    <h2><a href="details.html">Welcome To The Best Model Winner<br> Contest At Look of the year</a></h2>
-                                </div>
-                            </div>
-                        </div>
-                        <!-- Trending Bottom -->
-                        <div class="trending-bottom">
-                            <div class="row">
-                                <div class="col-lg-4">
-                                    <div class="single-bottom mb-35">
-                                        <div class="trend-bottom-img mb-30">
-                                            <img src="{{asset('/assets/img/trending/trending_bottom1.jpg')}}" alt="">
-                                        </div>
-                                        <div class="trend-bottom-cap">
-                                            <span class="color1">Lifestyple</span>
-                                            <h4><a href="details.html">Get the Illusion of Fuller Lashes by “Mascng.”</a></h4>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="col-lg-4">
-                                    <div class="single-bottom mb-35">
-                                        <div class="trend-bottom-img mb-30">
-                                            <img src="{{asset('/assets/img/trending/trending_bottom2.jpg;)}}" alt="">
-                                        </div>
-                                        <div class="trend-bottom-cap">
-                                            <span class="color2">Sports</span>
-                                            <h4><h4><a href="details.html">Get the Illusion of Fuller Lashes by “Mascng.”</a></h4></h4>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="col-lg-4">
-                                    <div class="single-bottom mb-35">
-                                        <div class="trend-bottom-img mb-30">
-{{--                                            <img src="{{asset('/assets/img/trending/trending_bottom3.jpg')}}" alt="">--}}
-                                        </div>
-                                        <div class="trend-bottom-cap">
-                                            <span class="color3">Travels</span>
-                                            <h4><a href="details.html"> Welcome To The Best Model Winner Contest</a></h4>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <!-- Riht content -->
-                </div>
-            </div>
-        </div>
-    </div>
-    <!-- Trending Area End -->
-    <!--   Weekly-News start -->
-    <div class="weekly-news-area pt-50">
-        <div class="container">
-            <div class="weekly-wrapper">
-                <!-- section Tittle -->
-                <div class="row">
-                    <div class="col-lg-12">
-                        <div class="section-tittle mb-30">
-                            <h3>Weekly Top News</h3>
-                        </div>
-                    </div>
-                </div>
-                <div class="row">
-                    <div class="col-12">
-                        <div class="weekly-news-active dot-style d-flex dot-style">
-                            <div class="weekly-single">
-                                <div class="weekly-img">
-                                    <img src="{{asset('/assets/img/news/weekly2News1.jpg')}}" alt="">
-                                </div>
-                                <div class="weekly-caption">
-                                    <span class="color1">Strike</span>
-                                    <h4><a href="#">Welcome To The Best Model  Winner Contest</a></h4>
-                                </div>
-                            </div>
-                            <div class="weekly-single active">
-                                <div class="weekly-img">
-                                    <img src="{{asset('/assets/img/news/weekly2News1.jpg')}}" alt="">
-                                </div>
-                                <div class="weekly-caption">
-                                    <span class="color1">Strike</span>
-                                    <h4><a href="#">Welcome To The Best Model  Winner Contest</a></h4>
-                                </div>
-                            </div>
-                            <div class="weekly-single">
-                                <div class="weekly-img">
-                                    <img src="{{asset('/assets/img/news/weeklyNews3.jpg')}}" alt="">
-                                </div>
-                                <div class="weekly-caption">
-                                    <span class="color1">Strike</span>
-                                    <h4><a href="#">Welcome To The Best Model  Winner Contest</a></h4>
-                                </div>
-                            </div>
-                            <div class="weekly-single">
-                                <div class="weekly-img">
-                                    <img src="{{asset('/assets/img/news/weeklyNews1.jpg')}}" alt="">
-                                </div>
-                                <div class="weekly-caption">
-                                    <span class="color1">Strike</span>
-                                    <h4><a href="#">Welcome To The Best Model  Winner Contest</a></h4>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-    <!-- End Weekly-News -->
+
     <!-- Whats New Start -->
     <section class="whats-news-area pt-50 pb-20">
         <div class="container">
@@ -191,7 +57,7 @@
                                             <div class="col-lg-6 col-md-6">
                                                 <div class="single-what-news mb-100">
                                                     <div class="what-img">
-                                                        <img src="{{asset('/assets/img/news/whatNews1.jpg')}}" alt="">
+{{--                                                        <img src="{{asset('/assets/img/news/whatNews1.jpg')}}" alt="">--}}
                                                     </div>
                                                     <div class="what-cap">
                                                         <span class="color1">Night party</span>
@@ -202,7 +68,7 @@
                                             <div class="col-lg-6 col-md-6">
                                                 <div class="single-what-news mb-100">
                                                     <div class="what-img">
-                                                        <img src="{{asset('/assets/img/news/whatNews2.jpg')}}" alt="">
+{{--                                                        <img src="{{asset('/assets/img/news/whatNews2.jpg')}}" alt="">--}}
                                                     </div>
                                                     <div class="what-cap">
                                                         <span class="color1">Night party</span>
@@ -213,7 +79,7 @@
                                             <div class="col-lg-6 col-md-6">
                                                 <div class="single-what-news mb-100">
                                                     <div class="what-img">
-                                                        <img src="{{asset('/assets/img/news/whatNews3.jpg')}}" alt="">
+{{--                                                        <img src="{{asset('/assets/img/news/whatNews3.jpg')}}" alt="">--}}
                                                     </div>
                                                     <div class="what-cap">
                                                         <span class="color1">Night party</span>
@@ -224,7 +90,7 @@
                                             <div class="col-lg-6 col-md-6">
                                                 <div class="single-what-news mb-100">
                                                     <div class="what-img">
-                                                        <img src="{{asset('/assets/img/news/whatNews4.jpg')}}" alt="">
+{{--                                                        <img src="{{asset('/assets/img/news/whatNews4.jpg')}}" alt="">--}}
                                                     </div>
                                                     <div class="what-cap">
                                                         <span class="color1">Night party</span>
@@ -242,7 +108,7 @@
                                             <div class="col-lg-6 col-md-6">
                                                 <div class="single-what-news mb-100">
                                                     <div class="what-img">
-                                                        <img src="{{asset('/assets/img/news/whatNews1.jpg')}}" alt="">
+{{--                                                        <img src="{{asset('/assets/img/news/whatNews1.jpg')}}" alt="">--}}
                                                     </div>
                                                     <div class="what-cap">
                                                         <span class="color1">Night party</span>
@@ -253,7 +119,7 @@
                                             <div class="col-lg-6 col-md-6">
                                                 <div class="single-what-news mb-100">
                                                     <div class="what-img">
-                                                        <img src="{{asset('/assets/img/news/whatNews2.jpg')}}" alt="">
+{{--                                                        <img src="{{asset('/assets/img/news/whatNews2.jpg')}}" alt="">--}}
                                                     </div>
                                                     <div class="what-cap">
                                                         <span class="color1">Night party</span>
@@ -264,7 +130,7 @@
                                             <div class="col-lg-6 col-md-6">
                                                 <div class="single-what-news mb-100">
                                                     <div class="what-img">
-                                                        <img src="{{asset('/assets/img/news/whatNews3.jpg')}}" alt="">
+{{--                                                        <img src="{{asset('/assets/img/news/whatNews3.jpg')}}" alt="">--}}
                                                     </div>
                                                     <div class="what-cap">
                                                         <span class="color1">Night party</span>
@@ -275,7 +141,7 @@
                                             <div class="col-lg-6 col-md-6">
                                                 <div class="single-what-news mb-100">
                                                     <div class="what-img">
-                                                        <img src="{{asset('/assets/img/news/whatNews4.jpg')}}" alt="">
+{{--                                                        <img src="{{asset('/assets/img/news/whatNews4.jpg')}}" alt="">--}}
                                                     </div>
                                                     <div class="what-cap">
                                                         <span class="color1">Night party</span>
@@ -293,7 +159,7 @@
                                             <div class="col-lg-6 col-md-6">
                                                 <div class="single-what-news mb-100">
                                                     <div class="what-img">
-                                                        <img src="{{asset('/assets/img/news/whatNews1.jpg')}}" alt="">
+{{--                                                        <img src="{{asset('/assets/img/news/whatNews1.jpg')}}" alt="">--}}
                                                     </div>
                                                     <div class="what-cap">
                                                         <span class="color1">Night party</span>
@@ -304,7 +170,7 @@
                                             <div class="col-lg-6 col-md-6">
                                                 <div class="single-what-news mb-100">
                                                     <div class="what-img">
-                                                        <img src="{{asset('/assets/img/news/whatNews2.jpg')}}" alt="">
+{{--                                                        <img src="{{asset('/assets/img/news/whatNews2.jpg')}}" alt="">--}}
                                                     </div>
                                                     <div class="what-cap">
                                                         <span class="color1">Night party</span>
@@ -315,7 +181,7 @@
                                             <div class="col-lg-6 col-md-6">
                                                 <div class="single-what-news mb-100">
                                                     <div class="what-img">
-                                                        <img src="{{asset('/assets/img/news/whatNews3.jpg')}}" alt="">
+{{--                                                        <img src="{{asset('/assets/img/news/whatNews3.jpg')}}" alt="">--}}
                                                     </div>
                                                     <div class="what-cap">
                                                         <span class="color1">Night party</span>
@@ -326,7 +192,7 @@
                                             <div class="col-lg-6 col-md-6">
                                                 <div class="single-what-news mb-100">
                                                     <div class="what-img">
-                                                        <img src="{{asset('/assets/img/news/whatNews4.jpg')}}" alt="">
+{{--                                                        <img src="{{asset('/assets/img/news/whatNews4.jpg')}}" alt="">--}}
                                                     </div>
                                                     <div class="what-cap">
                                                         <span class="color1">Night party</span>
@@ -344,7 +210,7 @@
                                             <div class="col-lg-6 col-md-6">
                                                 <div class="single-what-news mb-100">
                                                     <div class="what-img">
-                                                        <img src="{{asset('/assets/img/news/whatNews1.jpg')}}" alt="">
+{{--                                                        <img src="{{asset('/assets/img/news/whatNews1.jpg')}}" alt="">--}}
                                                     </div>
                                                     <div class="what-cap">
                                                         <span class="color1">Night party</span>
@@ -355,7 +221,7 @@
                                             <div class="col-lg-6 col-md-6">
                                                 <div class="single-what-news mb-100">
                                                     <div class="what-img">
-                                                        <img src="{{asset('/assets/img/news/whatNews2.jpg')}}" alt="">
+{{--                                                        <img src="{{asset('/assets/img/news/whatNews2.jpg')}}" alt="">--}}
                                                     </div>
                                                     <div class="what-cap">
                                                         <span class="color1">Night party</span>
@@ -366,7 +232,7 @@
                                             <div class="col-lg-6 col-md-6">
                                                 <div class="single-what-news mb-100">
                                                     <div class="what-img">
-                                                        <img src="{{asset('/assets/img/news/whatNews3.jpg')}}" alt="">
+{{--                                                        <img src="{{asset('/assets/img/news/whatNews3.jpg')}}" alt="">--}}
                                                     </div>
                                                     <div class="what-cap">
                                                         <span class="color1">Night party</span>
@@ -377,7 +243,7 @@
                                             <div class="col-lg-6 col-md-6">
                                                 <div class="single-what-news mb-100">
                                                     <div class="what-img">
-                                                        <img src="{{asset('/assets/img/news/whatNews4.jpg')}}" alt="">
+{{--                                                        <img src="{{asset('/assets/img/news/whatNews4.jpg')}}" alt="">--}}
                                                     </div>
                                                     <div class="what-cap">
                                                         <span class="color1">Night party</span>
@@ -395,7 +261,7 @@
                                             <div class="col-lg-6 col-md-6">
                                                 <div class="single-what-news mb-100">
                                                     <div class="what-img">
-                                                        <img src="{{asset('/assets/img/news/whatNews1.jpg')}}" alt="">
+{{--                                                        <img src="{{asset('/assets/img/news/whatNews1.jpg')}}" alt="">--}}
                                                     </div>
                                                     <div class="what-cap">
                                                         <span class="color1">Night party</span>
@@ -406,7 +272,7 @@
                                             <div class="col-lg-6 col-md-6">
                                                 <div class="single-what-news mb-100">
                                                     <div class="what-img">
-                                                        <img src="{{asset('/assets/img/news/whatNews2.jpg')}}" alt="">
+{{--                                                        <img src="{{asset('/assets/img/news/whatNews2.jpg')}}" alt="">--}}
                                                     </div>
                                                     <div class="what-cap">
                                                         <span class="color1">Night party</span>
@@ -417,7 +283,7 @@
                                             <div class="col-lg-6 col-md-6">
                                                 <div class="single-what-news mb-100">
                                                     <div class="what-img">
-                                                        <img src="{{asset('/assets/img/news/whatNews3.jpg')}}" alt="">
+{{--                                                        <img src="{{asset('/assets/img/news/whatNews3.jpg')}}" alt="">--}}
                                                     </div>
                                                     <div class="what-cap">
                                                         <span class="color1">Night party</span>
@@ -428,7 +294,7 @@
                                             <div class="col-lg-6 col-md-6">
                                                 <div class="single-what-news mb-100">
                                                     <div class="what-img">
-                                                        <img src="{{asset('/assets/img/news/whatNews4.jpg')}}" alt="">
+{{--                                                        <img src="{{asset('/assets/img/news/whatNews4.jpg')}}" alt="">--}}
                                                     </div>
                                                     <div class="what-cap">
                                                         <span class="color1">Night party</span>
@@ -446,7 +312,7 @@
                                             <div class="col-lg-6 col-md-6">
                                                 <div class="single-what-news mb-100">
                                                     <div class="what-img">
-                                                        <img src="{{asset('/assets/img/news/whatNews1.jpg')}}" alt="">
+{{--                                                        <img src="{{asset('/assets/img/news/whatNews1.jpg')}}" alt="">--}}
                                                     </div>
                                                     <div class="what-cap">
                                                         <span class="color1">Night party</span>
@@ -457,7 +323,7 @@
                                             <div class="col-lg-6 col-md-6">
                                                 <div class="single-what-news mb-100">
                                                     <div class="what-img">
-                                                        <img src="{{asset('/assets/img/news/whatNews2.jpg')}}" alt="">
+{{--                                                        <img src="{{asset('/assets/img/news/whatNews2.jpg')}}" alt="">--}}
                                                     </div>
                                                     <div class="what-cap">
                                                         <span class="color1">Night party</span>
@@ -468,7 +334,7 @@
                                             <div class="col-lg-6 col-md-6">
                                                 <div class="single-what-news mb-100">
                                                     <div class="what-img">
-                                                        <img src="{{asset('/assets/img/news/whatNews3.jpg')}}" alt="">
+{{--                                                        <img src="{{asset('/assets/img/news/whatNews3.jpg')}}" alt="">--}}
                                                     </div>
                                                     <div class="what-cap">
                                                         <span class="color1">Night party</span>
@@ -479,7 +345,7 @@
                                             <div class="col-lg-6 col-md-6">
                                                 <div class="single-what-news mb-100">
                                                     <div class="what-img">
-                                                        <img src="{{asset('/assets/img/news/whatNews4.jpg')}}" alt="">
+{{--                                                        <img src="{{asset('/assets/img/news/whatNews4.jpg')}}" alt="">--}}
                                                     </div>
                                                     <div class="what-cap">
                                                         <span class="color1">Night party</span>
@@ -496,267 +362,20 @@
                     </div>
                 </div>
                 <div class="col-lg-4">
-                    <!-- Section Tittle -->
-                    <div class="section-tittle mb-40">
-                        <h3>Follow Us</h3>
-                    </div>
-                    <!-- Flow Socail -->
-                    <div class="single-follow mb-45">
-                        <div class="single-box">
-                            <div class="follow-us d-flex align-items-center">
-                                <div class="follow-social">
-                                    <a href="#"><img src="{{asset('/assets/img/news/icon-fb.png')}}" alt=""></a>
-                                </div>
-                                <div class="follow-count">
-                                    <span>8,045</span>
-                                    <p>Fans</p>
-                                </div>
-                            </div>
-                            <div class="follow-us d-flex align-items-center">
-                                <div class="follow-social">
-                                    <a href="#"><img src="{{asset('/assets/img/news/icon-tw.png')}}" alt=""></a>
-                                </div>
-                                <div class="follow-count">
-                                    <span>8,045</span>
-                                    <p>Fans</p>
-                                </div>
-                            </div>
-                            <div class="follow-us d-flex align-items-center">
-                                <div class="follow-social">
-                                    <a href="#"><img src="{{asset('/assets/img/news/icon-ins.png')}}" alt=""></a>
-                                </div>
-                                <div class="follow-count">
-                                    <span>8,045</span>
-                                    <p>Fans</p>
-                                </div>
-                            </div>
-                            <div class="follow-us d-flex align-items-center">
-                                <div class="follow-social">
-                                    <a href="#"><img src="{{asset('/assets/img/news/icon-yo.png')}}" alt=""></a>
-                                </div>
-                                <div class="follow-count">
-                                    <span>8,045</span>
-                                    <p>Fans</p>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
+
                     <!-- New Poster -->
                     <div class="news-poster d-none d-lg-block">
-                        <img src="{{asset('/assets/img/news/news_card.jpg')}}" alt="">
+{{--                        <img src="{{asset('/assets/img/news/news_card.jpg')}}" alt="">--}}
                     </div>
                 </div>
             </div>
         </div>
     </section>
     <!-- Whats New End -->
-    <!--   Weekly2-News start -->
-    <div class="weekly2-news-area  weekly2-pading gray-bg">
-        <div class="container">
-            <div class="weekly2-wrapper">
-                <!-- section Tittle -->
-                <div class="row">
-                    <div class="col-lg-12">
-                        <div class="section-tittle mb-30">
-                            <h3>Weekly Top News</h3>
-                        </div>
-                    </div>
-                </div>
-                <div class="row">
-                    <div class="col-12">
-                        <div class="weekly2-news-active dot-style d-flex dot-style">
-                            <div class="weekly2-single">
-                                <div class="weekly2-img">
-                                    <img src="{{asset('/assets/img/news/weekly2News1.jpg')}}" alt="">
-                                </div>
-                                <div class="weekly2-caption">
-                                    <span class="color1">Corporate</span>
-                                    <p>25 Jan 2020</p>
-                                    <h4><a href="#">Welcome To The Best Model  Winner Contest</a></h4>
-                                </div>
-                            </div>
-                            <div class="weekly2-single">
-                                <div class="weekly2-img">
-                                    <img src="{{asset('/assets/img/news/weekly2News2.jpg')}}" alt="">
-                                </div>
-                                <div class="weekly2-caption">
-                                    <span class="color1">Event night</span>
-                                    <p>25 Jan 2020</p>
-                                    <h4><a href="#">Welcome To The Best Model  Winner Contest</a></h4>
-                                </div>
-                            </div>
-                            <div class="weekly2-single">
-                                <div class="weekly2-img">
-                                    <img src="{{asset('/assets/img/news/weekly2News3.jpg')}}" alt="">
-                                </div>
-                                <div class="weekly2-caption">
-                                    <span class="color1">Corporate</span>
-                                    <p>25 Jan 2020</p>
-                                    <h4><a href="#">Welcome To The Best Model  Winner Contest</a></h4>
-                                </div>
-                            </div>
-                            <div class="weekly2-single">
-                                <div class="weekly2-img">
-                                    <img src="{{asset('/assets/img/news/weekly2News4.jpg')}}" alt="">
-                                </div>
-                                <div class="weekly2-caption">
-                                    <span class="color1">Event time</span>
-                                    <p>25 Jan 2020</p>
-                                    <h4><a href="#">Welcome To The Best Model  Winner Contest</a></h4>
-                                </div>
-                            </div>
-                            <div class="weekly2-single">
-                                <div class="weekly2-img">
-                                    <img src="{{asset('/assets/img/news/weekly2News4.jpg')}}" alt="">
-                                </div>
-                                <div class="weekly2-caption">
-                                    <span class="color1">Corporate</span>
-                                    <p>25 Jan 2020</p>
-                                    <h4><a href="#">Welcome To The Best Model  Winner Contest</a></h4>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-    <!-- End Weekly-News -->
-    <!-- Start Youtube -->
-    <div class="youtube-area video-padding">
-        <div class="container">
-            <div class="row">
-                <div class="col-12">
-                    <div class="video-items-active">
-                        <div class="video-items text-center">
-                            <iframe src="https://www.youtube.com/embed/CicQIuG8hBo" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
-                        </div>
-                        <div class="video-items text-center">
-                            <iframe  src="https://www.youtube.com/embed/rIz00N40bag" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
-                        </div>
-                        <div class="video-items text-center">
-                            <iframe src="https://www.youtube.com/embed/CONfhrASy44" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
 
-                        </div>
-                        <div class="video-items text-center">
-                            <iframe src="https://www.youtube.com/embed/lq6fL2ROWf8" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
 
-                        </div>
-                        <div class="video-items text-center">
-                            <iframe src="https://www.youtube.com/embed/0VxlQlacWV4" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <div class="video-info">
-                <div class="row">
-                    <div class="col-lg-6">
-                        <div class="video-caption">
-                            <div class="top-caption">
-                                <span class="color1">Politics</span>
-                            </div>
-                            <div class="bottom-caption">
-                                <h2>Welcome To The Best Model Winner Contest At Look of the year</h2>
-                                <p>Lorem ipsum dolor sit amet consectetur adipisicing elit sed do eiusmod ipsum dolor sit. Lorem ipsum dolor sit amet consectetur adipisicing elit sed do eiusmod ipsum dolor sit. Lorem ipsum dolor sit amet consectetur adipisicing elit sed do eiusmod ipsum dolor sit lorem ipsum dolor sit.</p>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-lg-6">
-                        <div class="testmonial-nav text-center">
-                            <div class="single-video">
-                                <iframe  src="https://www.youtube.com/embed/CicQIuG8hBo" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
-                                <div class="video-intro">
-                                    <h4>Welcotme To The Best Model Winner Contest</h4>
-                                </div>
-                            </div>
-                            <div class="single-video">
-                                <iframe  src="https://www.youtube.com/embed/rIz00N40bag" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
-                                <div class="video-intro">
-                                    <h4>Welcotme To The Best Model Winner Contest</h4>
-                                </div>
-                            </div>
-                            <div class="single-video">
-                                <iframe src="https://www.youtube.com/embed/CONfhrASy44" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
-                                <div class="video-intro">
-                                    <h4>Welcotme To The Best Model Winner Contest</h4>
-                                </div>
-                            </div>
-                            <div class="single-video">
-                                <iframe src="https://www.youtube.com/embed/lq6fL2ROWf8" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
-                                <div class="video-intro">
-                                    <h4>Welcotme To The Best Model Winner Contest</h4>
-                                </div>
-                            </div>
-                            <div class="single-video">
-                                <iframe src="https://www.youtube.com/embed/0VxlQlacWV4" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
-                                <div class="video-intro">
-                                    <h4>Welcotme To The Best Model Winner Contest</h4>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-    <!-- End Start youtube -->
     <!--  Recent Articles start -->
-    <div class="recent-articles">
-        <div class="container">
-            <div class="recent-wrapper">
-                <!-- section Tittle -->
-                <div class="row">
-                    <div class="col-lg-12">
-                        <div class="section-tittle mb-30">
-                            <h3>Recent Articles</h3>
-                        </div>
-                    </div>
-                </div>
-                <div class="row">
-                    <div class="col-12">
-                        <div class="recent-active dot-style d-flex dot-style">
-                            <div class="single-recent mb-100">
-                                <div class="what-img">
-                                    <img src="{{asset('/assets/img/news/recent1.jpg')}}" alt="">
-                                </div>
-                                <div class="what-cap">
-                                    <span class="color1">Night party</span>
-                                    <h4><a href="#">Welcome To The Best Model  Winner Contest</a></h4>
-                                </div>
-                            </div>
-                            <div class="single-recent mb-100">
-                                <div class="what-img">
-                                    <img src="{{asset('/assets/img/news/recent2.jpg')}}" alt="">
-                                </div>
-                                <div class="what-cap">
-                                    <span class="color1">Night party</span>
-                                    <h4><a href="#">Welcome To The Best Model  Winner Contest</a></h4>
-                                </div>
-                            </div>
-                            <div class="single-recent mb-100">
-                                <div class="what-img">
-                                    <img src="{{asset('/assets/img/news/recent3.jpg')}}" alt="">
-                                </div>
-                                <div class="what-cap">
-                                    <span class="color1">Night party</span>
-                                    <h4><a href="#">Welcome To The Best Model  Winner Contest</a></h4>
-                                </div>
-                            </div>
-                            <div class="single-recent mb-100">
-                                <div class="what-img">
-                                    <img src="{{ asset('/assets/img/news/recent2.jpg') }}" alt="">
-                                </div>
-                                <div class="what-cap">
-                                    <span class="color1">Night party</span>
-                                    <h4><a href="#">Welcome To The Best Model  Winner Contest</a></h4>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
+   @include('components.newsSite.recent-news')
     <!--Recent Articles End -->
     <!--Start pagination -->
     <div class="pagination-area pb-45 text-center">
@@ -781,7 +400,7 @@
     <!-- End pagination  -->
 </main>
 
-@include('components.newsSite.footer-index')
+@include('components.newsSite.footer')
 
 @include('components.newsSite.script-index')
 

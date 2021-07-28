@@ -2,9 +2,9 @@
 
 namespace App\Providers;
 
+use App\Models\Category;
 use App\Models\Comment;
 use App\Models\Gallery;
-use App\Models\Gallery_photo;
 use App\Models\News;
 use App\Models\User;
 use SleepingOwl\Admin\Admin;
@@ -22,6 +22,7 @@ class AdminSectionsServiceProvider extends ServiceProvider
         News::class => 'App\Http\Admin\News',
         Gallery::class  => 'App\Http\Admin\Gallery',
         Comment::class => 'App\Http\Admin\Comments',
+        Category::class => 'App\Http\Admin\Category'
     ];
 
     /**
@@ -32,7 +33,6 @@ class AdminSectionsServiceProvider extends ServiceProvider
      */
     public function boot(Admin $admin)
     {
-    	//
 
         parent::boot($admin);
     }

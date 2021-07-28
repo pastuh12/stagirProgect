@@ -48,23 +48,6 @@
                         </div>
                     </div>
                 </div>
-                <div class="col-xl-3 col-lg-3 col-md-5 col-sm-6">
-                    <div class="single-footer-caption mb-50 mt-60">
-                        <div class="footer-tittle">
-                            <h4>Instagram Feed</h4>
-                        </div>
-                        <div class="instagram-gellay">
-                            <ul class="insta-feed">
-                                <li><a href="#"><img src="assets/img/post/instra1.jpg" alt=""></a></li>
-                                <li><a href="#"><img src="assets/img/post/instra2.jpg" alt=""></a></li>
-                                <li><a href="#"><img src="assets/img/post/instra3.jpg" alt=""></a></li>
-                                <li><a href="#"><img src="assets/img/post/instra4.jpg" alt=""></a></li>
-                                <li><a href="#"><img src="assets/img/post/instra5.jpg" alt=""></a></li>
-                                <li><a href="#"><img src="assets/img/post/instra6.jpg" alt=""></a></li>
-                            </ul>
-                        </div>
-                    </div>
-                </div>
             </div>
         </div>
     </div>

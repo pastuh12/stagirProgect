@@ -7,6 +7,7 @@ use AdminDisplay;
 use AdminDisplayFilter;
 use AdminForm;
 use AdminFormElement;
+use App\Models\Category;
 use Illuminate\Database\Eloquent\Model;
 use SleepingOwl\Admin\Contracts\Display\DisplayInterface;
 use SleepingOwl\Admin\Contracts\Form\FormInterface;
@@ -65,14 +66,14 @@ class News extends Section implements Initializable
                         $query->orderBy('title', $direction);
                     }),
 
-                AdminColumn::link('author', 'Автор')->setOrderable(function ($query, $direction) {
-                    $query->orderBy('author', $direction);
+                AdminColumn::link('author_id', 'Автор')->setOrderable(function ($query, $direction) {
+                    $query->orderBy('author_id', $direction);
                 })->setHtmlAttribute('class', 'text-center'),
 
-               // AdminColumn::lists('categories.title', 'Категории')->setWidth('200px'),
+               AdminColumn::lists('category.title', 'Категории')->setWidth('200px'),
 
                 AdminColumn::custom('Опубликовано', function ($instance) {
-                    return $instance->published ? '<i class="fa fa-check"></i>' : '<i class="fa fa-minus"></i>';
+                    return $instance->is_published ? '<i class="fa fa-check"></i>' : '<i class="fa fa-minus"></i>';
                 })->setWidth('25px')->setHtmlAttribute('class', 'text-center'),
 
                 AdminColumn::text('views', 'Просмотры')->setOrderable(function ($query, $direction) {
@@ -84,8 +85,7 @@ class News extends Section implements Initializable
                     ->setOrderable(function ($query, $direction) {
                         $query->orderBy('updated_at', $direction);
                     })
-                    ->setSearchable(false)
-                ,
+                    ->setSearchable(false),
             ];
 
             $display = AdminDisplay::datatables()
@@ -114,12 +114,13 @@ class News extends Section implements Initializable
         }
         $form = AdminForm::form()->setElements([
             AdminFormElement::text('title', 'Название')->required(),
-            AdminFormElement::text('author', 'Автор')->required(),
+            AdminFormElement::number('author_id', 'Автор')->required(),
             AdminFormElement::wysiwyg('text', 'Текст')->required(),
             $date
                 ->setVisible(true)
                 ->setReadonly(false)
                 ->required(),
+            AdminFormElement::multiselect('category', 'Категории', Category::class)->setDisplay('title'),
 
         ]);
 

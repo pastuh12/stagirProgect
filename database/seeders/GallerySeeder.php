@@ -4,7 +4,7 @@ namespace Database\Seeders;
 
 use Illuminate\Database\Seeder;
 
-class GalleryFotoSeeder extends Seeder
+class GallerySeeder extends Seeder
 {
     /**
      * Run the database seeds.
