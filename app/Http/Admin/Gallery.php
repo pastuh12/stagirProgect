@@ -54,6 +54,15 @@ class Gallery extends Section implements Initializable
     {
 
         $columns = [
+            AdminColumn::link('id', 'ID фотографии')->setHtmlAttribute('class', 'text-center')
+                ->setWidth('200px')
+                ->setSearchCallback(function ($column, $query, $search) {
+                    return $query
+                        ->orWhere('id', 'like', '%' . $search . '%');
+                })
+                ->setOrderable(function ($query, $direction) {
+                    $query->orderBy('id', $direction);
+                }),
 
              AdminColumn::image('image', 'Photo<br/><small>(image)</small>')
                     ->setHtmlAttribute('class', 'hidden-sm hidden-xs foobar')
@@ -67,14 +76,19 @@ class Gallery extends Section implements Initializable
                 ->setOrderable(function($query, $direction) {
                     $query->orderBy('title', $direction);
                 }),
+            AdminColumn::text('rating', 'Рейтинг')->setOrderable(function($query, $direction) {
+                $query->orderBy('rating', $direction);
+            }),
+
             AdminColumn::lists('category.title', 'Категории')->setWidth('200px'),
+            
             AdminColumn::text('created_at', 'Дата создания/изменения', 'updated_at')
                 ->setWidth('160px')
                 ->setOrderable(function($query, $direction) {
                     $query->orderBy('updated_at', $direction);
                 })
-                ->setSearchable(false)
-            ,
+                ->setSearchable(false),
+
         ];
 
         $display = AdminDisplay::datatables()

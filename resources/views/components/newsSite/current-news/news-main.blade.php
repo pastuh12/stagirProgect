@@ -9,11 +9,11 @@
                         <div class="section-tittle mb-30 pt-30">
                             <h3>{{$title}}</h3>
                             <br>
-                            <h4>{{$author}}</h4>
+                            <h4>{{$currentNews->author}}</h4>
                         </div>
                         <div class='text'>
 {{--                            текст новости--}}
-                            {{$text}}
+                            {!!$currentNews->text!!}
                         </div>
                     </div>
                     <!-- From -->

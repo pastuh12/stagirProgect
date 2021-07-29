@@ -20,6 +20,10 @@ class Gallery extends Model
         'image',
     ];
 
+    protected $attributes = [
+        'rating' => 0,
+    ];
+
     public function category(): BelongsToMany
     {
         return $this->belongsToMany(Category::class, 'categories_galleries' ,

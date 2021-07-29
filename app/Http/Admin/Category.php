@@ -51,6 +51,16 @@ class Category extends Section implements Initializable
     public function onDisplay($payload = [])
     {
         $columns = [
+            AdminColumn::link('id', 'ID категории')->setHtmlAttribute('class', 'text-center')
+                ->setWidth('200px')
+                ->setSearchCallback(function ($column, $query, $search) {
+                    return $query
+                        ->orWhere('id', 'like', '%' . $search . '%');
+                })
+                ->setOrderable(function ($query, $direction) {
+                    $query->orderBy('id', $direction);
+                }),
+
             AdminColumn::link('title', 'Название')->setHtmlAttribute('class', 'text-center')
                 ->setWidth('200px')
                 ->setSearchCallback(function ($column, $query, $search) {

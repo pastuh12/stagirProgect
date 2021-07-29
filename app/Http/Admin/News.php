@@ -9,6 +9,7 @@ use AdminForm;
 use AdminFormElement;
 use App\Models\Category;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Support\Str;
 use SleepingOwl\Admin\Contracts\Display\DisplayInterface;
 use SleepingOwl\Admin\Contracts\Form\FormInterface;
 use SleepingOwl\Admin\Contracts\Initializable;
@@ -56,8 +57,18 @@ class News extends Section implements Initializable
         public function onDisplay($payload = [])
         {
             $columns = [
+                AdminColumn::link('id', 'ID новости')->setHtmlAttribute('class', 'text-center')
+                    ->setWidth('100px')
+                    ->setSearchCallback(function ($column, $query, $search) {
+                        return $query
+                            ->orWhere('id', 'like', '%' . $search . '%');
+                    })
+                    ->setOrderable(function ($query, $direction) {
+                        $query->orderBy('id', $direction);
+                    }),
+
                 AdminColumn::link('title', 'Название')->setHtmlAttribute('class', 'text-center')
-                    ->setWidth('200px')
+                    ->setWidth('150px')
                     ->setSearchCallback(function ($column, $query, $search) {
                         return $query
                             ->orWhere('title', 'like', '%' . $search . '%');
@@ -68,9 +79,13 @@ class News extends Section implements Initializable
 
                 AdminColumn::link('author_id', 'Автор')->setOrderable(function ($query, $direction) {
                     $query->orderBy('author_id', $direction);
-                })->setHtmlAttribute('class', 'text-center'),
+                })->setHtmlAttribute('class', 'text-center')->setWidth('100px'),
 
-               AdminColumn::lists('category.title', 'Категории')->setWidth('200px'),
+                AdminColumn::custom('Текст', function($instance){
+                    return Str::limit($instance->text, 50, '...');
+                } )->setWidth('200px'),
+
+               AdminColumn::lists('category.title', 'Категории')->setWidth('150px'),
 
                 AdminColumn::custom('Опубликовано', function ($instance) {
                     return $instance->is_published ? '<i class="fa fa-check"></i>' : '<i class="fa fa-minus"></i>';

@@ -17,6 +17,7 @@ class CreateGalleryTable extends Migration
             $table->id();
             $table->string('title')->nullable();
             $table->string('image');
+            $table->string('rating');
             $table->timestamps();
         });
     }

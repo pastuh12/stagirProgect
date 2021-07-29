@@ -10,11 +10,9 @@ class NewsController extends Controller
 {
     public function getNews(int $id)
     {
-        $currentNews = News::whereId($id)->get();
-        $currentNews = $currentNews[0];
-//        dump(['title' => $currentNews->title, 'author' => $currentNews->id, 'text'
-//        => $currentNews->text]);
-        return view('layouts.current-news',['title' => $currentNews->title, 'author' => $currentNews->id, 'text'
-        => $currentNews->text]);
+        $news = News::whereId($id)->with(['category', 'user'])->first();
+
+        return view('page.news-detail', ['title' => $news->title ,'currentNews'=> $news]);
+
     }
 }
