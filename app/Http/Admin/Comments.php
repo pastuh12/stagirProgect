@@ -56,7 +56,7 @@ class Comments extends Section implements Initializable
     {
         $columns = [
             AdminColumn::link('id', 'ID комментария')->setHtmlAttribute('class', 'text-center')
-                ->setWidth('200px')
+                ->setWidth('100px')
                 ->setSearchCallback(function ($column, $query, $search) {
                     return $query
                         ->orWhere('id', 'like', '%' . $search . '%');
@@ -65,12 +65,16 @@ class Comments extends Section implements Initializable
                     $query->orderBy('id', $direction);
                 }),
 
-            AdminColumn::link('new_id', 'ID новости')->setOrderable(function ($query, $direction) {
-                $query->orderBy('new_id', $direction);
+            AdminColumn::link('entity_id', 'ID публикации')->setOrderable(function ($query, $direction) {
+                $query->orderBy('entity_id', $direction);
             })->setHtmlAttribute('class', 'text-center')->setLinkAttributes(['target' => '../new_id/edit']),
 
-            AdminColumn::text('author', 'Автор')->setOrderable(function ($query, $direction) {
-                $query->orderBy('author', $direction);
+            AdminColumn::link('entity_class', 'Тип публикации')->setOrderable(function ($query, $direction) {
+                $query->orderBy('entity_class', $direction);
+            })->setHtmlAttribute('class', 'text-center')->setLinkAttributes(['target' => '../new_id/edit']),
+
+            AdminColumn::text('author_id', 'Автор')->setOrderable(function ($query, $direction) {
+                $query->orderBy('author_id', $direction);
             })->setWidth('120px')->setHtmlAttribute('class', 'text-center'),
 
             AdminColumn::text('text', 'Текст')->setWidth('250px')->setHtmlAttribute('class', 'text-center'),
@@ -115,8 +119,10 @@ class Comments extends Section implements Initializable
         }
         $form = AdminForm::form()->setElements([
             AdminFormElement::number('id', 'ID')->setVisible(true)->setReadonly(true),
-            AdminFormElement::number('new_id', 'ID новости')->required(),
-            AdminFormElement::text('author', 'Автор')->required(),
+            AdminFormElement::number('entity_id', 'ID публикации')->required(),
+            AdminFormElement::select('entity_class', 'Тип публикации',
+                ['News' => 'Новость', 'Gallery' => 'Фото для галереи']),
+            AdminFormElement::text('author_id', 'Автор')->required(),
             AdminFormElement::wysiwyg('text', 'Текст')->required(),
             $date
                 ->setVisible(true)

@@ -76,6 +76,9 @@ class News extends Section implements Initializable
                     ->setOrderable(function ($query, $direction) {
                         $query->orderBy('title', $direction);
                     }),
+                AdminColumn::image('image', 'Фото<br/><small>(image)</small>')
+                    ->setHtmlAttribute('class', 'hidden-sm hidden-xs foobar')
+                    ->setWidth('150px'),
 
                 AdminColumn::link('author_id', 'Автор')->setOrderable(function ($query, $direction) {
                     $query->orderBy('author_id', $direction);
@@ -130,6 +133,10 @@ class News extends Section implements Initializable
         $form = AdminForm::form()->setElements([
             AdminFormElement::text('title', 'Название')->required(),
             AdminFormElement::number('author_id', 'Автор')->required(),
+            AdminFormElement::image('image', 'Фото')
+                ->setUploadPath(function(\Illuminate\Http\UploadedFile $image) {
+                    return '../storage/news/images';
+                }),
             AdminFormElement::wysiwyg('text', 'Текст')->required(),
             $date
                 ->setVisible(true)

@@ -68,6 +68,10 @@ class Users extends Section implements Initializable
                     $query->orderBy('id', $direction);
                 }),
 
+            AdminColumn::image('avatar', 'Аватар<br/><small>(image)</small>')
+                ->setHtmlAttribute('class', 'hidden-sm hidden-xs foobar')
+                ->setWidth('200px'),
+
             AdminColumn::link('name', 'Имя')->setHtmlAttribute('class', 'text-center')
                 ->setWidth('200px')
                 ->setSearchCallback(function ($column, $query, $search) {
@@ -108,16 +112,22 @@ class Users extends Section implements Initializable
      */
     public function onEdit(int $id = null): FormInterface
     {
+
+
         if($id != null){
+            $password = AdminFormElement::password('password', 'Пароль')
+                ->setVisible(false)
+                ->setReadonly(true)
+                ->HashWithBcrypt();
+
+            } else {
             $password = AdminFormElement::password('password', 'Пароль')
                 ->required()
                 ->addValidationRule('min:6')
                 ->HashWithBcrypt();
-
-            } else {
-            $password = AdminFormElement::password('password', 'Пароль')->setVisible(false)
-                ->setReadonly(true);
         }
+
+
 
         if($id != null){
             $date = AdminFormElement::datetime('updated_at', 'Дата');
@@ -128,10 +138,16 @@ class Users extends Section implements Initializable
         $form = AdminForm::form()->setElements([
             AdminFormElement::text('name', 'Имя')->required(),
             $password,
+
             AdminFormElement::text('email', 'Email')->required(),
             $date->setVisible(true)
                 ->setReadonly(false)
                 ->required(),
+
+            AdminFormElement::image('avatar', 'Фото')
+                ->setUploadPath(function(\Illuminate\Http\UploadedFile $image) {
+                    return '../storage/user/images/avatar';
+                }),
             ]);
 
         $form->getButtons()->setButtons([

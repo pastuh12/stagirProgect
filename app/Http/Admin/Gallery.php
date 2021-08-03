@@ -64,7 +64,7 @@ class Gallery extends Section implements Initializable
                     $query->orderBy('id', $direction);
                 }),
 
-             AdminColumn::image('image', 'Photo<br/><small>(image)</small>')
+             AdminColumn::image('image', 'Фото<br/><small>(image)</small>')
                     ->setHtmlAttribute('class', 'hidden-sm hidden-xs foobar')
                     ->setWidth('200px'),
 
@@ -81,7 +81,7 @@ class Gallery extends Section implements Initializable
             }),
 
             AdminColumn::lists('category.title', 'Категории')->setWidth('200px'),
-            
+
             AdminColumn::text('created_at', 'Дата создания/изменения', 'updated_at')
                 ->setWidth('160px')
                 ->setOrderable(function($query, $direction) {
@@ -122,7 +122,10 @@ class Gallery extends Section implements Initializable
                     ];
                 })->addColumn(function () {
                     return [
-                        AdminFormElement::image('image', 'Фото'),
+                        AdminFormElement::image('image', 'Фото')
+                            ->setUploadPath(function(\Illuminate\Http\UploadedFile $image) {
+                                return '../storage/gallery/images';
+                            }),
                         AdminFormElement::datetime('updated_at', 'Дата'),
                     ];
                 })

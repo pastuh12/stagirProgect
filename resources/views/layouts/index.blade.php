@@ -18,7 +18,9 @@
     @include('components.newsSite.header')
 
     <main>
-        @yield('content')
+    @dump($_SERVER['HTTP_HOST'] . $_SERVER['REQUEST_URI'])
+
+    @yield('content')
 
     <!-- Whats New Start -->
         @yield('whats new')
@@ -27,6 +29,10 @@
         @yield('gallery')
 
 
+
+        @if($_SERVER['HTTP_HOST'] . $_SERVER['REQUEST_URI'] == 'stagirprogect/news/')
+                @include('components.newsSite.comments')
+        @endif
 </main>
 
 @include('components.newsSite.footer')

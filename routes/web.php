@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\GalleryController;
 use App\Http\Controllers\NewsController;
 use Illuminate\Support\Facades\Route;
 
@@ -16,6 +17,8 @@ use Illuminate\Support\Facades\Route;
 //Route::get('/categ/{id}', [App\Http\Controllers\CategoriesNewsController::class, 'manyToMany']);
 
 Route::get('/news/{id}', [NewsController::class, 'getNews']);
+
+Route::get('/gallery/{id}', [GalleryController::class, 'getGallery']);
 
 Route::get('/', function () {
     return view('page.home');

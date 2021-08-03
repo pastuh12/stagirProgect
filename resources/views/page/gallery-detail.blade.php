@@ -4,7 +4,7 @@
 
 
 
-@include('components.newsSite.news-detail.news-main')
+    @include('components.newsSite.news-detail.news-main')
 
 
 @endsection()
