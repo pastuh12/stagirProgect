@@ -16,9 +16,12 @@ class Category extends Model
 
     public $timestamps = false;
 
+    /**
+     * @return BelongsToMany
+     */
     public function news(): BelongsToMany
     {
-        return $this->belongsToMany(News::class, 'categories_news' ,
+        return $this->belongsToMany(News::class, 'categories_news',
             'category_id', 'id');
     }
 

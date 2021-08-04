@@ -121,7 +121,10 @@ class Comments extends Section implements Initializable
             AdminFormElement::number('id', 'ID')->setVisible(true)->setReadonly(true),
             AdminFormElement::number('entity_id', 'ID публикации')->required(),
             AdminFormElement::select('entity_class', 'Тип публикации',
-                ['News' => 'Новость', 'Gallery' => 'Фото для галереи']),
+                [
+                    \App\Models\News::class => \App\Models\News::ENTITY_NAME,
+                    \App\Models\Gallery::class => \App\Models\Gallery::ENTITY_NAME,
+                ]),
             AdminFormElement::text('author_id', 'Автор')->required(),
             AdminFormElement::wysiwyg('text', 'Текст')->required(),
             $date

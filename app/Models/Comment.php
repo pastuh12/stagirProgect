@@ -12,7 +12,7 @@ class Comment extends Model
 
     protected $fillable = [
         'entity_id',
-        'entity_class',
+        'entity_class', // 'App\Model\News'
         'author_id',
         'text',
     ];
