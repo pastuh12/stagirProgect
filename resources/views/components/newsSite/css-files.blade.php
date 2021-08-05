@@ -1,4 +1,5 @@
 <!-- CSS here -->
+<link rel="stylesheet" href="{{ url('assets/css/comments.css')}}">
 <link rel="stylesheet" href="{{ url('assets/css/bootstrap.min.css')}}">
 <link rel="stylesheet" href="{{ url('assets/css/owl.carousel.min.css')}}">
 <link rel="stylesheet" href="{{ url('assets/css/ticker-style.css')}}">
@@ -10,4 +11,6 @@
 <link rel="stylesheet" href="{{ url('assets/css/themify-icons.css')}}">
 <link rel="stylesheet" href="{{ url('assets/css/slick.css')}}">
 <link rel="stylesheet" href="{{ url('assets/css/nice-select.css')}}">
-<link rel="stylesheet" href="{{ url('assets/css/comments.css')}}">
+<link rel="stylesheet" href="{{ url('assets/css/image.css')}}">
+<link rel="stylesheet" href="{{ url('assets/css/news.css')}}">
+

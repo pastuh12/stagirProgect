@@ -3,10 +3,10 @@
 	src:url('../../../../../../Users/ilya_/Desktop/news-app(верстка)/assets/fonts/themify.eot?-fvbane');
 
 
-	src:url('../../../../../../Users/ilya_/Desktop/news-app(верстка)/assets/fonts/themify.eot?#iefix-fvbane') format('embedded-opentype'),
-		url('../../../../../../Users/ilya_/Desktop/news-app(верстка)/assets/fonts/themify.woff?-fvbane') format('woff'),
-		url('../../../../../../Users/ilya_/Desktop/news-app(верстка)/assets/fonts/themify.ttf?-fvbane') format('truetype'),
-		url('../../../../../../Users/ilya_/Desktop/news-app(верстка)/assets/fonts/themify.svg?-fvbane#themify') format('svg');
+	src:url('../fonts/themify.eot?#iefix-fvbane') format('embedded-opentype'),
+		url('../fonts/themify.woff?-fvbane') format('woff'),
+		url('../fonts/themify.ttf?-fvbane') format('truetype'),
+		url('../fonts/themify.svg?-fvbane#themify') format('svg');
 	font-weight: normal;
 	font-style: normal;
 }

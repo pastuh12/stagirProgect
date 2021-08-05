@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\GalleryController;
+use App\Http\Controllers\HomeController;
 use App\Http\Controllers\NewsController;
 use Illuminate\Support\Facades\Route;
 
@@ -16,13 +17,13 @@ use Illuminate\Support\Facades\Route;
 */
 //Route::get('/categ/{id}', [App\Http\Controllers\CategoriesNewsController::class, 'manyToMany']);
 
-Route::get('/news/{id}', [NewsController::class, 'getNews']);
+Route::get('/news/{id}', [NewsController::class, 'getNews'])->name('news.detail');
 
 Route::get('/gallery/{id}', [GalleryController::class, 'getGallery']);
 
-Route::get('/', function () {
-    return view('page.home');
-});
+Route::get('/', [HomeController::class, 'showHomePage']);
+
+//Route::get('/whatsNew', [HomeController::class, 'showWhatsNew']);
 
 Route::get('/dashboard', function () {
     return view('dashboard');

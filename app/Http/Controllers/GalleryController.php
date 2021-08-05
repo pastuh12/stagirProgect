@@ -3,17 +3,18 @@
 namespace App\Http\Controllers;
 
 use App\Models\Gallery;
-use App\Service\Comments;
+use App\Service\CommentsService;
 use Illuminate\Http\Request;
 
 class GalleryController extends Controller
 {
-    public function getNews(Request $request,int $id)
+    public function getGallery(Request $request,int $id)
     {
-        $news = Gallery::whereId($id)->with(['category', 'user'])->first();
-        $comments = Comments::EntityComments($id, 'News');
-        return view('page.news-detail', ['request' => $request, 'title' => $news->title ,
-            'news'=>$news, 'comments' =>$comments]);
+        $gallery = Gallery::whereId($id)->with(['category', 'user'])->first();
+        $commentsService = new CommentsService(Gallery::class);
+        $comments =  $commentsService->entityComments($id);
+        return view('page.news-detail', ['title' => $gallery->title ,
+            'news'=>$gallery, 'comments' =>$comments]);
 
     }
 }

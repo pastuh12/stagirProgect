@@ -1,3 +1,13 @@
+/*почему не работают css свойства*/
+
+/*.media-list{*/
+/*    list-style-type: none;*/
+/*}*/
+
+/*.media-wrapper{*/
+/*    margin-top: 200px;*/
+/*}*/
+
 .media-body .author {
     display: inline-block;
     font-size: 1rem;

@@ -9,7 +9,3 @@
 
 @endsection()
 
-@section('header')
-
-
-@endsection

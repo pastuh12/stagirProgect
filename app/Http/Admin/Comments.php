@@ -8,6 +8,7 @@ use AdminDisplayFilter;
 use AdminForm;
 use AdminFormElement;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Support\Str;
 use SleepingOwl\Admin\Contracts\Display\DisplayInterface;
 use SleepingOwl\Admin\Contracts\Form\FormInterface;
 use SleepingOwl\Admin\Contracts\Initializable;
@@ -69,18 +70,32 @@ class Comments extends Section implements Initializable
                 $query->orderBy('entity_id', $direction);
             })->setHtmlAttribute('class', 'text-center')->setLinkAttributes(['target' => '../new_id/edit']),
 
-            AdminColumn::link('entity_class', 'Тип публикации')->setOrderable(function ($query, $direction) {
+            AdminColumn::custom('Тип публикации', function($instance){
+                 if($instance->entity_class === 'App\Models\News') {
+                     $class = 'Новость';
+                 }
+                    else {
+                        $class = 'Фото из галереи';
+                    }
+                 return $class;
+            })
+                ->setOrderable(function ($query, $direction) {
                 $query->orderBy('entity_class', $direction);
-            })->setHtmlAttribute('class', 'text-center')->setLinkAttributes(['target' => '../new_id/edit']),
+            })
+                ->setHtmlAttribute('class', 'text-center')
+//                ->setLinkAttributes(['target' => '../new_id/edit'])
+            ,
 
             AdminColumn::text('author_id', 'Автор')->setOrderable(function ($query, $direction) {
                 $query->orderBy('author_id', $direction);
             })->setWidth('120px')->setHtmlAttribute('class', 'text-center'),
 
-            AdminColumn::text('text', 'Текст')->setWidth('250px')->setHtmlAttribute('class', 'text-center'),
+            AdminColumn::custom('Текст', function($instance){
+                return Str::limit($instance->text, 50, '...');})
+                ->setWidth('250px')->setHtmlAttribute('class', 'text-center'),
 
             AdminColumn::custom('Опубликовано', function ($instance) {
-                return $instance->published ? '<i class="fa fa-check"></i>' : '<i class="fa fa-minus"></i>';
+                return $instance->is_published ? '<i class="fa fa-check"></i>' : '<i class="fa fa-minus"></i>';
             })->setWidth('25px')->setHtmlAttribute('class', 'text-center'),
 
 
@@ -121,15 +136,14 @@ class Comments extends Section implements Initializable
             AdminFormElement::number('id', 'ID')->setVisible(true)->setReadonly(true),
             AdminFormElement::number('entity_id', 'ID публикации')->required(),
             AdminFormElement::select('entity_class', 'Тип публикации',
-                ['News' => 'Новость', 'Gallery' => 'Фото для галереи']),
+                ['App\Models\News' => 'Новость', 'App\Models\Gallery' => 'Фото для галереи']),
             AdminFormElement::text('author_id', 'Автор')->required(),
             AdminFormElement::wysiwyg('text', 'Текст')->required(),
-            $date
-                ->setVisible(true)
-                ->setReadonly(false)
-                ->required(),
-
-        ]);
+            $date->setVisible(true)
+                 ->setReadonly(false)
+                 ->required(),
+            AdminFormElement::checkbox('is_published', 'Опубликовано')
+            ]);
 
         $form->getButtons()->setButtons([
             'save'  => new Save(),

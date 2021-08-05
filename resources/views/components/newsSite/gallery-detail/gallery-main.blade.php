@@ -13,7 +13,10 @@
                         </div>
                         <div class='text'>
                             {{--                            текст новости--}}
-                            {!!$gallery->text!!}
+                            <img src="{{$gallery->image}}" alt="фото" >
+                        </div>
+                        <div class=rating>
+                            Рейтинг: {{$gallery->rating}}
                         </div>
                     </div>
 

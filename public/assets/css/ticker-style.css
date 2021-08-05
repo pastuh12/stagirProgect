@@ -85,7 +85,7 @@ display: block;
 }
 
 .ticker-controls li.jnt-play-pause {
-background-image: url('../images/controls.png');
+background-image: url('../img/controls.png');
 background-position: 32px 16px;
 }
 .ticker-controls li.jnt-play-pause.over {

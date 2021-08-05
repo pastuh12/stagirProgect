@@ -124,7 +124,7 @@ class Gallery extends Section implements Initializable
                     return [
                         AdminFormElement::image('image', 'Фото')
                             ->setUploadPath(function(\Illuminate\Http\UploadedFile $image) {
-                                return '../storage/gallery/images';
+                                return 'storage/gallery/images';
                             }),
                         AdminFormElement::datetime('updated_at', 'Дата'),
                     ];

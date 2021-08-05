@@ -4,17 +4,25 @@ namespace App\Http\Controllers;
 
 use App\Models\Comment;
 use App\Models\News;
-use App\Service\Comments;
+use App\Service\CommentsService;
+use Illuminate\Contracts\Foundation\Application;
+use Illuminate\Contracts\View\Factory;
 use Illuminate\Contracts\View\View;
 use Illuminate\Http\Request;
 
 class NewsController extends Controller
 {
+    /**
+     * @param Request $request
+     * @param int $id
+     * @return Application|Factory|View
+     */
     public function getNews(Request $request,int $id)
     {
         $news = News::whereId($id)->with(['category', 'user'])->first();
-        $comments = Comments::EntityComments($id, 'News');
-        return view('page.news-detail', ['request' => $request, 'title' => $news->title ,
+        $commentsService = new CommentsService(News::class);
+        $comments =  $commentsService->entityComments($id);
+        return view('page.news-detail', ['title' => $news->title ,
             'news'=>$news, 'comments' =>$comments]);
 
     }

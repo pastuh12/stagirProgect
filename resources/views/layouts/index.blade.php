@@ -18,26 +18,14 @@
     @include('components.newsSite.header')
 
     <main>
-    @dump($_SERVER['HTTP_HOST'] . $_SERVER['REQUEST_URI'])
 
     @yield('content')
 
-    <!-- Whats New Start -->
-        @yield('whats new')
-    <!-- Whats New End -->
 
-        @yield('gallery')
-
-
-
-        @if($_SERVER['HTTP_HOST'] . $_SERVER['REQUEST_URI'] == 'stagirprogect/news/')
-                @include('components.newsSite.comments')
-        @endif
 </main>
 
 @include('components.newsSite.footer')
 
 @include('components.newsSite.script-index')
-
 </body>
 </html>

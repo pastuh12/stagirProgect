@@ -1,4 +1,3 @@
-<!-- JS here -->
 
 <!-- All JS Custom Plugins Link Here here -->
 <script src="{{url('assets/js/vendor/modernizr-3.5.0.min.js')}}"></script>

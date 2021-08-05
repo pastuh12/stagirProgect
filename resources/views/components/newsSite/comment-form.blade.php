@@ -1,6 +1,7 @@
+//нужно ли привязывать авторизацию с добавлением нового аккаунта и как это правильно сделать
 <div class="row">
     <div class="col-lg-8">
-        <form class="form-contact contact_form mb-80" action="contact_process.php" method="post" id="contactForm" novalidate="novalidate">
+        <form class="form-contact contact_form mb-80" action="" method="post" id="contactForm" novalidate="novalidate">
             <div class="row">
                 <div class="col-12">
                     <div class="form-group">
@@ -27,6 +28,7 @@
                 <button type="submit" class="button button-contactForm boxed-btn">Send</button>
             </div>
         </form>
+
     </div>
 </div>
 </div>

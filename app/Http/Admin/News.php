@@ -9,6 +9,7 @@ use AdminForm;
 use AdminFormElement;
 use App\Models\Category;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Http\UploadedFile;
 use Illuminate\Support\Str;
 use SleepingOwl\Admin\Contracts\Display\DisplayInterface;
 use SleepingOwl\Admin\Contracts\Form\FormInterface;
@@ -134,15 +135,17 @@ class News extends Section implements Initializable
             AdminFormElement::text('title', 'Название')->required(),
             AdminFormElement::number('author_id', 'Автор')->required(),
             AdminFormElement::image('image', 'Фото')
-                ->setUploadPath(function(\Illuminate\Http\UploadedFile $image) {
-                    return '../storage/news/images';
-                }),
+                ->setUploadPath(function(UploadedFile $image) {
+                    return 'storage/news/images';
+                })
+            ,
             AdminFormElement::wysiwyg('text', 'Текст')->required(),
             $date
                 ->setVisible(true)
                 ->setReadonly(false)
                 ->required(),
             AdminFormElement::multiselect('category', 'Категории', Category::class)->setDisplay('title'),
+            AdminFormElement::checkbox('is_published', 'Опубликовано')
 
         ]);
 

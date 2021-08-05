@@ -9,6 +9,7 @@ use AdminFormElement;
 use App\Models\User;
 
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Http\UploadedFile;
 use SleepingOwl\Admin\Contracts\Display\DisplayInterface;
 use SleepingOwl\Admin\Contracts\Form\FormInterface;
 use SleepingOwl\Admin\Contracts\Initializable;
@@ -145,8 +146,8 @@ class Users extends Section implements Initializable
                 ->required(),
 
             AdminFormElement::image('avatar', 'Фото')
-                ->setUploadPath(function(\Illuminate\Http\UploadedFile $image) {
-                    return '../storage/user/images/avatar';
+                ->setUploadPath(function(UploadedFile $image) {
+                    return 'storage/user/avatar';
                 }),
             ]);
 
