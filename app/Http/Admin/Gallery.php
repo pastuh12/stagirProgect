@@ -44,7 +44,8 @@ class Gallery extends Section implements Initializable
 
     public function initialize()
     {
-        $this->addToNavigation()->setPriority(300)->setIcon('fa fa-lightbulb-o')->setTitle('Галерея');
+        $this->addToNavigation()->setPriority(300)->setIcon('fa fa-lightbulb-o')
+            ->setTitle('Галерея');
     }
 
     /**
@@ -76,7 +77,7 @@ class Gallery extends Section implements Initializable
                 ->setOrderable(function($query, $direction) {
                     $query->orderBy('title', $direction);
                 }),
-            AdminColumn::text('rating', 'Рейтинг')->setOrderable(function($query, $direction) {
+            AdminColumn::text('rating', 'Рейтинг')->setHtmlAttribute('class', 'text-center')->setOrderable(function($query, $direction) {
                 $query->orderBy('rating', $direction);
             }),
 
@@ -119,6 +120,8 @@ class Gallery extends Section implements Initializable
                     return [
                         AdminFormElement::text('title', 'Название')->required(),
                         AdminFormElement::multiselect('category', 'Категории', Category::class)->setDisplay('title'),
+                        AdminFormElement::number('rating','рейтинг')->setMin(1)->setMax(5),
+
                     ];
                 })->addColumn(function () {
                     return [
@@ -128,7 +131,7 @@ class Gallery extends Section implements Initializable
                             }),
                         AdminFormElement::datetime('updated_at', 'Дата'),
                     ];
-                })
+                }),
         );
 
         $form->getButtons()->setButtons([
