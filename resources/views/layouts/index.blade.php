@@ -14,7 +14,7 @@
 </head>
 
 <body>
-
+{{--    @dd(request()->route)--}}
     @include('components.newsSite.header')
 
     <main>

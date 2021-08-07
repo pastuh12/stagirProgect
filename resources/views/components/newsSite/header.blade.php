@@ -8,7 +8,7 @@
                     <div class="row align-items-center">
                         <div class="col-xl-10 col-lg-10 col-md-12 header-flex">
                             <!-- sticky -->
-                            <div class="sticky-logo">
+                            <div class="sticky-logo" id="header">
                                 <a href="index.html"><img src="assets/img/logo/logo.png" alt=""></a>
                             </div>
                             <!-- Main-menu -->

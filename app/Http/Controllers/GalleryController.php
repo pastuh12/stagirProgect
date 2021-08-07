@@ -13,8 +13,9 @@ class GalleryController extends Controller
         $gallery = Gallery::whereId($id)->with(['category', 'user'])->first();
         $commentsService = new CommentsService(Gallery::class);
         $comments =  $commentsService->entityComments($id);
-        return view('page.news-detail', ['title' => $gallery->title ,
-            'news'=>$gallery, 'comments' =>$comments]);
+//        dd($gallery);
+        return view('page.gallery-detail', ['title' => $gallery->title ,
+            'gallery'=>$gallery, 'comments' =>$comments]);
 
     }
 }

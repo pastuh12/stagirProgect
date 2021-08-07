@@ -23,13 +23,16 @@
 
 {{--//может стоило это сделать через макет ?--}}
                     <!-- From -->
-
+                    <div>
                         @include('components.newsSite.comment-form')
+                    </div>
+
+                    <div>
+                        @include('components.newsSite.comments')
+                    </div>
 
                 </div>
-                <div>
-                    @include('components.newsSite.comments')
-                </div>
+
             </div>
         </div>
     </div>

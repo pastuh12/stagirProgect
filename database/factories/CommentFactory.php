@@ -4,6 +4,7 @@ namespace Database\Factories;
 
 use App\Models\Comment;
 use Illuminate\Database\Eloquent\Factories\Factory;
+use App\Models\News;
 
 class CommentFactory extends Factory
 {
@@ -23,7 +24,7 @@ class CommentFactory extends Factory
     {
         return [
             'entity_id' => '1',
-            'entity_class' =>'News',
+            'entity_class' => News::class,
             'author_id' => '1',
             'text'=> $this->faker->text(),
         ];

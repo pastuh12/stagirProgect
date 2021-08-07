@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\CommentsController;
 use App\Http\Controllers\GalleryController;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\NewsController;
@@ -19,9 +20,11 @@ use Illuminate\Support\Facades\Route;
 
 Route::get('/news/{id}', [NewsController::class, 'getNews'])->name('news.detail');
 
-Route::get('/gallery/{id}', [GalleryController::class, 'getGallery']);
+Route::get('/gallery/{id}', [GalleryController::class, 'getGallery'])->name('gallery.detail');
 
 Route::get('/', [HomeController::class, 'showHomePage']);
+
+Route::any('/add-comment', [CommentsController::class, 'addComments'])->name('add.comment');
 
 //Route::get('/whatsNew', [HomeController::class, 'showWhatsNew']);
 

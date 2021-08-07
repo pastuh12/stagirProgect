@@ -17,7 +17,9 @@ class HomeController extends Controller
     public function showHomePage()
     {
         $latestNews = HomeService::getLatestNews();
-        return view('page.home', ['latestNews' => $latestNews ]);
+        $bestGallery = HomeService::getBestGallery();
+        dd($latestNews);
+        return view('page.home', ['latestNews' => $latestNews, 'bestGallery' => $bestGallery]);
     }
 
 //    public function getLatestNews()

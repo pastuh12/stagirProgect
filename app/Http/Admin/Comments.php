@@ -17,6 +17,8 @@ use SleepingOwl\Admin\Form\Buttons\Save;
 use SleepingOwl\Admin\Form\Buttons\SaveAndClose;
 use SleepingOwl\Admin\Form\Buttons\SaveAndCreate;
 use SleepingOwl\Admin\Section;
+use App\Models\News;
+use App\Models\Gallery;
 
 /**
  * Class News4
@@ -71,7 +73,7 @@ class Comments extends Section implements Initializable
             })->setHtmlAttribute('class', 'text-center')->setLinkAttributes(['target' => '../new_id/edit']),
 
             AdminColumn::custom('Тип публикации', function($instance){
-                 if($instance->entity_class === 'App\Models\News') {
+                 if($instance->entity_class === News::class) {
                      $class = 'Новость';
                  }
                     else {
@@ -136,7 +138,7 @@ class Comments extends Section implements Initializable
             AdminFormElement::number('id', 'ID')->setVisible(true)->setReadonly(true),
             AdminFormElement::number('entity_id', 'ID публикации')->required(),
             AdminFormElement::select('entity_class', 'Тип публикации',
-                ['App\Models\News' => 'Новость', 'App\Models\Gallery' => 'Фото для галереи']),
+                [News::class => 'Новость', Gallery::class => 'Фото для галереи']),
             AdminFormElement::text('author_id', 'Автор')->required(),
             AdminFormElement::wysiwyg('text', 'Текст')->required(),
             $date->setVisible(true)

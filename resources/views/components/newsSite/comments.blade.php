@@ -1,3 +1,6 @@
+<div class="container">
+    <div class="row d-flex justify-content-between">
+        <div class="col-xl-5 col-lg-5 col-md-7 col-sm-12">
 <div class="comments">
     <h3 class="title-comments">Комментарии ({{$comments->total()}})</h3>
 
@@ -23,4 +26,7 @@
     @endforeach
     </ul>
     {{$comments->links()}}
+</div>
+        </div>
+    </div>
 </div>

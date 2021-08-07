@@ -13,4 +13,10 @@ class CommentsController extends Controller
 
         //$user->save();
     }
+
+    public function addComment(Request $request){
+        echo "добавлен комментарий";
+//        dd($request);
+//        Comment::create(['']);
+    }
 }

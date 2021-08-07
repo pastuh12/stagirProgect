@@ -65,6 +65,10 @@ class Gallery extends Section implements Initializable
                     $query->orderBy('id', $direction);
                 }),
 
+            AdminColumn::link('author_id', 'Автор')->setOrderable(function ($query, $direction) {
+                $query->orderBy('author_id', $direction);
+            })->setHtmlAttribute('class', 'text-center')->setWidth('100px'),
+
              AdminColumn::image('image', 'Фото<br/><small>(image)</small>')
                     ->setHtmlAttribute('class', 'hidden-sm hidden-xs foobar')
                     ->setWidth('200px'),
@@ -119,6 +123,7 @@ class Gallery extends Section implements Initializable
                 ->addColumn(function () {
                     return [
                         AdminFormElement::text('title', 'Название')->required(),
+                        AdminFormElement::number('author_id', 'Автор')->required(),
                         AdminFormElement::multiselect('category', 'Категории', Category::class)->setDisplay('title'),
                         AdminFormElement::number('rating','рейтинг')->setMin(1)->setMax(5),
 
