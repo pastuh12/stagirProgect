@@ -87,6 +87,16 @@ class Users extends Section implements Initializable
                 $query->orderBy('email', $direction);
             })->setHtmlAttribute('class', 'text-center'),
 
+            AdminColumn::text('role', 'Роль')->setHtmlAttribute('class', 'text-center')
+                ->setWidth('150px')
+                ->setSearchCallback(function ($column, $query, $search) {
+                    return $query
+                        ->orWhere('role', 'like', '%' . $search . '%');
+                })
+                ->setOrderable(function ($query, $direction) {
+                    $query->orderBy('role', $direction);
+                }),
+
             AdminColumn::text('created_at', 'Дата создания/изменения', 'updated_at')
                 ->setWidth('160px')
                 ->setOrderable(function ($query, $direction) {
@@ -149,6 +159,8 @@ class Users extends Section implements Initializable
                 ->setUploadPath(function(UploadedFile $image) {
                     return 'storage/user/avatar';
                 }),
+//переделать в список со значениями из таблицы
+            AdminColumn::text('roles', 'Категории'),
             ]);
 
         $form->getButtons()->setButtons([
