@@ -20,7 +20,7 @@ class HomeController extends Controller
         $latestNews = HomeService::getLatestNews();
         $bestGallery = HomeService::getBestGallery();
         $rubrics = Category::all();
-        return view('layouts.index', ['news' => $latestNews, 'galleries' => $bestGallery,
+        return view('page.home', ['news' => $latestNews, 'galleries' => $bestGallery,
             'rubrics' => $rubrics]);
     }
 
