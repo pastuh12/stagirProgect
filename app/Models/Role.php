@@ -14,4 +14,18 @@ class Role extends Model
     ];
 
     public $timestamps = false;
+
+    /**
+     *
+     */
+    public static function getRoles()
+    {
+        $items = self::all();
+        $roles = array();
+        foreach($items as $role){
+            $roles[$role->role] = $role->role;
+        }
+        return $roles;
+
+    }
 }

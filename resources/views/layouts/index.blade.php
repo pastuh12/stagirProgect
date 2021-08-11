@@ -11,11 +11,15 @@
 
 @include('components.newsSite.css-files')
 
+    Auth::user()->role != 'admin' || Auth::user()->role != 'editor'
 </head>
 
 <body>
 {{--    @dd(request()->route)--}}
-    @include('components.newsSite.header')
+    <header style="height: 50px">
+        @include('components.newsSite.nav')
+
+    </header>
 
     <main>
 

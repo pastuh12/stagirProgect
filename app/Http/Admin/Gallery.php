@@ -9,6 +9,7 @@ use AdminForm;
 use AdminFormElement;
 use App\Models\Category;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Support\Facades\Auth;
 use SleepingOwl\Admin\Contracts\Display\DisplayInterface;
 use SleepingOwl\Admin\Contracts\Form\FormInterface;
 use SleepingOwl\Admin\Contracts\Initializable;
@@ -55,8 +56,8 @@ class Gallery extends Section implements Initializable
     {
 
         $columns = [
-            AdminColumn::link('id', 'ID фотографии')->setHtmlAttribute('class', 'text-center')
-                ->setWidth('200px')
+            AdminColumn::link('id', 'ID фото')->setHtmlAttribute('class', 'text-center')
+                ->setWidth('100px')
                 ->setSearchCallback(function ($column, $query, $search) {
                     return $query
                         ->orWhere('id', 'like', '%' . $search . '%');
@@ -81,11 +82,16 @@ class Gallery extends Section implements Initializable
                 ->setOrderable(function($query, $direction) {
                     $query->orderBy('title', $direction);
                 }),
+
+            AdminColumn::lists('category.title', 'Категории')->setWidth('150px'),
+
+            AdminColumn::custom('Опубликовано', function ($instance) {
+                return $instance->is_published ? '<i class="fa fa-check"></i>' : '<i class="fa fa-minus"></i>';
+            })->setWidth('25px')->setHtmlAttribute('class', 'text-center'),
+
             AdminColumn::text('rating', 'Рейтинг')->setHtmlAttribute('class', 'text-center')->setOrderable(function($query, $direction) {
                 $query->orderBy('rating', $direction);
             }),
-
-            AdminColumn::lists('category.title', 'Категории')->setWidth('200px'),
 
             AdminColumn::text('created_at', 'Дата создания/изменения', 'updated_at')
                 ->setWidth('160px')
@@ -125,7 +131,7 @@ class Gallery extends Section implements Initializable
                         AdminFormElement::text('title', 'Название')->required(),
                         AdminFormElement::number('author_id', 'Автор')->required(),
                         AdminFormElement::multiselect('category', 'Категории', Category::class)->setDisplay('title'),
-                        AdminFormElement::number('rating','рейтинг')->setMin(1)->setMax(5),
+                        AdminFormElement::number('rating','рейтинг')->setReadonly(true),
 
                     ];
                 })->addColumn(function () {
@@ -134,7 +140,11 @@ class Gallery extends Section implements Initializable
                             ->setUploadPath(function(\Illuminate\Http\UploadedFile $image) {
                                 return 'storage/gallery/images';
                             }),
-                        AdminFormElement::datetime('updated_at', 'Дата'),
+                        AdminFormElement::datetime('updated_at', 'Дата')->required(),
+
+                        AdminFormElement::checkbox('is_published', 'Опубликовано')
+                            ->setReadonly(Auth::user()->role !== 'admin'),
+
                     ];
                 }),
         );

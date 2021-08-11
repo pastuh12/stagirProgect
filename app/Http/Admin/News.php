@@ -10,6 +10,7 @@ use AdminFormElement;
 use App\Models\Category;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Http\UploadedFile;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Str;
 use SleepingOwl\Admin\Contracts\Display\DisplayInterface;
 use SleepingOwl\Admin\Contracts\Form\FormInterface;
@@ -146,6 +147,8 @@ class News extends Section implements Initializable
                 ->required(),
             AdminFormElement::multiselect('category', 'Категории', Category::class)->setDisplay('title'),
             AdminFormElement::checkbox('is_published', 'Опубликовано')
+                ->setReadonly(Auth::user()->role !== 'admin'),
+
 
         ]);
 

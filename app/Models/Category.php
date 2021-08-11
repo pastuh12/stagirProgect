@@ -19,7 +19,13 @@ class Category extends Model
     public function news(): BelongsToMany
     {
         return $this->belongsToMany(News::class, 'categories_news' ,
-            'category_id', 'id');
+            'category_id', 'news_id');
     }
 
+    public function gallery(): BelongsToMany
+    {
+        return $this->belongsToMany(Gallery::class, 'categories_galleries' ,
+            'category_id', 'gallery_id')
+            ->where('is_published', 1)->orderByDesc('updated_at');
+    }
 }

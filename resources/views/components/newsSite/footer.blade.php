@@ -1,4 +1,4 @@
-<footer>
+<footer class="mt-25">
     <!-- Footer Start-->
     <div class="footer-area footer-padding fix">
         <div class="container">
@@ -7,9 +7,7 @@
                     <div class="single-footer-caption">
                         <div class="single-footer-caption">
                             <!-- logo -->
-                            <div class="footer-logo">
-                                <a href="#header"><img src="assets/img/logo/logo2_footer.png" alt="лого"></a>
-                            </div>
+                            @include('components.logo')
                             <div class="footer-tittle">
                                 <div class="footer-pera">
                                     <p>Контакты</p>

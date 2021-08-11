@@ -8,6 +8,7 @@ use AdminDisplayFilter;
 use AdminForm;
 use AdminFormElement;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Str;
 use SleepingOwl\Admin\Contracts\Display\DisplayInterface;
 use SleepingOwl\Admin\Contracts\Form\FormInterface;
@@ -145,7 +146,9 @@ class Comments extends Section implements Initializable
                  ->setReadonly(false)
                  ->required(),
             AdminFormElement::checkbox('is_published', 'Опубликовано')
-            ]);
+                ->setReadonly(Auth::user()->role !== 'admin'),
+
+        ]);
 
         $form->getButtons()->setButtons([
             'save'  => new Save(),

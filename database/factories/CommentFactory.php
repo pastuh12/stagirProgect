@@ -27,6 +27,7 @@ class CommentFactory extends Factory
             'entity_class' => News::class,
             'author_id' => '1',
             'text'=> $this->faker->text(),
+            'is_published' => true,
         ];
     }
 }

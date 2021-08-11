@@ -20,7 +20,7 @@ class CreateNewsTable extends Migration
             $table->string('image')->nullable();
             $table->longText('text');
             $table->boolean('is_published')->default(0);
-            $table->bigInteger('views');
+            $table->bigInteger('views')->default(0);
             $table->timestamps();
         });
     }

@@ -29,7 +29,6 @@ class CommentsService
             ->where('is_published', 1)
             ->with('user')
             ->orderByDesc('updated_at');
-
         if ($limit !== 0) {
             return $comments->limit($limit)->paginate($pagination);
         }

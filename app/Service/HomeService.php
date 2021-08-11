@@ -11,23 +11,23 @@ use Carbon\Carbon;
 class HomeService
 {
     /**
-     * @param int $count
      * @param int $pagination
      * @return mixed
      */
-    public static function getLatestNews(int $count = 20, int $pagination = 10)
+    public static function getLatestNews(int $pagination = 2)
     {
         $news = News::where('updated_at', '>', Carbon::now()->locale('ru')->subWeek()->format('Y-m-d'))
+            ->where('is_published', 1)
             ->orderByDesc('updated_at');
-        if($count !== 0) {
-            return $news->limit($count)->paginate($pagination);
+        if($pagination !== 0) {
+            return $news->simplePaginate($pagination);
         }
 
-        return $news->paginate($pagination);
+        return $news->simplePaginate($pagination);
     }
 
     public static function getBestGallery()
     {
-        return Gallery::orderByDesc('rating')->limit(5)->get();
+        return Gallery::where('is_published', 1)->orderByDesc('rating')->limit(5)->get();
     }
 }

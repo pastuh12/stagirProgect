@@ -1,4 +1,4 @@
-//нужно ли привязывать авторизацию с добавлением нового аккаунта и как это правильно сделать
+
 <div class="row">
     <div class="col-lg-8">
         <form class="form-contact contact_form mb-80" action="{{route('add.comment')}}" method="post" id="contactForm" novalidate="novalidate">

@@ -11,12 +11,10 @@ class CommentsController extends Controller
     {
         $user = Comment::create(['name' => $request->name, 'email' => $request->email]);
 
-        //$user->save();
     }
 
     public function addComment(Request $request){
         echo "добавлен комментарий";
-//        dd($request);
-//        Comment::create(['']);
+
     }
 }

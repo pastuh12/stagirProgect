@@ -6,6 +6,7 @@ use AdminColumn;
 use AdminDisplay;
 use AdminForm;
 use AdminFormElement;
+use App\Models\Role;
 use App\Models\User;
 
 use Illuminate\Database\Eloquent\Model;
@@ -60,7 +61,7 @@ class Users extends Section implements Initializable
     {
         $columns = [
             AdminColumn::link('id', 'ID пользователя')->setHtmlAttribute('class', 'text-center')
-                ->setWidth('200px')
+                ->setWidth('100px')
                 ->setSearchCallback(function ($column, $query, $search) {
                     return $query
                         ->orWhere('id', 'like', '%' . $search . '%');
@@ -85,7 +86,8 @@ class Users extends Section implements Initializable
 
             AdminColumn::email('email', 'Email')->setOrderable(function ($query, $direction) {
                 $query->orderBy('email', $direction);
-            })->setHtmlAttribute('class', 'text-center'),
+            })->setHtmlAttribute('class', 'text-center')
+                ->setWidth('200px'),
 
             AdminColumn::text('role', 'Роль')->setHtmlAttribute('class', 'text-center')
                 ->setWidth('150px')
@@ -96,6 +98,10 @@ class Users extends Section implements Initializable
                 ->setOrderable(function ($query, $direction) {
                     $query->orderBy('role', $direction);
                 }),
+
+            AdminColumn::custom('Блокировка', function ($instance) {
+                return $instance->is_published ? '<i class="fa fa-check"></i>' : '<i class="fa fa-minus"></i>';
+            })->setWidth('25px')->setHtmlAttribute('class', 'text-center'),
 
             AdminColumn::text('created_at', 'Дата создания/изменения', 'updated_at')
                 ->setWidth('160px')
@@ -160,8 +166,10 @@ class Users extends Section implements Initializable
                     return 'storage/user/avatar';
                 }),
 //переделать в список со значениями из таблицы
-            AdminColumn::text('roles', 'Категории'),
-            ]);
+            AdminFormElement::select('role', 'Роли', Role::getRoles())->setDisplay('role'),
+
+            AdminFormElement::checkbox('is_blocked', 'Блокировка'),
+        ]);
 
         $form->getButtons()->setButtons([
             'save'  => new Save(),
