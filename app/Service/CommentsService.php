@@ -24,15 +24,16 @@ class CommentsService
      */
     public function entityComments(int $id, int $limit = 20, int $pagination = 10)
     {
+
         $comments = Comment::where('entity_class', $this->entity)
             ->where('entity_id', $id)
             ->where('is_published', 1)
             ->with('user')
             ->orderByDesc('updated_at');
         if ($limit !== 0) {
-            return $comments->limit($limit)->paginate($pagination);
+            dd( $comments->take(1)->paginate($pagination));
         }
 
-        return $comments->paginate($pagination);
+//        return $comments->paginate($pagination);
     }
 }

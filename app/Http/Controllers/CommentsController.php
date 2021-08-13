@@ -3,6 +3,8 @@
 namespace App\Http\Controllers;
 
 use App\Models\Comment;
+use App\Service\CommentsService;
+use Illuminate\Database\Eloquent\Model;
 use Illuminate\Http\Request;
 
 class CommentsController extends Controller
@@ -17,4 +19,5 @@ class CommentsController extends Controller
         echo "добавлен комментарий";
 
     }
+
 }

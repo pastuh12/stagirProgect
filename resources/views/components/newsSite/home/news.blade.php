@@ -9,7 +9,7 @@
 
 
                     @else
-                        @include('components.newsSite.home.gallery.not-empty')
+                        @include('components.newsSite.home.news.not-empty')
                     @endif
 
                 </div>

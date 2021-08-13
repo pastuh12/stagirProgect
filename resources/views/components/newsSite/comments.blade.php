@@ -2,28 +2,27 @@
     <div class="row d-flex justify-content-between">
         <div class="col-8">
 <div class="comments">
-    <h3 class="title-comments">Комментарии ({{$comments->total()}})</h3>
+    <div class="comments-header  d-flex flex-row" style="position: relative">
+        <h3 class="">Комментарии ({{$comments->total()}})</h3>
+        <div class="dropdown " style="position: absolute; right:0;">
+            <button class="btn btn-secondary dropdown-toggle"
+                    type="button" id="dropdownMenuButton1" data-bs-toggle="dropdown"
+                    aria-expanded="false">
+                Кол-во
+            </button>
+            <ul class="dropdown-menu">
+                <li><button class="dropdown-item countComments" id="count-20-comments"
+                            value="20">20</button></li>
+                <li><button class="dropdown-item countComments" id="count-all-comments"
+                            value="0">все</button></li>
+            </ul>
+        </div>
+    </div>
 
     <ul class="media-list">
     @foreach($comments as $comment)
         @include('components.newsSite.comment')
-{{--        <!-- Комментарий (уровень 1) -->--}}
-{{--        <li class="media-wrapper">--}}
-{{--            <div class="media-left">--}}
-{{--                <a href="#">--}}
-{{--                    <img class="media-object img-rounded" src="avatar1.jpg" alt="">--}}
-{{--                </a>--}}
-{{--            </div>--}}
-{{--            <div class="media-body">--}}
-{{--                <div class="media-heading">--}}
-{{--                    <div class="author">{{$comment->user->name}}</div>--}}
-{{--                    <div class="metadata">--}}
-{{--                        <span class="date">{{$comment->updated_at}}</span>--}}
-{{--                    </div>--}}
-{{--                </div>--}}
-{{--                <div class="media-text text-justify">{!!$comment->text!!}</div>--}}
-{{--            </div>--}}
-{{--        </li><!-- Конец комментария (уровень 1) -->--}}
+
     @endforeach
     </ul>
     {{$comments->links()}}
@@ -31,3 +30,5 @@
         </div>
     </div>
 </div>
+
+

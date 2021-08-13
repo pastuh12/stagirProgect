@@ -16,7 +16,7 @@
 
 <body>
 {{--    @dd(request()->route)--}}
-    <header style="height: 50px">
+    <header id="header" style="height: 50px">
         @include('components.newsSite.nav')
 
     </header>
@@ -31,5 +31,6 @@
 @include('components.newsSite.footer')
 
 @include('components.newsSite.script-index')
+@yield('script-comments')
 </body>
 </html>
