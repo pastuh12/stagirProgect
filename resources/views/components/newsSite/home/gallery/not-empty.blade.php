@@ -16,7 +16,7 @@
             <button class="carousel-control-prev" type="button"
                     data-bs-target="#carouselExampleControls" data-bs-slide="prev">
                 <div>
-                    <span class="carousel-control-prev-icon" aria-hidden="true" style="background-color: #0b0b0b"></span>
+                    <span class="carousel-control-prev-icon" aria-hidden="true" ></span>
 {{--                    <span class="visually-hidden">Предыдущая</span>--}}
                 </div>
             </button>
