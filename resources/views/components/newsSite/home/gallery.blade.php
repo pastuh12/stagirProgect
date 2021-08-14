@@ -15,16 +15,3 @@
     </div>
 </section>
 
-{{--<div class="weekly-news-active dot-style d-flex dot-style">--}}
-{{--    @foreach ($bestGallery as $gallery){--}}
-{{--    <div class="weekly-single">--}}
-{{--        <div class="weekly-img">--}}
-{{--            <img src="{{asset($gallery->image)}}" alt="">--}}
-{{--        </div>--}}
-{{--        <div class="weekly-caption">--}}
-{{--            <h4><a href="#">{{$gallery->title}}</a></h4>--}}
-{{--        </div>--}}
-{{--    </div>--}}
-{{--    }--}}
-{{--    @endforeach--}}
-{{--</div>--}}

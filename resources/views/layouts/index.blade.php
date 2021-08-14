@@ -11,7 +11,6 @@
 
 @include('components.newsSite.css-files')
 
-    Auth::user()->role != 'admin' || Auth::user()->role != 'editor'
 </head>
 
 <body>
