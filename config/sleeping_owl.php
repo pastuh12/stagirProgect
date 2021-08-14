@@ -61,8 +61,6 @@ return [
     |
     */
 
-    'middleware' => ['web', 'auth'],
-
     /*
     |--------------------------------------------------------------------------
     | Env Editor
@@ -140,6 +138,10 @@ return [
     | Default: app_path('Admin')
     |
     */
+
+    'middleware' => ['web', 'admin'],
+
+
 
     'bootstrapDirectory' => app_path('Admin'),
 

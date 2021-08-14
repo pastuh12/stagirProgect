@@ -81,7 +81,7 @@ CKEDITOR.lang['ru'] = {
       "18": "Alt",
       "32": "Пробел",
       "35": "End",
-      "36": "Home",
+      "36": "HomeService",
       "46": "Delete",
       "224": "Command"
     },

@@ -8,6 +8,8 @@ use AdminDisplayFilter;
 use AdminForm;
 use AdminFormElement;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Str;
 use SleepingOwl\Admin\Contracts\Display\DisplayInterface;
 use SleepingOwl\Admin\Contracts\Form\FormInterface;
 use SleepingOwl\Admin\Contracts\Initializable;
@@ -16,6 +18,8 @@ use SleepingOwl\Admin\Form\Buttons\Save;
 use SleepingOwl\Admin\Form\Buttons\SaveAndClose;
 use SleepingOwl\Admin\Form\Buttons\SaveAndCreate;
 use SleepingOwl\Admin\Section;
+use App\Models\News;
+use App\Models\Gallery;
 
 /**
  * Class News4
@@ -56,7 +60,7 @@ class Comments extends Section implements Initializable
     {
         $columns = [
             AdminColumn::link('id', 'ID комментария')->setHtmlAttribute('class', 'text-center')
-                ->setWidth('200px')
+                ->setWidth('100px')
                 ->setSearchCallback(function ($column, $query, $search) {
                     return $query
                         ->orWhere('id', 'like', '%' . $search . '%');
@@ -65,18 +69,36 @@ class Comments extends Section implements Initializable
                     $query->orderBy('id', $direction);
                 }),
 
-            AdminColumn::link('new_id', 'ID новости')->setOrderable(function ($query, $direction) {
-                $query->orderBy('new_id', $direction);
+            AdminColumn::link('entity_id', 'ID публикации')->setOrderable(function ($query, $direction) {
+                $query->orderBy('entity_id', $direction);
             })->setHtmlAttribute('class', 'text-center')->setLinkAttributes(['target' => '../new_id/edit']),
 
-            AdminColumn::text('author', 'Автор')->setOrderable(function ($query, $direction) {
-                $query->orderBy('author', $direction);
+            AdminColumn::custom('Тип публикации', function($instance){
+                 if($instance->entity_class === News::class) {
+                     $class = 'Новость';
+                 }
+                    else {
+                        $class = 'Фото из галереи';
+                    }
+                 return $class;
+            })
+                ->setOrderable(function ($query, $direction) {
+                $query->orderBy('entity_class', $direction);
+            })
+                ->setHtmlAttribute('class', 'text-center')
+//                ->setLinkAttributes(['target' => '../new_id/edit'])
+            ,
+
+            AdminColumn::text('author_id', 'Автор')->setOrderable(function ($query, $direction) {
+                $query->orderBy('author_id', $direction);
             })->setWidth('120px')->setHtmlAttribute('class', 'text-center'),
 
-            AdminColumn::text('text', 'Текст')->setWidth('250px')->setHtmlAttribute('class', 'text-center'),
+            AdminColumn::custom('Текст', function($instance){
+                return Str::limit($instance->text, 50, '...');})
+                ->setWidth('250px')->setHtmlAttribute('class', 'text-center'),
 
             AdminColumn::custom('Опубликовано', function ($instance) {
-                return $instance->published ? '<i class="fa fa-check"></i>' : '<i class="fa fa-minus"></i>';
+                return $instance->is_published ? '<i class="fa fa-check"></i>' : '<i class="fa fa-minus"></i>';
             })->setWidth('25px')->setHtmlAttribute('class', 'text-center'),
 
 
@@ -115,13 +137,16 @@ class Comments extends Section implements Initializable
         }
         $form = AdminForm::form()->setElements([
             AdminFormElement::number('id', 'ID')->setVisible(true)->setReadonly(true),
-            AdminFormElement::number('new_id', 'ID новости')->required(),
-            AdminFormElement::text('author', 'Автор')->required(),
+            AdminFormElement::number('entity_id', 'ID публикации')->required(),
+            AdminFormElement::select('entity_class', 'Тип публикации',
+                [News::class => 'Новость', Gallery::class => 'Фото для галереи']),
+            AdminFormElement::text('author_id', 'Автор')->required(),
             AdminFormElement::wysiwyg('text', 'Текст')->required(),
-            $date
-                ->setVisible(true)
-                ->setReadonly(false)
-                ->required(),
+            $date->setVisible(true)
+                 ->setReadonly(false)
+                 ->required(),
+            AdminFormElement::checkbox('is_published', 'Опубликовано')
+                ->setReadonly(Auth::user()->role !== 'admin'),
 
         ]);
 

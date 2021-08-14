@@ -6,9 +6,11 @@ use AdminColumn;
 use AdminDisplay;
 use AdminForm;
 use AdminFormElement;
+use App\Models\Role;
 use App\Models\User;
 
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Http\UploadedFile;
 use SleepingOwl\Admin\Contracts\Display\DisplayInterface;
 use SleepingOwl\Admin\Contracts\Form\FormInterface;
 use SleepingOwl\Admin\Contracts\Initializable;
@@ -58,6 +60,20 @@ class Users extends Section implements Initializable
     public function onDisplay($payload = [])
     {
         $columns = [
+            AdminColumn::link('id', 'ID пользователя')->setHtmlAttribute('class', 'text-center')
+                ->setWidth('100px')
+                ->setSearchCallback(function ($column, $query, $search) {
+                    return $query
+                        ->orWhere('id', 'like', '%' . $search . '%');
+                })
+                ->setOrderable(function ($query, $direction) {
+                    $query->orderBy('id', $direction);
+                }),
+
+            AdminColumn::image('avatar', 'Аватар<br/><small>(image)</small>')
+                ->setHtmlAttribute('class', 'hidden-sm hidden-xs foobar')
+                ->setWidth('200px'),
+
             AdminColumn::link('name', 'Имя')->setHtmlAttribute('class', 'text-center')
                 ->setWidth('200px')
                 ->setSearchCallback(function ($column, $query, $search) {
@@ -70,7 +86,22 @@ class Users extends Section implements Initializable
 
             AdminColumn::email('email', 'Email')->setOrderable(function ($query, $direction) {
                 $query->orderBy('email', $direction);
-            })->setHtmlAttribute('class', 'text-center'),
+            })->setHtmlAttribute('class', 'text-center')
+                ->setWidth('200px'),
+
+            AdminColumn::text('role', 'Роль')->setHtmlAttribute('class', 'text-center')
+                ->setWidth('150px')
+                ->setSearchCallback(function ($column, $query, $search) {
+                    return $query
+                        ->orWhere('role', 'like', '%' . $search . '%');
+                })
+                ->setOrderable(function ($query, $direction) {
+                    $query->orderBy('role', $direction);
+                }),
+
+            AdminColumn::custom('Блокировка', function ($instance) {
+                return $instance->is_published ? '<i class="fa fa-check"></i>' : '<i class="fa fa-minus"></i>';
+            })->setWidth('25px')->setHtmlAttribute('class', 'text-center'),
 
             AdminColumn::text('created_at', 'Дата создания/изменения', 'updated_at')
                 ->setWidth('160px')
@@ -98,16 +129,22 @@ class Users extends Section implements Initializable
      */
     public function onEdit(int $id = null): FormInterface
     {
+
+
         if($id != null){
+            $password = AdminFormElement::password('password', 'Пароль')
+                ->setVisible(false)
+                ->setReadonly(true)
+                ->HashWithBcrypt();
+
+            } else {
             $password = AdminFormElement::password('password', 'Пароль')
                 ->required()
                 ->addValidationRule('min:6')
                 ->HashWithBcrypt();
-
-            } else {
-            $password = AdminFormElement::password('password', 'Пароль')->setVisible(false)
-                ->setReadonly(true);
         }
+
+
 
         if($id != null){
             $date = AdminFormElement::datetime('updated_at', 'Дата');
@@ -118,11 +155,21 @@ class Users extends Section implements Initializable
         $form = AdminForm::form()->setElements([
             AdminFormElement::text('name', 'Имя')->required(),
             $password,
+
             AdminFormElement::text('email', 'Email')->required(),
             $date->setVisible(true)
                 ->setReadonly(false)
                 ->required(),
-            ]);
+
+            AdminFormElement::image('avatar', 'Фото')
+                ->setUploadPath(function(UploadedFile $image) {
+                    return 'storage/user/avatar';
+                }),
+//переделать в список со значениями из таблицы
+            AdminFormElement::select('role', 'Роли', Role::getRoles())->setDisplay('role'),
+
+            AdminFormElement::checkbox('is_blocked', 'Блокировка'),
+        ]);
 
         $form->getButtons()->setButtons([
             'save'  => new Save(),

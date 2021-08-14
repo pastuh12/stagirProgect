@@ -4,6 +4,7 @@ namespace App\Models;
 
 use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 
@@ -17,9 +18,11 @@ class User extends Authenticatable
      * @var array
      */
     protected $fillable = [
+        'avatar',
         'name',
         'email',
         'password',
+        'role',
     ];
 
     /**
@@ -32,6 +35,10 @@ class User extends Authenticatable
         'remember_token',
     ];
 
+    protected $attributes = [
+        'is_blocked' => false,
+    ];
+
     /**
      * The attributes that should be cast to native types.
      *
@@ -40,4 +47,10 @@ class User extends Authenticatable
     protected $casts = [
         'email_verified_at' => 'datetime',
     ];
+
+//    public function role()
+//    {
+//        return $this->belongsTo(Role::class, 'role', 'role');
+//    }
+
 }

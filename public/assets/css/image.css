@@ -1,0 +1,27 @@
+.content-image{
+    width: 700px;
+    height: 400px;
+}
+/*.carousel-image{*/
+/*    width: 300px;*/
+/*    height: 250px;*/
+/*}*/
+.avatar{
+    width: 50px;
+    height: 50px;
+}
+
+.logo{
+    width: 30px;
+    height: 30px;
+}
+
+.logo-image{
+    width: 30px;
+    height: 30px;
+}
+.carousel-image{
+    width: 300px;
+    height: auto;
+}
+
