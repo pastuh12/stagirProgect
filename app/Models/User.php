@@ -12,6 +12,7 @@ class User extends Authenticatable
 {
     use HasFactory, Notifiable;
 
+
     /**
      * The attributes that are mass assignable.
      *
@@ -23,6 +24,7 @@ class User extends Authenticatable
         'email',
         'password',
         'role',
+        'countComments',
     ];
 
     /**
@@ -52,5 +54,6 @@ class User extends Authenticatable
 //    {
 //        return $this->belongsTo(Role::class, 'role', 'role');
 //    }
+
 
 }

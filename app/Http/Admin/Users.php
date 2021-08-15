@@ -98,6 +98,10 @@ class Users extends Section implements Initializable
                 ->setOrderable(function ($query, $direction) {
                     $query->orderBy('role', $direction);
                 }),
+            AdminColumn::text('countComments', 'Кол-во комментариев')->setOrderable(function ($query, $direction) {
+                $query->orderBy('countComments', $direction);
+            })->setHtmlAttribute('class', 'text-center')
+                ->setWidth('80px'),
 
             AdminColumn::custom('Блокировка', function ($instance) {
                 return $instance->is_published ? '<i class="fa fa-check"></i>' : '<i class="fa fa-minus"></i>';
