@@ -1,6 +1,6 @@
 <nav class="navbar fixed-top navbar-expand-lg navbar-light bg-light border border-info">
     <div class="container-fluid">
-        <a class="navbar-brand" href="#">
+        <a class="navbar-brand" href="{{route('home')}}">
             <img src="{{asset('assets/img/logo.jpg')}}" alt="logo" width="30" height="24"
                  class="d-inline-block align-text-top">
             Bootstrap
@@ -33,6 +33,7 @@
                 <li class="nav-item">
                     <a class="nav-link" href="{{route('login')}}" tabindex="-1">Вход</a>
                 </li>
+
             </ul>
         </div>
     </div>
