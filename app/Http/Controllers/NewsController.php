@@ -29,11 +29,11 @@ class NewsController extends Controller
 
     }
 
-    public function getCountComments(Request $request, int $id, int $count){
-        $news = News::whereId($id)->first();
-        $commentsService = new CommentsService(News::class);
-        $comments =  $commentsService->entityComments($id);
-        return view('page.news-detail', ['title' => $news->title ,
-            'news'=>$news, 'comments' =>$comments]);
-    }
+//    public function getCountComments(Request $request, int $id, int $count){
+//        $news = News::whereId($id)->first();
+//        $commentsService = new CommentsService(News::class);
+//        $comments =  $commentsService->entityComments($id);
+//        return view('page.news-detail', ['title' => $news->title ,
+//            'news'=>$news, 'comments' =>$comments]);
+//    }
 }

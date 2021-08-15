@@ -7,6 +7,9 @@ use Illuminate\Http\Request;
 
 class CategoriesNewsController extends Controller
 {
+    /**
+     *
+     */
     public function manyToMany(): void
     {
         $news = News::where('id', 1);
