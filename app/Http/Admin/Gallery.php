@@ -130,7 +130,7 @@ class Gallery extends Section implements Initializable
                     return [
                         AdminFormElement::text('title', 'Название')->required(),
                         AdminFormElement::number('author_id', 'Автор')->required(),
-                        AdminFormElement::multiselect('category', 'Категории', Category::class)->setDisplay('title'),
+                        AdminFormElement::select('category', 'Категории', Category::class)->setDisplay('title'),
                         AdminFormElement::number('rating','рейтинг')->setReadonly(true),
 
                     ];
