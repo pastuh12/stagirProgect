@@ -17,7 +17,7 @@ class RubricService
         }
         return News::whereIn('id', $keys)
             ->where('is_published', 1)
-            ->orderByDesc('updated_at')->simplePaginate(2);
+            ->orderByDesc('updated_at')->paginate(20);
     }
 
 }

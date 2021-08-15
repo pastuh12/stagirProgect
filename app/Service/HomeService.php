@@ -14,16 +14,16 @@ class HomeService
      * @param int $pagination
      * @return mixed
      */
-    public static function getLatestNews(int $pagination = 2)
+    public static function getLatestNews(int $pagination = 20)
     {
         $news = News::where('updated_at', '>', Carbon::now()->locale('ru')->subWeek()->format('Y-m-d'))
             ->where('is_published', 1)
             ->orderByDesc('updated_at');
         if($pagination !== 0) {
-            return $news->simplePaginate($pagination);
+            return $news->paginate($pagination);
         }
 
-        return $news->simplePaginate($pagination);
+        return $news->paginate($pagination);
     }
 
     public static function getBestGallery()
