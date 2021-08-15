@@ -2,22 +2,27 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Comment;
+use App\Http\Requests\AddCommentRequest;
 use App\Service\CommentsService;
-use Illuminate\Database\Eloquent\Model;
-use Illuminate\Http\Request;
+use App\Service\UserService;
+use Illuminate\Support\Facades\Auth;
 
 class CommentsController extends Controller
 {
-    public function ajaxAddComment(Request $request):void
+    public function addComment(AddCommentRequest $request, int $id)
     {
-        $user = Comment::create(['name' => $request->name, 'email' => $request->email]);
 
-    }
+//        dd($request->validated());
+        if (Auth::check()) {
+            CommentsService::addComment($request->validated(), $id);
+            UserService::increaseCountComments();
+            return redirect("/news/$id#message")
+                ->with('message', 'Комментарий отправлен');
+        }
 
-    public function addComment(Request $request){
-        echo "добавлен комментарий";
-
+        return redirect("news/$id#errors")
+            ->withErrors('Для этого действия нужно авторизироваться')
+            ->withInput();
     }
 
 }

@@ -15,6 +15,7 @@ class Comment extends Model
         'entity_class',
         'author_id',
         'text',
+        'is_published',
     ];
 
     protected $attributes = [
@@ -25,4 +26,6 @@ class Comment extends Model
     {
         return $this->belongsTo(User::class, 'author_id');
     }
+
+
 }

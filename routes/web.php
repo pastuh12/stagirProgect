@@ -29,7 +29,7 @@ Route::get('/', [HomeController::class, 'showHomePage'])->name('home');
 
 Route::get('/rubrics/{rubric}', [RubricsController::class, 'getRubric'])->name('rubric');
 
-Route::any('/add-comment', [CommentsController::class, 'addComments'])->name('add.comment');
+Route::post('/news/{id}/add-comment', [CommentsController::class, 'addComment'])->name('add.comment');
 
 
 

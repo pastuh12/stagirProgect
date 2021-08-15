@@ -3,8 +3,9 @@
 
 namespace App\Service;
 
+use App\Models\News;
 use App\Models\Comment;
-use Illuminate\Database\Eloquent\Model;
+use Illuminate\Support\Facades\Auth;
 
 
 class CommentsService
@@ -31,9 +32,27 @@ class CommentsService
             ->with('user')
             ->orderByDesc('updated_at');
         if ($limit !== 0) {
-            dd( $comments->take(1)->paginate($pagination));
+            return $comments->take($limit)->paginate($pagination);
         }
 
-//        return $comments->paginate($pagination);
+        return $comments->paginate($pagination);
+    }
+
+    /**
+     * @param array $request
+     * @param int $id
+     * @return bool
+     */
+    public static function addComment(array $request, int $id): void
+    {
+//        dd(__METHOD__ ,$request);
+
+        if (Auth::user()->countComments >= 5) {
+            Comment::create(['entity_id' => $id, 'entity_class' => News::class,
+                'author_id' => Auth::user()->id, 'text' => $request['comment'], 'is_published' => 1]);
+        } else {
+            Comment::create(['entity_id' => $id, 'entity_class' => News::class,
+                'author_id' => Auth::user()->id, 'text' => $request['comment']]);
+        }
     }
 }
