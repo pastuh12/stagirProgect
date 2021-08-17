@@ -25,7 +25,8 @@ class AddCommentRequest extends FormRequest
     public function rules()
     {
         return [
-            'comment' => 'required|string|min:20'
+            'comment' => 'required|string|min:20',
+            'rating' => 'nullable|numeric|between:1,5',
         ];
     }
 
@@ -37,6 +38,8 @@ class AddCommentRequest extends FormRequest
         return [
             'comment.required' => 'Необходимо написать комментарий',
             'comment.min' => 'Комментарий должен содержать минимум 20 символов',
+            'rating.numeric' => 'Рейтинг должен быть числом',
+            'rating.between' => 'Рейтинг должен принимать значение от 1 до 5',
         ];
     }
 }
