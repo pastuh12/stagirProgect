@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\CommentsController;
+use App\Http\Controllers\EntityController;
 use App\Http\Controllers\GalleryController;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\NewsController;
@@ -17,27 +18,35 @@ use Illuminate\Support\Facades\Route;
 | contains the "web" middleware group. Now create something great!
 |
 */
-//Route::get('/categ/{id}', [App\Http\Controllers\CategoriesNewsController::class, 'manyToMany']);
+Route::name('detail.entity.')->group(function () {
+    Route::get('/detail/{entity}/{id}', [EntityController::class, 'getEntity']);
 
-Route::get('/news/{id}', [NewsController::class, 'getNews'])->name('news.detail');
+    Route::get('/detail/{entity}/{id}/{count}', [EntityController::class, 'getCountComments'])
+        ->name('getCountComments');
 
-Route::get('/news/{id}/{count}', [NewsController::class, 'getCountComments'])->name('news.detail.getCountComments');
+    Route::post('/detail/{entity}/{id}/add-comment', [EntityController::class, 'addComment'])
+        ->name('add.comment');
+});
 
-Route::get('/gallery/{id}', [GalleryController::class, 'getGallery'])->name('gallery.detail');
+
+//Route::name('gallery.detail.')->group(function () {
+//
+//    Route::get('/gallery/{id}', [GalleryController::class, 'getGallery']);
+//
+//    Route::get('/gallery/{id}/{count}', [GalleryController::class, 'getCountComments'])
+//        ->name('getCountComments');
+//
+//    Route::post('/gallery/{id}/add-comment', [CommentsController::class, 'addComment'])->name('add.comment');
+//});
+
+
+
+
 
 Route::get('/', [HomeController::class, 'showHomePage'])->name('home');
 
 Route::get('/rubrics/{rubric}', [RubricsController::class, 'getRubric'])->name('rubric');
 
-Route::post('/news/{id}/add-comment', [CommentsController::class, 'addComment'])->name('add.comment');
-
-
-
-//Route::get('/whatsNew', [HomeController::class, 'showWhatsNew']);
-
-//Route::name('user.')->group(function(){
-//   Route::view('/private', 'private')->middleware('auth')->name('private');
-//});
 
 Route::get('/dashboard', function () {
     return view('dashboard');
