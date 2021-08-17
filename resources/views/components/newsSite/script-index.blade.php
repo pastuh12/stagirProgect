@@ -6,4 +6,7 @@
         integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4="
         crossorigin="anonymous"></script>
 <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+@if(request()->route()->getName() === 'detail.entity.')
+    @include('components.newsSite.showAllComments')
+@endif
 
