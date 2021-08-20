@@ -3,7 +3,6 @@
 
 namespace App\Service;
 
-use App\Models\News;
 use App\Models\Comment;
 use Illuminate\Support\Facades\Auth;
 
@@ -17,41 +16,38 @@ class CommentsService
         $this->entity = $entity;
     }
 
-    /**
-     * @param int $id
-     * @param int $limit
-     * @param int $pagination
-     * @return mixed
-     */
-    public function entityComments(int $id, int $limit = 20, int $pagination = 10)
+    public function entityComments(int $id, int $limit = 20)
     {
-
         $comments = Comment::where('entity_class', $this->entity)
             ->where('entity_id', $id)
             ->where('is_published', 1)
             ->with('user')
             ->orderByDesc('updated_at');
+
         if ($limit !== 0) {
-            return $comments->take($limit)->paginate($pagination);
+            return $comments->take($limit)->get();
         }
 
-        return $comments->paginate($pagination);
+        return $comments->get();
     }
 
-    /**
-     * @param array $request
-     * @param int $id
-     * @return bool
-     */
-    public static function addComment(array $request, int $id): void
+    public function addComment(array $request, string $entity, int $id): void
     {
-//        dd(__METHOD__ ,$request);
+        if ($entity === 'gallery') {
 
-        if (Auth::user()->countComments >= 5) {
-            Comment::create(['entity_id' => $id, 'entity_class' => News::class,
+            if (Auth::user()->countComments >= 5) {
+                Comment::create(['entity_id' => $id, 'entity_class' => $this->entity,
+                    'author_id' => Auth::user()->id, 'text' => $request['comment'], 'rating' => (int)$request['rating']
+                    , 'is_published' => 1]);
+            } else {
+                Comment::create(['entity_id' => $id, 'entity_class' => $this->entity,
+                    'author_id' => Auth::user()->id, 'text' => $request['comment'], 'rating' => (int)$request['rating']]);
+            }
+        } else if (Auth::user()->countComments >= 5) {
+            Comment::create(['entity_id' => $id, 'entity_class' => $this->entity,
                 'author_id' => Auth::user()->id, 'text' => $request['comment'], 'is_published' => 1]);
         } else {
-            Comment::create(['entity_id' => $id, 'entity_class' => News::class,
+            Comment::create(['entity_id' => $id, 'entity_class' => $this->entity,
                 'author_id' => Auth::user()->id, 'text' => $request['comment']]);
         }
     }

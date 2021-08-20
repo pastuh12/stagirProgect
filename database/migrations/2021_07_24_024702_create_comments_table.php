@@ -19,6 +19,7 @@ class CreateCommentsTable extends Migration
             $table->string('entity_class');
             $table->bigInteger('author_id');
             $table->longText('text');
+            $table->integer('rating')->nullable();
             $table->boolean('is_published');
             $table->timestamps();
         });
