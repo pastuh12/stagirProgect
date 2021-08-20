@@ -66,7 +66,9 @@ class Gallery extends Model
         foreach($comments as $comment){
             $sumRating += $comment->rating;
         }
-
-        return round($sumRating / $comments->count(), 1);
+        if($comments->count() === 0) {
+            return 0;
+        }
+        return  round($sumRating / $comments->count(), 1);
     }
 }
