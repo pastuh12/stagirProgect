@@ -22,11 +22,19 @@ class AddCommentRequest extends FormRequest
      *
      * @return array
      */
-    public function rules()
+    public function rules(): array
     {
         return [
-            'comment' => 'required|string|min:20',
-            'rating' => 'nullable|numeric|between:1,5',
+            'comment' => [
+                'required',
+                'string',
+                'min:20',
+            ],
+            'rating' => [
+                'nullable',
+                'numeric',
+                'between:1,5',
+            ],
         ];
     }
 

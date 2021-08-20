@@ -6,7 +6,7 @@
                 <!-- Trending Tittle -->
                 <div class="about-right mb-5">
                     <div class="section-tittle mb-5 pt-30">
-                        <h3>{{$title}}</h3>
+                        <h3>{{$entity->title}}</h3>
                         <br>
                         <div class="author d-flex flex-row align-items-end mb-3">
                             <div>
@@ -16,7 +16,7 @@
                                 <h4 style="margin-bottom: 0">{{$entity->user->name}}</h4>
                             </div>
                         </div>
-                        <img class="content-image" src="{{asset($entity->image)}}" alt="{{$title}} ">
+                        <img class="content-image" src="{{asset($entity->image)}}" alt="{{$entity->title}} ">
                         @if(get_class($entity) === \App\Models\News::class)
                             <p class="text-muted">
                                 Просмотры: {{$entity->views}}
