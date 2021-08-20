@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Providers\App\Events;
+namespace App\Providers\Events;
 
 use App\Models\News;
 use Illuminate\Broadcasting\Channel;
