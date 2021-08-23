@@ -13,7 +13,6 @@ class EntityController extends Controller
     public function getEntity(Request $request, string $entity,int $id):view
     {
         $EntityService = new EntityService($entity, $id);
-
         return view('page.entity-detail', ['entity'=>$EntityService->getEntity(),
             'comments' =>$EntityService->getComments()]);
 
@@ -29,15 +28,14 @@ class EntityController extends Controller
     public function addComment(AddCommentRequest $request, string $entity, int $id)
     {
         $EntityService = new EntityService($entity, $id);
-
         if (Auth::check()) {
             $EntityService->addComment($request->validated());
 
-            return redirect("/detail/$entity/$id#message")
+            return redirect(route('detail.entity.', ['entity' => $entity, 'id' => $id]) . '#messanges')
                 ->with('message', 'Комментарий отправлен');
         }
 
-        return redirect("/detail/$entity/$id#errors")
+        return redirect(route('detail.entity.', ['entity' => $entity, 'id' => $id]) . '#errors')
             ->withErrors('Для этого действия нужно авторизироваться')
             ->withInput();
     }
