@@ -2,7 +2,7 @@
     let countAllComments = $('#count-all-comments');
     let commentsList = $('#comments');
     let commentsContainer = $('#commentsContainer');
-    countAllComments.on('click',function (e){
+    countAllComments.on('click',function (){
         let count = countAllComments.val();
         console.log("{{request()->url() . '/'}}" + count);
         axios.get('{{request()->url() . '/'}}' + count)
