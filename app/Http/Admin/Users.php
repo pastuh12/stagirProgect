@@ -47,14 +47,10 @@ class Users extends Section implements Initializable
      */
     protected $alias = 'users';
 
-    /**
-     * @return DisplayInterface
-     */
-
-    public function initialize()
+    public function initialize():void
     {
         $this->addToNavigation()->setPriority(100)->setIcon('fa fa-lightbulb-o')
-            ->setTitle('Пользователи');
+            ->setTitle($this->title);
     }
 
     public function onDisplay($payload = [])
@@ -98,15 +94,6 @@ class Users extends Section implements Initializable
                 ->setOrderable(function ($query, $direction) {
                     $query->orderBy('role', $direction);
                 }),
-            AdminColumn::text('countComments', 'Кол-во комментариев')->setOrderable(function ($query, $direction) {
-                $query->orderBy('countComments', $direction);
-            })->setHtmlAttribute('class', 'text-center')
-                ->setWidth('80px'),
-
-            AdminColumn::custom('Блокировка', function ($instance) {
-                return $instance->is_published ? '<i class="fa fa-check"></i>' : '<i class="fa fa-minus"></i>';
-            })->setWidth('25px')->setHtmlAttribute('class', 'text-center'),
-
             AdminColumn::text('created_at', 'Дата создания/изменения', 'updated_at')
                 ->setWidth('160px')
                 ->setOrderable(function ($query, $direction) {
@@ -120,7 +107,7 @@ class Users extends Section implements Initializable
             ->setName('usersdatatables')
             ->setOrder([[0, 'asc']])
             ->setDisplaySearch(true)
-            ->paginate(25)
+            ->paginate(100)
             ->setColumns($columns)
             ->setHtmlAttribute('class', 'table-primary table-hover th-center');
     }
@@ -134,22 +121,6 @@ class Users extends Section implements Initializable
     public function onEdit(int $id = null): FormInterface
     {
 
-
-        if($id != null){
-            $password = AdminFormElement::password('password', 'Пароль')
-                ->setVisible(false)
-                ->setReadonly(true)
-                ->HashWithBcrypt();
-
-            } else {
-            $password = AdminFormElement::password('password', 'Пароль')
-                ->required()
-                ->addValidationRule('min:6')
-                ->HashWithBcrypt();
-        }
-
-
-
         if($id != null){
             $date = AdminFormElement::datetime('updated_at', 'Дата');
         } else {
@@ -158,7 +129,10 @@ class Users extends Section implements Initializable
 
         $form = AdminForm::form()->setElements([
             AdminFormElement::text('name', 'Имя')->required(),
-            $password,
+
+            AdminFormElement::password('password', 'Пароль')
+                ->HashWithBcrypt()
+                ->allowEmptyValue(),
 
             AdminFormElement::text('email', 'Email')->required(),
             $date->setVisible(true)
@@ -168,7 +142,7 @@ class Users extends Section implements Initializable
             AdminFormElement::image('avatar', 'Фото')
                 ->setUploadPath(function(UploadedFile $image) {
                     return 'storage/user/avatar';
-                }),
+                })->setReadonly(true),
 //переделать в список со значениями из таблицы
             AdminFormElement::select('role', 'Роли', Role::getRoles())->setDisplay('role'),
 
@@ -188,13 +162,23 @@ class Users extends Section implements Initializable
     /**
      * @return FormInterface
      */
-    public function onCreate()
+    public function onCreate(): FormInterface
     {
         return $this->onEdit(null);
     }
 
-    public function isDeletable(Model $model)
+    public function isCreatable(): bool
     {
-        return true;
+        return (auth()->user()->role === 'admin');
+    }
+
+    public function isEditable(Model $model): bool
+    {
+    return (auth()->user()->role === 'admin');
+}
+
+    public function isDeletable(Model $model): bool
+    {
+        return (auth()->user()->role === 'admin');
     }
 }

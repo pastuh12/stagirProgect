@@ -174,6 +174,6 @@ class News extends Section implements Initializable
      */
     public function isDeletable(Model $model): bool
     {
-        return true;
+        return false;
     }
 }

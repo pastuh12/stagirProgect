@@ -10,6 +10,9 @@ use App\Models\Role;
 use App\Models\User;
 use SleepingOwl\Admin\Admin;
 use SleepingOwl\Admin\Providers\AdminSectionsServiceProvider as ServiceProvider;
+use App\Http\Admin\Roles;
+use App\Http\Admin\Comments;
+use App\Http\Admin\Users;
 
 class AdminSectionsServiceProvider extends ServiceProvider
 {
@@ -18,12 +21,12 @@ class AdminSectionsServiceProvider extends ServiceProvider
      * @var array
      */
     protected $sections = [
-        User::class => 'App\Http\Admin\Users',
-        News::class => 'App\Http\Admin\News',
-        Gallery::class  => 'App\Http\Admin\Gallery',
-        Comment::class => 'App\Http\Admin\Comments',
-        Category::class => 'App\Http\Admin\Category',
-        Role::class => 'App\Http\Admin\Roles',
+        User::class => Users::class,
+        News::class => \App\Http\Admin\News::class,
+        Gallery::class  => \App\Http\Admin\Gallery::class,
+        Comment::class => Comments::class,
+        Category::class => \App\Http\Admin\Category::class,
+        Role::class => Roles::class,
     ];
 
     /**
@@ -34,7 +37,6 @@ class AdminSectionsServiceProvider extends ServiceProvider
      */
     public function boot(Admin $admin)
     {
-
         parent::boot($admin);
     }
 }

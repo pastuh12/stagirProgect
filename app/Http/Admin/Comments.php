@@ -163,13 +163,23 @@ class Comments extends Section implements Initializable
     /**
      * @return FormInterface
      */
-    public function onCreate()
+    public function onCreate(): FormInterface
     {
         return $this->onEdit(null);
     }
 
-    public function isDeletable(Model $model)
+    public function isCreatable(): bool
     {
-        return true;
+        return (auth()->user()->role === 'admin');
+    }
+
+    public function isEditable(Model $model): bool
+    {
+        return (auth()->user()->role === 'admin');
+    }
+
+    public function isDeletable(Model $model): bool
+    {
+        return (auth()->user()->role === 'admin');
     }
 }
