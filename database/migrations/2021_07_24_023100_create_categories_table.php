@@ -16,7 +16,7 @@ class CreateCategoriesTable extends Migration
         Schema::create('categories', function (Blueprint $table) {
             $table->id();
             $table->string('title');
-            $table->boolean('is_active')->default(1);
+            $table->boolean('is_published')->default(1);
         });
 
         Schema::create('categories_galleries', function (Blueprint $table) {

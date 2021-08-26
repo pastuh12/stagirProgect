@@ -26,6 +26,16 @@ class Category extends Model
     {
         return $this->belongsToMany(Gallery::class, 'categories_galleries' ,
             'category_id', 'gallery_id')
-            ->where('is_published', 1)->orderByDesc('updated_at');
+            ->where('is_published', 1)->orderByDesc('created_at');
+    }
+
+    public static function getGalleries(): array
+    {
+        $category = array();
+        $categories = self::where('is_published', 1)->limit(3)->with('gallery')->get();
+        foreach($categories as $value){
+            $category[$value->title] = $value->gallery;
+        }
+        return $category;
     }
 }

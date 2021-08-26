@@ -71,4 +71,9 @@ class Gallery extends Model
         }
         return  round($sumRating / $comments->count(), 1);
     }
+
+    public static function getAllPhoto()
+    {
+        return self::where('is_published', 1)->orderByDesc('created_at')->with('user', 'category')->paginate(20);
+    }
 }

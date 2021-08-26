@@ -17,12 +17,15 @@
                     </button>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="#">Link</a>
+                    <a class="nav-link" href="{{route('get.all.gallery')}}">Галерея</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="{{route('get.all.news')}}">Новости</a>
                 </li>
                 <li class="nav-item dropdown">
                     <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button"
                        data-bs-toggle="dropdown" aria-expanded="false">
-                        Рубрики
+                        Подборки
                     </a>
                     <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
 
@@ -36,8 +39,13 @@
                 <div class="account d-flex flex-row">
                     @if(\Illuminate\Support\Facades\Auth::check())
                         <div>
-                            <img class="nav-item avatar mr-2" src="{{asset(\Illuminate\Support\Facades\Auth::user()->avatar)}}"
-                                 alt="avatar" style="border-radius: 100px; border: 1px solid black;">
+                            @if(\Illuminate\Support\Facades\Auth::user()->avatar)
+                                <img class="nav-item avatar mx-2" src="{{asset(\Illuminate\Support\Facades\Auth::user()->avatar)}}"
+                                     alt="avatar" style="border-radius: 100px; border: 1px solid black;">
+                            @else
+                                <img class="nav-item avatar mx-2" src="{{asset('storage/user/avatar/user.svg')}}"
+                                     alt="avatar" style="border-radius: 100px; border: 1px solid black;">
+                            @endif
                         </div>
                         <div class="dropdown py-2" style="height: 32px">
                             <button class="btn btn-secondary btn-sm dropdown-toggle" type="button" id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-expanded="false">

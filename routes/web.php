@@ -1,7 +1,9 @@
 <?php
 
 use App\Http\Controllers\EntityController;
+use App\Http\Controllers\GalleryController;
 use App\Http\Controllers\HomeController;
+use App\Http\Controllers\NewsController;
 use App\Http\Controllers\RubricsController;
 use Illuminate\Support\Facades\Route;
 
@@ -24,6 +26,12 @@ Route::name('detail.entity.')->group(function () {
     Route::post('/detail/{entity}/{id}/add-comment', [EntityController::class, 'addComment'])
         ->name('add.comment');
 });
+
+Route::get('/all-news', [NewsController::class, 'getPage'])->name('get.all.news');
+
+Route::get('/all-gallery', [GalleryController::class, 'getPage'])->name('get.all.gallery');
+Route::post('/all-gallery/add-photo', [GalleryController::class, 'addPhoto'])->name('add.photo');
+Route::post('/all-gallery/category', [GalleryController::class, 'getCategory'])->name('category');
 
 Route::get('/', [HomeController::class, 'showHomePage'])->name('home');
 

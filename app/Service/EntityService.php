@@ -13,12 +13,7 @@ class EntityService
     protected int $id;
 
     public function __construct(string $entity, int $id){
-        if( $entity === 'news'){
-            $this->entityClass = new News();
-        } else {
-            $this->entityClass = new Gallery();
-        }
-
+        $this->entityClass = $entity === 'news' ? new News() : new Gallery();
         $this->id = $id;
     }
 

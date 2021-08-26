@@ -7,6 +7,7 @@ use AdminDisplay;
 use AdminDisplayFilter;
 use AdminForm;
 use AdminFormElement;
+use App\Models\User;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Str;
@@ -135,13 +136,16 @@ class Comments extends Section implements Initializable
         } else {
             $date = AdminFormElement::datetime('created_at', 'Дата');
         }
+
         $form = AdminForm::form()->setElements([
             AdminFormElement::number('id', 'ID')->setVisible(true)->setReadonly(true),
-            AdminFormElement::number('entity_id', 'ID публикации')->required(),
             AdminFormElement::select('entity_class', 'Тип публикации',
                 [News::class => 'Новость', Gallery::class => 'Фото для галереи']),
-            AdminFormElement::text('author_id', 'Автор')->required(),
-            AdminFormElement::wysiwyg('text', 'Текст')->required(),
+            AdminFormElement::number('entity_id', 'ID публикации')->required(),
+            AdminFormElement::select('author_id', 'Автор', User::getAuthorsId())->required(),
+            AdminFormElement::wysiwyg('text', 'Текст')
+                ->addValidationRule('min:20')
+                ->required(),
             $date->setVisible(true)
                  ->setReadonly(false)
                  ->required(),
@@ -149,6 +153,7 @@ class Comments extends Section implements Initializable
                 ->setReadonly(Auth::user()->role !== 'admin'),
 
         ]);
+        dd();
 
         $form->getButtons()->setButtons([
             'save'  => new Save(),

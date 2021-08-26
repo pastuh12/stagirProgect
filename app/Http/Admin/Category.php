@@ -72,7 +72,7 @@ class Category extends Section implements Initializable
                 }),
 
             AdminColumn::custom('Опубликовано', function ($instance) {
-                return $instance->is_active ? '<i class="fa fa-check"></i>' : '<i class="fa fa-minus"></i>';
+                return $instance->is_published ? '<i class="fa fa-check"></i>' : '<i class="fa fa-minus"></i>';
             })->setWidth('25px')->setHtmlAttribute('class', 'text-center'),
         ];
 
@@ -97,6 +97,7 @@ class Category extends Section implements Initializable
     {
         $form = AdminForm::form()->setElements([
             AdminFormElement::text('title', 'Название')->required(),
+            AdminFormElement::checkbox('is_published', 'Опубликовано'),
         ]);
 
         $form->getButtons()->setButtons([

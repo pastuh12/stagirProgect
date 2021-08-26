@@ -128,16 +128,21 @@ class Users extends Section implements Initializable
         }
 
         $form = AdminForm::form()->setElements([
-            AdminFormElement::text('name', 'Имя')->required(),
+            AdminFormElement::text('name', 'Имя')
+                ->required()
+                ->unique(),
 
             AdminFormElement::password('password', 'Пароль')
                 ->HashWithBcrypt()
+                ->addValidationRule('min:6')
+                ->unique()
                 ->allowEmptyValue(),
 
             AdminFormElement::text('email', 'Email')->required(),
             $date->setVisible(true)
                 ->setReadonly(false)
-                ->required(),
+                ->required()
+                ->unique(),
 
             AdminFormElement::image('avatar', 'Фото')
                 ->setUploadPath(function(UploadedFile $image) {

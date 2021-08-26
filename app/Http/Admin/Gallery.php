@@ -8,6 +8,7 @@ use AdminDisplayFilter;
 use AdminForm;
 use AdminFormElement;
 use App\Models\Category;
+use App\Models\User;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Facades\Auth;
 use SleepingOwl\Admin\Contracts\Display\DisplayInterface;
@@ -129,8 +130,8 @@ class Gallery extends Section implements Initializable
                 ->addColumn(function () {
                     return [
                         AdminFormElement::text('title', 'Название')->required(),
-                        AdminFormElement::number('author_id', 'Автор')->required(),
-                        AdminFormElement::multiselect('category', 'Категории', Category::class)->setDisplay('title'),
+                        AdminFormElement::select('author_id', 'Автор', User::getAuthorsId())->required(),
+                        AdminFormElement::multiselect('category', 'Категории', Category::class)->setDisplay('title')
 
                     ];
                 })->addColumn(function () {

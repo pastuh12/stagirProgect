@@ -8,6 +8,7 @@ use AdminDisplayFilter;
 use AdminForm;
 use AdminFormElement;
 use App\Models\Category;
+use App\Models\User;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Http\UploadedFile;
 use Illuminate\Support\Facades\Auth;
@@ -47,7 +48,7 @@ class News extends Section implements Initializable
      */
     protected $alias = 'news';
 
-    public function initialize()
+    public function initialize():void
     {
         $this->addToNavigation()->setPriority(200)->setIcon('fa fa-lightbulb-o')->setTitle('Новости');
     }
@@ -83,7 +84,7 @@ class News extends Section implements Initializable
                 })->setHtmlAttribute('class', 'text-center')->setWidth('100px'),
 
                 AdminColumn::custom('Описание', function($instance){
-                    return Str::limit($instance->describe, 100, '...');
+                    return $instance->describe !== '' ? $instance->describe : Str::limit($instance->text, 100, '...');
                 } )->setWidth('200px'),
 
                AdminColumn::lists('category.title', 'Категории')->setWidth('150px'),
@@ -128,9 +129,10 @@ class News extends Section implements Initializable
         } else {
             $date = AdminFormElement::datetime('created_at', 'Дата');
         }
+
         $form = AdminForm::form()->setElements([
             AdminFormElement::text('title', 'Название')->required(),
-            AdminFormElement::number('author_id', 'Автор')->required(),
+            AdminFormElement::select('author_id', 'Автор', User::getAuthorsId())->required(),
             AdminFormElement::image('image', 'Фото')
                 ->setUploadPath(function(UploadedFile $image) {
                     return 'storage/news/images';

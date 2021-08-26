@@ -16,9 +16,9 @@ class HomeService
      */
     public static function getLatestNews(int $pagination = 20)
     {
-        $news = News::where('updated_at', '>', Carbon::now()->locale('ru')->subWeek()->format('Y-m-d'))
+        $news = News::where('created_at', '>', Carbon::now()->locale('ru')->subWeek()->format('Y-m-d'))
             ->where('is_published', 1)
-            ->orderByDesc('updated_at');
+            ->orderByDesc('created_at');
         if($pagination !== 0) {
             return $news->paginate($pagination);
         }

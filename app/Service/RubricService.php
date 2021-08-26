@@ -9,6 +9,7 @@ use App\Models\News;
 
 class RubricService
 {
+
     public static function getNews(string $rubric){
         $news =Category::firstWhere('title', $rubric)->news;
         $keys= array();
