@@ -6,7 +6,7 @@
             <div class= "d-flex justify-content-center">
 
                 <x-auth-card>
-                    <div class="border border-primary border-5 rounded  mb-4" style="width: auto; height: auto">
+                    <div class="border border-primary border-3 rounded  mb-4" style="width: auto; height: auto">
                         <!-- Session Status -->
                         <x-auth-session-status class="mb-4" :status="session('status')" />
 

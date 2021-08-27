@@ -22,19 +22,16 @@ class Gallery extends Model
         'author_id',
         'title',
         'image',
+        'category_id',
     ];
 
     protected $attributes = [
         'rating' => 0,
     ];
 
-    /**
-     * @return BelongsToMany
-     */
-    public function category(): BelongsToMany
+    public function category(): BelongsTo
     {
-        return $this->belongsToMany(Category::class, 'categories_galleries' ,
-            'gallery_id', 'category_id');
+        return $this->belongsTo(Category::class,'category_id');
     }
 
     /**
@@ -75,5 +72,11 @@ class Gallery extends Model
     public static function getAllPhoto()
     {
         return self::where('is_published', 1)->orderByDesc('created_at')->with('user', 'category')->paginate(20);
+    }
+
+    public static function getCategoryPhoto(string $category)
+    {
+        return self::where('is_published', 1)->where('category', $category)->orderByDesc('created_at')
+            ->with('user', 'category')->paginate(20);
     }
 }

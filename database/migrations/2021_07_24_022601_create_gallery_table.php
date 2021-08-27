@@ -18,8 +18,9 @@ class CreateGalleryTable extends Migration
             $table->bigInteger('author_id');
             $table->string('image');
             $table->string('title')->nullable();
+            $table->integer('category_id')->nullable();
             $table->string('rating');
-            $table->boolean('is_published');
+            $table->boolean('is_published')->default(0);
             $table->timestamps();
         });
     }

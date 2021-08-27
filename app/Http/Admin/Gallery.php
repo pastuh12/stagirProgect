@@ -84,7 +84,7 @@ class Gallery extends Section implements Initializable
                     $query->orderBy('title', $direction);
                 }),
 
-            AdminColumn::lists('category.title', 'Категории')->setWidth('150px'),
+            AdminColumn::relatedLink('category.title', 'Категория')->setHtmlAttribute('class', 'text-center'),
 
             AdminColumn::custom('Опубликовано', function ($instance) {
                 return $instance->is_published ? '<i class="fa fa-check"></i>' : '<i class="fa fa-minus"></i>';
@@ -131,7 +131,7 @@ class Gallery extends Section implements Initializable
                     return [
                         AdminFormElement::text('title', 'Название')->required(),
                         AdminFormElement::select('author_id', 'Автор', User::getAuthorsId())->required(),
-                        AdminFormElement::multiselect('category', 'Категории', Category::class)->setDisplay('title')
+                        AdminFormElement::select('category_id', 'Категории', Category::class)->setDisplay('title')
 
                     ];
                 })->addColumn(function () {

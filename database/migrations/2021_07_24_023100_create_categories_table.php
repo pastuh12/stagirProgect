@@ -19,11 +19,6 @@ class CreateCategoriesTable extends Migration
             $table->boolean('is_published')->default(1);
         });
 
-        Schema::create('categories_galleries', function (Blueprint $table) {
-            $table->bigInteger('category_id');
-            $table->bigInteger('gallery_id');
-        });
-
         Schema::create('categories_news', function (Blueprint $table) {
             $table->bigInteger('category_id');
             $table->bigInteger('news_id');
