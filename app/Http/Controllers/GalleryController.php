@@ -20,7 +20,7 @@ class GalleryController extends Controller
     public function addPhoto(AddGalleryRequest $request )
     {
         if (Auth::check()) {
-            GalleryService::addComment($request->validated());
+            GalleryService::addPhoto($request->validated());
 
             return redirect(route('get.all.gallery') . '#messanges')
                 ->with('message', 'Комментарий отправлен');
@@ -29,5 +29,12 @@ class GalleryController extends Controller
         return redirect(route('get.all.gallery' . '#errors'))
             ->withErrors('Для этого действия нужно авторизироваться')
             ->withInput();
+
+    }
+
+    public function getCategory(Request $request, string $category): view
+    {
+
+        return view('category', ['gallery' => Gallery::getCategoryPhoto($category)]);
     }
 }

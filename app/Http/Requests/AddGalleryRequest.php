@@ -37,6 +37,9 @@ class AddGalleryRequest extends FormRequest
                 'required',
                 'string',
             ],
+            'category' => [
+                'numeric',
+            ]
         ];
     }
 

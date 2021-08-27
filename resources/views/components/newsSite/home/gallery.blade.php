@@ -4,7 +4,7 @@
             <!-- section Tittle -->
             @if($galleries->count() === 0)
 
-                @include('components.newsSite.pageGallery.empty')
+                @include('components.newsSite.home.gallery.empty')
 
 
             @else

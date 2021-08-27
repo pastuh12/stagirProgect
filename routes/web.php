@@ -17,25 +17,32 @@ use Illuminate\Support\Facades\Route;
 | contains the "web" middleware group. Now create something great!
 |
 */
-Route::name('detail.entity.')->group(function () {
-    Route::get('/detail/{entity}/{id}', [EntityController::class, 'getEntity']);
+Route::prefix('detail/')->group(function () {
+    Route::get('{entity}/{id}', [EntityController::class, 'getEntity']);
 
-    Route::get('/detail/{entity}/{id}/{count}', [EntityController::class, 'getCountComments'])
+    Route::get('{entity}/{id}/{count}', [EntityController::class, 'getCountComments'])
         ->name('getCountComments')->where(['id' => '[0-9]+', 'count' => '[0-9]+']);
 
-    Route::post('/detail/{entity}/{id}/add-comment', [EntityController::class, 'addComment'])
+    Route::post('{entity}/{id}/add-comment', [EntityController::class, 'addComment'])
         ->name('add.comment');
 });
 
-Route::get('/all-news', [NewsController::class, 'getPage'])->name('get.all.news');
+Route::prefix('all-news')->group(function () {
+    Route::get('', [NewsController::class, 'getPage'])->name('get.all.news');
+    Route::get('/{rubric}', [NewsController::class, 'getRubric'])->name('rubric');
+});
 
-Route::get('/all-gallery', [GalleryController::class, 'getPage'])->name('get.all.gallery');
-Route::post('/all-gallery/add-photo', [GalleryController::class, 'addPhoto'])->name('add.photo');
-Route::post('/all-gallery/category', [GalleryController::class, 'getCategory'])->name('category');
+Route::prefix('all-gallery')->group(function() {
+    Route::get('', [GalleryController::class, 'getPage'])->name('get.all.gallery');
+
+    Route::post('/add-photo', [GalleryController::class, 'addPhoto'])->name('add.photo');
+
+    Route::get('/{category}', [GalleryController::class, 'getCategory'])->name('category');
+});
 
 Route::get('/', [HomeController::class, 'showHomePage'])->name('home');
 
-Route::get('/rubrics/{rubric}', [RubricsController::class, 'getRubric'])->name('rubric');
+Route::get('/rubrics/{rubric}', [RubricsController::class, 'getRubric'])->name('selection');
 
 
 Route::get('/dashboard', function () {
