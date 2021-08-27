@@ -6,6 +6,7 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
+use Illuminate\Support\Facades\DB;
 
 class News extends Model
 {
@@ -33,6 +34,18 @@ class News extends Model
     public function user(): BelongsTo
     {
         return $this->belongsTo(User::class, 'author_id');
+    }
+
+    public static function getAllPhoto()
+    {
+        return self::where('is_published', 1)->orderByDesc('created_at')->with('user', 'category')->paginate(20);
+    }
+
+    public static function getRubricNews(string $rubric)
+    {
+
+        return self::where('is_published', 1)->where('category.title', $rubric)->orderByDesc('created_at')
+            ->with('user', 'category')->paginate(20);
     }
 
 }
