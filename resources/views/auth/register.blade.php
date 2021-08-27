@@ -5,7 +5,7 @@
         <div class="container col-12">
             <div class=" d-flex justify-content-center ">
                 <!-- Validation Errors -->
-                <div class="d-flex align-center border border-primary border-5 rounded  mb-4"
+                <div class="d-flex align-center border border-primary border-3 rounded  mb-4"
                      style="width: auto; height: auto;">
                     <x-auth-validation-errors class="mb-4" :errors="$errors" />
 
