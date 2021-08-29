@@ -14,7 +14,6 @@
 </head>
 
 <body>
-{{--    @dd(request()->route)--}}
     <header id="header" style="height: 50px">
         @include('components.newsSite.nav')
 

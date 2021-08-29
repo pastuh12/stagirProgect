@@ -13,7 +13,7 @@
             @else
                 {!! \Illuminate\Support\Str::limit($new->text, 50, '...') !!}</p>
             @endif
-        <a href="{{route('detail.entity.', ['news',$new->id])}}" class="btn btn-primary" style="position: absolute; top: 80%">
+        <a href="{{route('getEntity', ['news',$new->id])}}" class="btn btn-primary" style="position: absolute; top: 80%">
             Подробнее</a>
     </div>
     <div class="card-footer text-muted date">

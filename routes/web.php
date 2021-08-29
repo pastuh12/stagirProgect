@@ -18,7 +18,7 @@ use Illuminate\Support\Facades\Route;
 |
 */
 Route::prefix('detail/')->group(function () {
-    Route::get('{entity}/{id}', [EntityController::class, 'getEntity']);
+    Route::get('{entity}/{id}', [EntityController::class, 'getEntity'])->name('getEntity');
 
     Route::get('{entity}/{id}/{count}', [EntityController::class, 'getCountComments'])
         ->name('getCountComments')->where(['id' => '[0-9]+', 'count' => '[0-9]+']);

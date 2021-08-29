@@ -22,7 +22,8 @@ class EntityController extends Controller
     {
         $EntityService = new EntityService($entity, $id);
 
-        return view('components.newsSite.commentsList', ['comments' =>$EntityService->getComments($count)]);
+        return view('components.newsSite.comments-foreach',
+            ['comments' =>$EntityService->getComments($count)]);
     }
 
     public function addComment(AddCommentRequest $request, string $entity, int $id)
@@ -31,11 +32,11 @@ class EntityController extends Controller
         if (Auth::check()) {
             $EntityService->addComment($request->validated());
 
-            return redirect(route('detail.entity.', ['entity' => $entity, 'id' => $id]) . '#messanges')
+            return redirect(route('getEntity', ['entity' => $entity, 'id' => $id]) . '#messanges')
                 ->with('message', 'Комментарий отправлен');
         }
 
-        return redirect(route('detail.entity.', ['entity' => $entity, 'id' => $id]) . '#errors')
+        return redirect(route('getEntity', ['entity' => $entity, 'id' => $id]) . '#errors')
             ->withErrors('Для этого действия нужно авторизироваться')
             ->withInput();
     }

@@ -21,9 +21,9 @@
         <div class="col-lg-8">
             <form class="form-contact contact_form mb-80"
                   @if(get_class($entity) === \App\Models\News::class)
-                  action="{{route('detail.entity.add.comment',['news','id' => $entity->id])}}" method="post"
+                  action="{{route('add.comment',['news','id' => $entity->id])}}" method="post"
                   @else
-                  action="{{route('detail.entity.add.comment',['gallery','id' => $entity->id])}}" method="post"
+                  action="{{route('add.comment',['gallery','id' => $entity->id])}}" method="post"
                   @endif
 
                   id="contactForm">
