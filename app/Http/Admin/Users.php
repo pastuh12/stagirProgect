@@ -68,7 +68,8 @@ class Users extends Section implements Initializable
 
             AdminColumn::image('avatar', 'Аватар<br/><small>(image)</small>')
                 ->setHtmlAttribute('class', 'hidden-sm hidden-xs foobar')
-                ->setWidth('200px'),
+                ->setWidth('200px')
+                ->setImageWidth('40px'),
 
             AdminColumn::link('name', 'Имя')->setHtmlAttribute('class', 'text-center')
                 ->setWidth('200px')
@@ -147,8 +148,8 @@ class Users extends Section implements Initializable
             AdminFormElement::image('avatar', 'Фото')
                 ->setUploadPath(function(UploadedFile $image) {
                     return 'storage/user/avatar';
-                })->setReadonly(true),
-//переделать в список со значениями из таблицы
+                }),
+
             AdminFormElement::select('role', 'Роли', Role::getRoles())->setDisplay('role'),
 
             AdminFormElement::checkbox('is_blocked', 'Блокировка'),
@@ -161,7 +162,8 @@ class Users extends Section implements Initializable
             'cancel'  => (new Cancel()),
         ]);
 
-        return $form;
+            return $form;
+
     }
 
     /**
