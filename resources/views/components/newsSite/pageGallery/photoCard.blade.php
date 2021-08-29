@@ -8,7 +8,7 @@
             {{$photo->user->name}}</h6>
         <p class="card-text">
 
-        <a href="{{route('detail.entity.', ['gallery',$photo->id])}}" class="btn btn-primary" style="position: absolute; top: 80%">
+        <a href="{{route('getEntity', ['gallery',$photo->id])}}" class="btn btn-primary" style="position: absolute; top: 80%">
             Подробнее</a>
     </div>
     <div class="card-footer text-muted date">
