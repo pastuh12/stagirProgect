@@ -1,18 +1,19 @@
 <script>
-    let countAllComments = $('#count-all-comments');
+    let getAllComments = $('#get-all-comments');
     let commentsList = $('#comments');
     let commentsContainer = $('#commentsContainer');
-    countAllComments.on('click',function (){
-        let count = countAllComments.val();
+
+    getAllComments.on('click',function (){
+        let count = getAllComments.val();
         console.log("{{request()->url() . '/'}}" + count);
         axios.get('{{request()->url() . '/'}}' + count)
             .then(function (response) {
                 return response.data;
             })
             .then(function (response){
-                commentsContainer.prepend(response);
-                commentsList.remove();
+                commentsContainer.after(response);
                 }
             )
+        getAllComments.remove();
     });
 </script>
