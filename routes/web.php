@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\EntityController;
+use App\Http\Controllers\FeedbackController;
 use App\Http\Controllers\GalleryController;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\NewsController;
@@ -44,10 +45,12 @@ Route::get('/', [HomeController::class, 'showHomePage'])->name('home');
 
 Route::get('/rubrics/{rubric}', [RubricsController::class, 'getRubric'])->name('selection');
 
+Route::get('/feedback', [FeedbackController::class, 'send'])->name('send.feedback');
+
 
 Route::get('/dashboard', function () {
     return view('dashboard');
 })->middleware(['auth'])->name('dashboard');
 
-require __DIR__.'/auth.php';
+require __DIR__ . '/auth.php';
 
