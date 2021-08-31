@@ -35,20 +35,19 @@
                     </ul>
                 </li>
             </ul>
-            <div class="d-flex" style="position: absolute; left: 88%">
-                <div class="account d-flex flex-row">
+            <div class="d-flex" style="">
+                <div class="account d-flex flex-row align-items-center" style="position: relative">
                     @if(\Illuminate\Support\Facades\Auth::check())
-                        <div>
                             @if(\Illuminate\Support\Facades\Auth::user()->avatar)
                                 <img class="nav-item avatar mx-2" src="{{asset(\Illuminate\Support\Facades\Auth::user()->avatar)}}"
                                      alt="avatar" style="border-radius: 100px; border: 1px solid black;">
                             @else
                                 <img class="nav-item avatar mx-2" src="{{asset('storage/user/avatar/user.svg')}}"
-                                     alt="avatar" style="border-radius: 100px; border: 1px solid black;">
-                            @endif
-                        </div>
-                        <div class="dropdown py-2" style="height: 32px">
-                            <button class="btn btn-secondary btn-sm dropdown-toggle" type="button" id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-expanded="false">
+                                     alt="avatar" style=" border-radius: 100px; border: 1px solid black;">
+                        @endif
+                        <div class="dropdown py-2">
+                            <button class="btn btn-secondary btn-sm dropdown-toggle" type="button"
+                                    id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-expanded="false">
                                 {{\Illuminate\Support\Facades\Auth::user()->name}}
                             </button>
                             <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
@@ -60,16 +59,17 @@
                                                 this.closest('form').submit();">
                                             Выйти
                                         </x-dropdown-link>
-                                    </form></li>
+                                    </form>
+                                </li>
                             </ul>
                         </div>
                     @else
+
                         <a class="nav-link" href="{{route('register')}}" tabindex="-1">Регистрация</a>
 
                         <a class="nav-link" href="{{route('login')}}" tabindex="-1">Вход</a>
                     @endif
                 </div>
-
             </div>
         </div>
     </div>
