@@ -3,8 +3,6 @@
 namespace App\Providers\Listeners;
 
 use App\Providers\Events\NewsHasViewed;
-use Illuminate\Contracts\Queue\ShouldQueue;
-use Illuminate\Queue\InteractsWithQueue;
 
 class Counter
 {
