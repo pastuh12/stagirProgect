@@ -13,7 +13,7 @@
         <img src="{{asset($gallery->image)}}" class="carousel-image d-block w-100" alt="gallery-photo"
              style=" width: 300px; height: 400px;">
         <div class="carousel-caption d-none d-md-block text-center">
-            <h5><a href="{{route('detail.entity.', ['gallery',$gallery->id])}}">{{$gallery->title}}</a></h5>
+            <h5><a href="{{route('getEntity', ['gallery',$gallery->id])}}">{{$gallery->title}}</a></h5>
             <h6>{{$gallery->user->name}}</h6>
             <p>Рейтинг: {{$gallery->getRating()}}</p>
         </div>
