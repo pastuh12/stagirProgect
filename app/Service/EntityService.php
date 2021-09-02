@@ -2,9 +2,9 @@
 
 namespace App\Service;
 
+use App\Events\NewsHasViewed;
 use App\Models\Gallery;
 use App\Models\News;
-use App\Providers\Events\NewsHasViewed;
 use Illuminate\Database\Eloquent\Model;
 
 class EntityService

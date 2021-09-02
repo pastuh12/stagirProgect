@@ -1,8 +1,8 @@
 <?php
 
-namespace App\Providers\Listeners;
+namespace App\Listeners;
 
-use App\Providers\Events\NewsHasViewed;
+use App\Events\NewsHasViewed;
 
 class Counter
 {
