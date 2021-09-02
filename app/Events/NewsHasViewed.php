@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Providers\Events;
+namespace App\Events;
 
 use App\Models\News;
 use Illuminate\Broadcasting\InteractsWithSockets;
