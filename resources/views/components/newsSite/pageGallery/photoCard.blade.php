@@ -1,4 +1,4 @@
-<div class="card mx-auto" style="width: 18rem; margin-bottom: 20px;">
+<div class="card mr-2" style="width: 18rem; margin-bottom: 20px;">
     <div class="card-header text-center bg-white">
         <img src="{{asset($photo->image)}}" class="card-img-top" alt="photo_img" style="width: 250px; height: 200px">
     </div>

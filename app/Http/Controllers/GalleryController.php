@@ -14,7 +14,7 @@ class GalleryController extends Controller
 {
     public function getPage(Request $request):view
     {
-        return view('page.gallery', ['category' => Category::getGalleries(), 'latestPhoto' => Gallery::getAllPhoto()]);
+        return view('page.gallery', ['category' => Category::getGalleries(), 'allPhoto' => Gallery::getAllPhoto()]);
     }
 
     public function addPhoto(AddGalleryRequest $request )
@@ -32,9 +32,10 @@ class GalleryController extends Controller
 
     }
 
-    public function getCategory(Request $request, string $category): view
+    public function getCategory(Request $request, int $category): view
     {
-
-        return view('category', ['gallery' => Gallery::getCategoryPhoto($category)]);
+        $title = Category::whereId($category)->get()[0]->title;
+        return view('page.category', ['title' => $title,
+            'allPhoto' => Gallery::getCategoryPhoto($category)]);
     }
 }

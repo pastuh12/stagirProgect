@@ -11,11 +11,15 @@ class NewsController extends Controller
 {
     public function getPage(Request $request):view
     {
-        return view('page.news', ['rubrics' => Category::getNews(), 'latestNews' => News::getAllPhoto()]);
+        return view('page.news', ['rubrics' => Category::getNews(), 'allNews' => News::getAllNews()]);
     }
 
-    public function getRubric(Request $request, string $rubric)
+    public function getRubric(Request $request, int $rubric)
     {
-        return view('rubrics', ['rubricNews' => News::getRubricNews($rubric)]);
+        return view('page.category', [
+            'title' => Category::whereId($rubric)->first()->title,
+            'allNews' => News::getRubricNews($rubric),
+            'family' => Category::getFamily($rubric)
+        ]);
     }
 }

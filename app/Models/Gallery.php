@@ -5,7 +5,6 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
-use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 
 class Gallery extends Model
@@ -74,9 +73,9 @@ class Gallery extends Model
         return self::where('is_published', 1)->orderByDesc('created_at')->with('user', 'category')->paginate(20);
     }
 
-    public static function getCategoryPhoto(string $category)
+    public static function getCategoryPhoto(int $category)
     {
-        return self::where('is_published', 1)->where('category', $category)->orderByDesc('created_at')
-            ->with('user', 'category')->paginate(20);
+        return self::where('is_published', 1)->where('category_id', $category)->orderByDesc('updated_at')
+            ->with('user')->paginate(20);
     }
 }

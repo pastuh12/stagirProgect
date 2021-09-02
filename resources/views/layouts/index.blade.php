@@ -19,7 +19,7 @@
 
     </header>
 
-    <main>
+<main class="mt-5">
 
     @yield('content')
 

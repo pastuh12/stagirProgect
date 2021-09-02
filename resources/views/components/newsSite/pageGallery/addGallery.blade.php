@@ -16,6 +16,9 @@
     @endif
 @endif
 <section class="container col-5">
+    <h2 class="text-center">
+        Добавьте свою фотографию
+    </h2>
     <form class="border border-primary border-3 rounded p-3" method="post" action="{{route('add.photo')}}">
         @csrf
         <div class="mb-3">
