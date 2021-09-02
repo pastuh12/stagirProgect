@@ -16,6 +16,7 @@ class CreateCategoriesTable extends Migration
         Schema::create('categories', function (Blueprint $table) {
             $table->id();
             $table->string('title');
+            $table->bigInteger('parent')->nullable();
             $table->boolean('is_published')->default(1);
         });
 
