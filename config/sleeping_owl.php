@@ -228,9 +228,9 @@ return [
     */
 
     'datetimeFormat' => 'd-m-Y H:i',
-    'dateFormat'     => 'd-m-Y',
-    'timeFormat'     => 'H:i',
-    'timezone'       => 'UTC',
+    'dateFormat' => 'd-m-Y',
+    'timeFormat' => 'H:i',
+    'timezone' => 'Europe/Moscow',
 
     /*
     |--------------------------------------------------------------------------

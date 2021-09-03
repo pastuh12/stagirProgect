@@ -8,7 +8,6 @@ use AdminDisplayFilter;
 use AdminForm;
 use AdminFormElement;
 use Illuminate\Database\Eloquent\Model;
-use SleepingOwl\Admin\Contracts\Display\DisplayInterface;
 use SleepingOwl\Admin\Contracts\Form\FormInterface;
 use SleepingOwl\Admin\Contracts\Initializable;
 use SleepingOwl\Admin\Form\Buttons\Cancel;
@@ -97,6 +96,8 @@ class Category extends Section implements Initializable
     {
         $form = AdminForm::form()->setElements([
             AdminFormElement::text('title', 'Название')->required(),
+
+            AdminFormElement::select('parent', 'Родительская категория', \App\Models\Category::class)->setDisplay('title'),
             AdminFormElement::checkbox('is_published', 'Опубликовано'),
         ]);
 
