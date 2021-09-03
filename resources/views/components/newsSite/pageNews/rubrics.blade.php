@@ -15,15 +15,11 @@
                      aria-labelledby="heading{{$loop->index}}">
                     <div class="accordion-body">
                         @if($values->limitNews->count() !== 0)
-                            <div class="d-flex flex-row flex-nowrap">
+                            <div class="d-flex flex-row flex-nowrap mb-2" style="overflow: auto">
                                 @foreach($values->limitNews as $value)
-                                    @if($loop->index <= 2)
                                         <div class="mx-2">
                                             @include('components.newsSite.home.news.newsCard')
                                         </div>
-                                    @else
-                                        @break
-                                    @endif
                                 @endforeach
                             </div>
                             <a class="btn btn-primary" href="{{route('rubric', $values->id)}}"

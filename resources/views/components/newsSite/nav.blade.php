@@ -1,4 +1,4 @@
-<nav class="navbar fixed-top navbar-expand-lg navbar-light bg-light border border-info">
+<nav class="navbar fixed-top navbar-expand-lg navbar-light bg-light border">
     <div class="container-fluid">
 
         <div class="collapse navbar-collapse" id="navbarSupportedContent" style="position: relative">

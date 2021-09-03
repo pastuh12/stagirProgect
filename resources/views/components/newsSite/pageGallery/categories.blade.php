@@ -14,15 +14,15 @@
                      aria-labelledby="heading{{$loop->index}}">
                     <div class="accordion-body">
                         @if($value->limitGallery->count() !== 0)
-                            <div class="d-flex flex-row flex-nowrap">
+                            <div class="d-flex flex-row flex-nowrap mb-2" style="overflow: auto;">
                                 @foreach($value->limitGallery as $photo)
-                                    <div class="mx-2">
+                                    <div class="mx-3">
                                         @include('components.newsSite.pageGallery.photoCard')
                                     </div>
                                 @endforeach
                             </div>
                             <button type="button" class="btn btn-primary p-1">
-                                <a href="{{route('rubric', $value->id)}}"
+                                <a href="{{route('category', $value->id)}}"
                                    style=" text-decoration: none; color: white">
                                     Больше фото</a>
                             </button>

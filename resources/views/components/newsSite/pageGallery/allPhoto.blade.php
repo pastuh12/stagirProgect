@@ -5,7 +5,7 @@
             <div class=" news-card col-12 d-flex flex-row flex-wrap justify-content-center mb-3" id="news-card">
                 <!-- Nav Card -->
                 @foreach($allPhoto as $photo)
-                    <div class="col d-flex justify-content-start ">
+                    <div class="col d-flex justify-content-center ">
                         @include('components.newsSite.pageGallery.photoCard')
                     </div>
                 @endforeach
