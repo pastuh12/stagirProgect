@@ -26,15 +26,16 @@ class Category extends Model
 
     public function limitNews(): BelongsToMany
     {
-        return $this->news();
+        return $this->news()->orderByDesc('updated_at')->limit(5);
     }
 
     public static function getNews(): array
     {
         $category = array();
-        $categories = self::where('is_published', 1)->with('limitNews')->get();
-        foreach ($categories as $value) {
-            $category[] = $value;
+        $categories = self::where('is_published', 1)->get();
+        for ($i = 0; $i < $categories->count(); $i++) {
+            $category[] = self::where('is_published', 1)
+                ->whereId($i + 1)->with('limitNews')->first();
         }
         return $category;
     }
@@ -59,15 +60,16 @@ class Category extends Model
 
     public function limitGallery(): HasMany
     {
-        return $this->gallery()->limit(3);
+        return $this->gallery()->orderByDesc('updated_at')->limit(5);
     }
 
     public static function getGalleries(): array
     {
         $category = array();
-        $categories = self::where('is_published', 1)->with('limitGallery')->get();
-        foreach($categories as $value){
-            $category[] = $value;
+        $categories = self::where('is_published', 1)->get();
+        for ($i = 0; $i < $categories->count(); $i++) {
+            $category[] = self::where('is_published', 1)
+                ->whereId($i + 1)->with('limitGallery')->first();
         }
         return $category;
     }
