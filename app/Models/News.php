@@ -25,9 +25,11 @@ class News extends Model
         'views' => 0,
     ];
 
+    public $timestamps = false;
+
     public function category(): BelongsToMany
     {
-        return $this->belongsToMany(Category::class, 'categories_news' ,
+        return $this->belongsToMany(Category::class, 'categories_news',
             'news_id', 'category_id');
     }
 
@@ -50,7 +52,6 @@ class News extends Model
             ->orderByDesc('updated_at')
             ->paginate(20);
     }
-
 
 
 }

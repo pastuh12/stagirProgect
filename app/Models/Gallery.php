@@ -28,9 +28,11 @@ class Gallery extends Model
         'rating' => 0,
     ];
 
+    public $timestamps = false;
+
     public function category(): BelongsTo
     {
-        return $this->belongsTo(Category::class,'category_id');
+        return $this->belongsTo(Category::class, 'category_id');
     }
 
     /**
