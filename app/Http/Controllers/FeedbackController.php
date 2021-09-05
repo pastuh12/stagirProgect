@@ -15,12 +15,11 @@ class FeedbackController extends Controller
             $user = auth()->user();
             Mail::to('ilyatarasov75@gmail.com')
                 ->send(new Feedback($user->name, $user->email, $request->text));
-//            return redirect(route('getEntity', ['entity' => $entity, 'id' => $id]) . '#messanges')
-//                ->with('message', 'Комментарий отправлен');
+            return redirect(route('home') . '#message')
+                ->with('mailMessage', 'Комментарий отправлен');
         }
-        dd('не авторизован');
-//        return redirect(route('getEntity', ['entity' => $entity, 'id' => $id]) . '#errors')
-//            ->withErrors('Для этого действия нужно авторизироваться')
-//            ->withInput();
+        return redirect(route('home') . '#errors')
+            ->withErrors('Для этого действия нужно авторизироваться')
+            ->withInput();
     }
 }

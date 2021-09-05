@@ -29,10 +29,6 @@ class AddGalleryRequest extends FormRequest
                 'string',
                 'min:10',
             ],
-            'author_id' => [
-              'required',
-              'numeric',
-            ],
             'image' => [
                 'required',
                 'string',

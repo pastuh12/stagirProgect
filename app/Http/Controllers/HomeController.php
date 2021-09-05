@@ -23,9 +23,4 @@ class HomeController extends Controller
         return view('page.home', ['news' => $latestNews, 'galleries' => $bestGallery,
             'rubrics' => $rubrics]);
     }
-
-//    public function getLatestNews()
-//    {
-//         return view('components.newsSite.home.getlatestNews', ['news' => $this->getLatestNews()]);
-//    }
 }

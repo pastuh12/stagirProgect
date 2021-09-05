@@ -22,11 +22,11 @@ class GalleryController extends Controller
         if (Auth::check()) {
             GalleryService::addPhoto($request->validated());
 
-            return redirect(route('get.all.gallery') . '#messanges')
-                ->with('message', 'Комментарий отправлен');
+            return redirect(route('get.all.gallery') . '#message')
+                ->with('galleryMessage', 'Фото отправлено');
         }
 
-        return redirect(route('get.all.gallery' . '#errors'))
+        return redirect(route('get.all.gallery') . '#errors')
             ->withErrors('Для этого действия нужно авторизироваться')
             ->withInput();
 

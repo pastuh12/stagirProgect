@@ -7,10 +7,10 @@
         </ul>
     </div>
 @else
-    @if(session('message'))
+    @if(session('galleryMessage'))
         <div class="alert alert-success" role="alert" id="message">
             <ul>
-                <li>{{session('message')}}</li>
+                <li>{{session('galleryMessage')}}</li>
             </ul>
         </div>
     @endif

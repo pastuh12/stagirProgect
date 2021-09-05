@@ -1,7 +1,7 @@
 <div class="row">
     <div class="col-12 d-flex justify-content-center">
         <div class="section-tittle">
-            <h3>Лучшие фото </h3>
+            <h3 class="my-3">Лучшие фото </h3>
         </div>
     </div>
 </div>

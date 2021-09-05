@@ -38,27 +38,31 @@
             <div class="d-flex" style="">
                 <div class="account d-flex flex-row align-items-center" style="position: relative">
                     @if(\Illuminate\Support\Facades\Auth::check())
-                            @if(\Illuminate\Support\Facades\Auth::user()->avatar)
-                                <img class="nav-item avatar mx-2" src="{{asset(\Illuminate\Support\Facades\Auth::user()->avatar)}}"
-                                     alt="avatar" style="border-radius: 100px; border: 1px solid black;">
-                            @else
-                                <img class="nav-item avatar mx-2" src="{{asset('storage/user/avatar/user.svg')}}"
-                                     alt="avatar" style=" border-radius: 100px; border: 1px solid black;">
+                        @if(\Illuminate\Support\Facades\Auth::user()->avatar)
+                            <img class="nav-item avatar mx-2"
+                                 src="{{asset(\Illuminate\Support\Facades\Auth::user()->avatar)}}"
+                                 alt="avatar" style="border-radius: 100px; border: 1px solid black;">
+                        @else
+                            <img class="nav-item avatar mx-2" src="{{asset('storage/user/avatar/user.svg')}}"
+                                 alt="avatar" style=" border-radius: 100px; border: 1px solid black;">
                         @endif
                         <div class="dropdown py-2">
                             <button class="btn btn-secondary btn-sm dropdown-toggle" type="button"
                                     id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-expanded="false">
                                 {{\Illuminate\Support\Facades\Auth::user()->name}}
                             </button>
-                            <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
-                                <li>          <form method="POST" action="{{ route('logout') }}">
+                            <ul class=" dropdown-menu dropdown-menu-dark dropdown-menu-end "
+                                aria-labelledby="dropdownMenuButton1"
+                                style="margin-top: -5px; ">
+                                <li class="px-1">
+                                    <form method="POST" action="{{ route('logout') }}">
                                         @csrf
-
-                                        <x-dropdown-link :href="route('logout')"
-                                                         onclick="event.preventDefault();
-                                                this.closest('form').submit();">
+                                        <a href="{{route('logout')}}"
+                                           onclick="event.preventDefault();
+                                                this.closest('form').submit();"
+                                           style="width: 150px; color: white; text-decoration: none ">
                                             Выйти
-                                        </x-dropdown-link>
+                                        </a>
                                     </form>
                                 </li>
                             </ul>
