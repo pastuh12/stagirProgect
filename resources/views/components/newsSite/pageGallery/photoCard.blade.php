@@ -15,7 +15,7 @@
             Подробнее</a>
     </div>
     <div class="card-footer text-muted date">
-        {{$photo->updated_at}}
+        {{Carbon\Carbon::parse($photo->updated_at)->diffForHumans()}}
     </div>
 </div>
 
