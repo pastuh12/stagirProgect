@@ -7,7 +7,7 @@ namespace App\Http\Controllers;
 use App\Models\Gallery;
 use App\Service\RubricService;
 
-class RubricsController extends Controller
+class SelectionsController extends Controller
 {
     public function getRubric(int $rubric)
     {

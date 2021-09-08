@@ -5,7 +5,7 @@ use App\Http\Controllers\FeedbackController;
 use App\Http\Controllers\GalleryController;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\NewsController;
-use App\Http\Controllers\RubricsController;
+use App\Http\Controllers\SelectionsController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -43,7 +43,7 @@ Route::prefix('all-gallery')->group(function() {
 
 Route::get('/', [HomeController::class, 'showHomePage'])->name('home');
 
-Route::get('/selections/{rubric}', [RubricsController::class, 'getRubric'])->name('selection');
+Route::get('/selections/{rubric}', [SelectionsController::class, 'getRubric'])->name('selection');
 
 Route::get('/feedback', [FeedbackController::class, 'send'])->name('send.feedback');
 
