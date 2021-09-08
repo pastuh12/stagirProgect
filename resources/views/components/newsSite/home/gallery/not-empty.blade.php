@@ -1,7 +1,11 @@
 <div class="row">
     <div class="col-12 d-flex justify-content-center">
         <div class="section-tittle">
-            <h3 class="my-3">Лучшие фото </h3>
+            @if(request()->routeIs('selection'))
+                <h2 class="text-center my-4">Лучшие фото из категории: {{$title}}</h2>
+            @else
+                <h2 class="text-center my-4">Лучшие фото</h2>
+            @endif
         </div>
     </div>
 </div>

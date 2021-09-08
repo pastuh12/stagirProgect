@@ -1,6 +1,6 @@
 <div style="margin: 0">
     @if(request()->routeIs('selection'))
-        <h2 class="text-center">Последние новости по рубрике</h2>
+        <h2 class="text-center">Последние новости по рубрике: {{$title}}</h2>
     @else
         <h2 class="text-center">Последние новости</h2>
     @endif

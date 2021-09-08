@@ -1,2 +1,2 @@
-<li><a class="dropdown-item" href="{{route('selection', ['rubric' => $rubric->id])}}">
+<li><a class="dropdown-item" href="{{route('selection', ['category' => $rubric->id])}}">
         {{$rubric->title}}</a></li>
