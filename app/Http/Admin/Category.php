@@ -98,6 +98,7 @@ class Category extends Section implements Initializable
             AdminFormElement::text('title', 'Название')->required(),
 
             AdminFormElement::select('parent', 'Родительская категория', \App\Models\Category::class)->setDisplay('title'),
+
             AdminFormElement::checkbox('is_published', 'Опубликовано'),
         ]);
 

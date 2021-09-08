@@ -7,7 +7,10 @@ use AdminDisplay;
 use AdminDisplayFilter;
 use AdminForm;
 use AdminFormElement;
+use App\Models\Gallery;
+use App\Models\News;
 use App\Models\User;
+use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Str;
@@ -19,8 +22,6 @@ use SleepingOwl\Admin\Form\Buttons\Save;
 use SleepingOwl\Admin\Form\Buttons\SaveAndClose;
 use SleepingOwl\Admin\Form\Buttons\SaveAndCreate;
 use SleepingOwl\Admin\Section;
-use App\Models\News;
-use App\Models\Gallery;
 
 /**
  * Class News4
@@ -94,8 +95,9 @@ class Comments extends Section implements Initializable
                 $query->orderBy('author_id', $direction);
             })->setWidth('120px')->setHtmlAttribute('class', 'text-center'),
 
-            AdminColumn::custom('Текст', function($instance){
-                return Str::limit($instance->text, 50, '...');})
+            AdminColumn::custom('Текст', function ($instance) {
+                return Str::limit($instance->text, 50, '...');
+            })
                 ->setWidth('250px')->setHtmlAttribute('class', 'text-center'),
 
             AdminColumn::custom('Опубликовано', function ($instance) {
@@ -103,13 +105,15 @@ class Comments extends Section implements Initializable
             })->setWidth('25px')->setHtmlAttribute('class', 'text-center'),
 
 
-            AdminColumn::text('created_at', 'Дата создания/изменения', 'updated_at')
-                ->setWidth('160px')
+            AdminColumn::custom('Дата изменения', function ($instance) {
+                return Carbon::parse($instance->updated_at)
+                    ->diffForHumans();
+            })
+                ->setWidth('150px')
                 ->setOrderable(function ($query, $direction) {
                     $query->orderBy('updated_at', $direction);
                 })
-                ->setSearchable(false)
-            ,
+                ->setSearchable(false),
         ];
 
         $display = AdminDisplay::datatables()
@@ -125,16 +129,16 @@ class Comments extends Section implements Initializable
 
 
     /**
-     * @param int $id
+     * @param int|null $id
      *
      * @return FormInterface
      */
-    public function onEdit($id = null): FormInterface
+    public function onEdit(int $id = null): FormInterface
     {
-        if($id != null){
-            $date = AdminFormElement::datetime('updated_at', 'Дата');
-        } else {
+        if ($id === null) {
             $date = AdminFormElement::datetime('created_at', 'Дата');
+        } else {
+            $date = AdminFormElement::datetime('updated_at', 'Дата');
         }
 
         $form = AdminForm::form()->setElements([
@@ -146,14 +150,14 @@ class Comments extends Section implements Initializable
             AdminFormElement::wysiwyg('text', 'Текст')
                 ->addValidationRule('min:20')
                 ->required(),
-            $date->setVisible(true)
-                 ->setReadonly(false)
-                 ->required(),
+            $date
+                ->required()
+                ->setCurrentDate(),
+
             AdminFormElement::checkbox('is_published', 'Опубликовано')
                 ->setReadonly(Auth::user()->role !== 'admin'),
 
         ]);
-        dd();
 
         $form->getButtons()->setButtons([
             'save'  => new Save(),

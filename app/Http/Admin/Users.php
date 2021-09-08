@@ -8,10 +8,9 @@ use AdminForm;
 use AdminFormElement;
 use App\Models\Role;
 use App\Models\User;
-
+use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Http\UploadedFile;
-use SleepingOwl\Admin\Contracts\Display\DisplayInterface;
 use SleepingOwl\Admin\Contracts\Form\FormInterface;
 use SleepingOwl\Admin\Contracts\Initializable;
 use SleepingOwl\Admin\Form\Buttons\Cancel;
@@ -95,13 +94,16 @@ class Users extends Section implements Initializable
                 ->setOrderable(function ($query, $direction) {
                     $query->orderBy('role', $direction);
                 }),
-            AdminColumn::text('created_at', 'Дата создания/изменения', 'updated_at')
-                ->setWidth('160px')
+            AdminColumn::custom('Дата изменения', function ($instance) {
+                return Carbon::parse($instance->updated_at)
+                    ->diffForHumans();
+            })
+                ->setWidth('150px')
                 ->setOrderable(function ($query, $direction) {
                     $query->orderBy('updated_at', $direction);
                 })
-                ->setSearchable(false)
-            ,
+                ->setSearchable(false),
+
         ];
 
         return AdminDisplay::datatables()
@@ -122,10 +124,10 @@ class Users extends Section implements Initializable
     public function onEdit(int $id = null): FormInterface
     {
 
-        if($id != null){
-            $date = AdminFormElement::datetime('updated_at', 'Дата');
-        } else {
+        if ($id === null) {
             $date = AdminFormElement::datetime('created_at', 'Дата');
+        } else {
+            $date = AdminFormElement::datetime('updated_at', 'Дата');
         }
 
         $form = AdminForm::form()->setElements([
@@ -135,22 +137,25 @@ class Users extends Section implements Initializable
 
             AdminFormElement::password('password', 'Пароль')
                 ->HashWithBcrypt()
-                ->addValidationRule('min:6')
-                ->unique()
-                ->allowEmptyValue(),
+                ->addValidationRule('min:6'),
 
-            AdminFormElement::text('email', 'Email')->required(),
-            $date->setVisible(true)
-                ->setReadonly(false)
+
+            AdminFormElement::text('email', 'Email')
                 ->required()
                 ->unique(),
 
+            $date
+                ->required()
+                ->setCurrentDate(),
+
             AdminFormElement::image('avatar', 'Фото')
-                ->setUploadPath(function(UploadedFile $image) {
+                ->setUploadPath(function (UploadedFile $image) {
                     return 'storage/user/avatar';
                 }),
 
-            AdminFormElement::select('role', 'Роли', Role::getRoles())->setDisplay('role'),
+            AdminFormElement::select('role', 'Роли', Role::getRoles())
+                ->setDisplay('role')
+                ->required(),
 
             AdminFormElement::checkbox('is_blocked', 'Блокировка'),
         ]);

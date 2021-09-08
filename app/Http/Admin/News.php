@@ -9,6 +9,7 @@ use AdminForm;
 use AdminFormElement;
 use App\Models\Category;
 use App\Models\User;
+use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Http\UploadedFile;
 use Illuminate\Support\Facades\Auth;
@@ -54,7 +55,8 @@ class News extends Section implements Initializable
     public function onDisplay($payload = [])
     {
         $columns = [
-            AdminColumn::link('id', 'ID')->setHtmlAttribute('class', 'text-center')
+            AdminColumn::link('id', 'ID')
+                ->setHtmlAttribute('class', 'text-center')
                 ->setWidth('50px')
                 ->setSearchCallback(function ($column, $query, $search) {
                     return $query
@@ -77,9 +79,12 @@ class News extends Section implements Initializable
                 ->setHtmlAttribute('class', 'hidden-sm hidden-xs foobar')
                 ->setWidth('150px'),
 
-            AdminColumn::link('author_id', 'Автор')->setOrderable(function ($query, $direction) {
-                $query->orderBy('author_id', $direction);
-            })->setHtmlAttribute('class', 'text-center')->setWidth('110px'),
+            AdminColumn::relatedLink('author_id', 'Автор')
+                ->setOrderable(function ($query, $direction) {
+                    $query->orderBy('author_id', $direction);
+                })
+                ->setHtmlAttribute('class', 'text-center')
+                ->setWidth('110px'),
 
             AdminColumn::custom('Описание', function ($instance) {
                 return $instance->describe ?: Str::limit($instance->text, 100, '...');
@@ -95,8 +100,11 @@ class News extends Section implements Initializable
                 $query->orderBy('views', $direction);
             })->setWidth('120px')->setHtmlAttribute('class', 'text-center'),
 
-            AdminColumn::text('created_at', 'Дата создания/изменения', 'updated_at')
-                ->setWidth('160px')
+            AdminColumn::custom('Дата изменения', function ($instance) {
+                return Carbon::parse($instance->updated_at)
+                    ->diffForHumans();
+            })
+                ->setWidth('150px')
                 ->setOrderable(function ($query, $direction) {
                     $query->orderBy('updated_at', $direction);
                 })
@@ -129,8 +137,13 @@ class News extends Section implements Initializable
         }
 
         $form = AdminForm::form()->setElements([
-            AdminFormElement::text('title', 'Название')->required(),
-            AdminFormElement::select('author_id', 'Автор', User::getAuthorsId())->required(),
+            AdminFormElement::text('title', 'Название')
+                ->addValidationRule('min:10')
+                ->required(),
+
+            AdminFormElement::select('author_id', 'Автор', User::getAuthorsId())
+                ->required(),
+
             AdminFormElement::image('image', 'Фото')
                 ->setUploadPath(function (UploadedFile $image) {
                     return 'storage/news/images';
@@ -138,7 +151,9 @@ class News extends Section implements Initializable
 
             AdminFormElement::wysiwyg('describe', 'Краткое описание'),
 
-            AdminFormElement::wysiwyg('text', 'Текст')->required(),
+            AdminFormElement::wysiwyg('text', 'Текст')
+                ->addValidationRule('min:500')
+                ->required(),
 
             AdminFormElement::multiselect('category', 'Категории', Category::class)->setDisplay('title'),
 
