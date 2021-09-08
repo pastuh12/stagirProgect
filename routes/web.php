@@ -43,7 +43,7 @@ Route::prefix('all-gallery')->group(function() {
 
 Route::get('/', [HomeController::class, 'showHomePage'])->name('home');
 
-Route::get('/rubrics/{rubric}', [RubricsController::class, 'getRubric'])->name('selection');
+Route::get('/selections/{rubric}', [RubricsController::class, 'getRubric'])->name('selection');
 
 Route::get('/feedback', [FeedbackController::class, 'send'])->name('send.feedback');
 

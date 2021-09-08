@@ -4,17 +4,19 @@
 namespace App\Http\Controllers;
 
 
-use App\Models\Category;
-use App\Models\News;
+use App\Models\Gallery;
 use App\Service\RubricService;
-use Illuminate\Database\Eloquent\Model;
 
 class RubricsController extends Controller
 {
-    public function getRubric(string $rubric)
+    public function getRubric(int $rubric)
     {
         $news = RubricService::getNews($rubric);
-        $gallery = Category::firstWhere('title', $rubric)->gallery;
+        $gallery = Gallery::where('category_id', $rubric)
+            ->where('is_published', 1)
+            ->orderByDesc('rating')
+            ->limit(5)
+            ->get();
         return view('page.home', ['news' => $news, 'galleries' => $gallery]);
     }
 }
