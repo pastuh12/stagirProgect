@@ -10,10 +10,6 @@ use Carbon\Carbon;
 
 class HomeService
 {
-    /**
-     * @param int $pagination
-     * @return mixed
-     */
     public static function getLatestNews()
     {
         return News::where('created_at', '>', Carbon::now()->locale('ru')->subWeek()->format('Y-m-d'))
