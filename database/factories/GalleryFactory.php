@@ -23,7 +23,7 @@ class GalleryFactory extends Factory
     public function definition()
     {
         return [
-            'title' => $this->faker->name(),
+            'title' => $this->faker->sentence(random_int(2, 5)),
             'author_id' => 1,
             'image' => 'storage/news/images/a5549186c8adf3d0992908193cda9498.jpg',
             'category_id' => random_int(0, 8),
