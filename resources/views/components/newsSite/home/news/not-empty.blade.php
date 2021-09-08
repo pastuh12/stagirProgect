@@ -1,5 +1,10 @@
 <div style="margin: 0">
-    <h2 class="text-center">Последние новости</h2>
+    @if(request()->routeIs('selection'))
+        <h2 class="text-center">Последние новости по рубрике</h2>
+    @else
+        <h2 class="text-center">Последние новости</h2>
+    @endif
+
     <div class="row d-flex justify-content-center mt-5 ">
         <div class=" news-card col-12 d-flex flex-wrap justify-content-center mb-5" id="news-card">
             <!-- Nav Card -->

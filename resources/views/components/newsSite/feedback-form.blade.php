@@ -1,4 +1,4 @@
-<div class="col-4">
+<div class="col-5">
     @if ($errors->any())
         <div class="alert alert-danger" id="errors">
             <ul>

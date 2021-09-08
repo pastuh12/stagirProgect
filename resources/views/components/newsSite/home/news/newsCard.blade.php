@@ -20,7 +20,10 @@
         <p class="card-subtitle mb-2 text-muted">
             Просмотров: {{$value->views}}
         </p>
-        {{$value->updated_at}}
+        <p class="mb-0">
+            {{Carbon\Carbon::parse($value->updated_at)->isoFormat('D MMMM \в H:m')}}
+        </p>
+
     </div>
 </div>
 

@@ -4,20 +4,17 @@
             <div class="col-12">
 
                 @if($news->count() === 0)
-
                     @include('components.newsSite.home.news.empty')
-
-
                 @else
                     @include('components.newsSite.home.news.not-empty')
-                    @endif
+                @endif
 
-                </div>
             </div>
-
         </div>
 
-    </section>
+    </div>
+
+</section>
 
 
 
