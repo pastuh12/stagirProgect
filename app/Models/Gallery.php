@@ -6,6 +6,7 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 
 class Gallery extends Model
 {
@@ -27,15 +28,47 @@ class Gallery extends Model
         'rating' => 0,
     ];
 
+    /**
+     * @return BelongsToMany
+     */
     public function category(): BelongsToMany
     {
         return $this->belongsToMany(Category::class, 'categories_galleries' ,
             'gallery_id', 'category_id');
     }
 
+    /**
+     * @return BelongsTo
+     */
     public function user(): BelongsTo
     {
         return $this->belongsTo(User::class, 'author_id');
     }
 
+    /**
+     * @return HasMany
+     */
+    public function comments(): HasMany
+    {
+        return $this->hasMany(Comment::class, 'entity_id');
+    }
+
+    /**
+     * @return float|int
+     */
+    public  function getRating()
+    {
+        $comments = $this->comments()
+            ->where('rating', '!=', 'NULL')->get();
+
+        $sumRating = 0;
+
+        foreach($comments as $comment){
+            $sumRating += $comment->rating;
+        }
+        if($comments->count() === 0) {
+            return 0;
+        }
+        return  round($sumRating / $comments->count(), 1);
+    }
 }

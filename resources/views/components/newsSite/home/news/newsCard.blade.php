@@ -8,7 +8,7 @@
             {{$new->user->name}}</h6>
         <p class="card-text">
             {!! \Illuminate\Support\Str::limit($new->text, 50, '...') !!}</p>
-        <a href="{{route('news.detail', $new->id)}}" class="btn btn-primary" style="position: absolute; top: 80%">
+        <a href="{{route('detail.entity.', ['news',$new->id])}}" class="btn btn-primary" style="position: absolute; top: 80%">
             Подробнее</a>
     </div>
     <div class="card-footer text-muted date">

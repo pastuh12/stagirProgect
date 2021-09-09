@@ -89,9 +89,9 @@ class Gallery extends Section implements Initializable
                 return $instance->is_published ? '<i class="fa fa-check"></i>' : '<i class="fa fa-minus"></i>';
             })->setWidth('25px')->setHtmlAttribute('class', 'text-center'),
 
-            AdminColumn::text('rating', 'Рейтинг')->setHtmlAttribute('class', 'text-center')->setOrderable(function($query, $direction) {
-                $query->orderBy('rating', $direction);
-            }),
+            AdminColumn::custom('Рейтинг', function(\App\Models\Gallery $gallery) {
+                return $gallery->getRating();
+            })->setHtmlAttribute('class', 'text-center'),
 
             AdminColumn::text('created_at', 'Дата создания/изменения', 'updated_at')
                 ->setWidth('160px')
@@ -130,8 +130,7 @@ class Gallery extends Section implements Initializable
                     return [
                         AdminFormElement::text('title', 'Название')->required(),
                         AdminFormElement::number('author_id', 'Автор')->required(),
-                        AdminFormElement::select('category', 'Категории', Category::class)->setDisplay('title'),
-                        AdminFormElement::number('rating','рейтинг')->setReadonly(true),
+                        AdminFormElement::multiselect('category', 'Категории', Category::class)->setDisplay('title'),
 
                     ];
                 })->addColumn(function () {

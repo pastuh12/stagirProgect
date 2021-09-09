@@ -15,6 +15,7 @@ class Comment extends Model
         'entity_class',
         'author_id',
         'text',
+        'rating',
         'is_published',
     ];
 

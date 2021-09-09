@@ -18,6 +18,7 @@ class CreateNewsTable extends Migration
             $table->string('title');
             $table->bigInteger('author_id');
             $table->string('image')->nullable();
+            $table->string('describe')->nullable();
             $table->longText('text');
             $table->boolean('is_published')->default(0);
             $table->bigInteger('views')->default(0);

@@ -47,10 +47,6 @@ class News extends Section implements Initializable
      */
     protected $alias = 'news';
 
-    /**
-     * @return DisplayInterface
-     */
-
     public function initialize()
     {
         $this->addToNavigation()->setPriority(200)->setIcon('fa fa-lightbulb-o')->setTitle('Новости');
@@ -86,8 +82,8 @@ class News extends Section implements Initializable
                     $query->orderBy('author_id', $direction);
                 })->setHtmlAttribute('class', 'text-center')->setWidth('100px'),
 
-                AdminColumn::custom('Текст', function($instance){
-                    return Str::limit($instance->text, 50, '...');
+                AdminColumn::custom('Описание', function($instance){
+                    return Str::limit($instance->describe, 100, '...');
                 } )->setWidth('200px'),
 
                AdminColumn::lists('category.title', 'Категории')->setWidth('150px'),
@@ -121,11 +117,11 @@ class News extends Section implements Initializable
 
 
     /**
-     * @param int $id
+     * @param int|null $id
      *
      * @return FormInterface
      */
-    public function onEdit($id = null): FormInterface
+    public function onEdit(int $id = null): FormInterface
     {
         if($id != null){
             $date = AdminFormElement::datetime('updated_at', 'Дата');
@@ -138,8 +134,10 @@ class News extends Section implements Initializable
             AdminFormElement::image('image', 'Фото')
                 ->setUploadPath(function(UploadedFile $image) {
                     return 'storage/news/images';
-                })
-            ,
+                }),
+
+            AdminFormElement::wysiwyg('describe', 'Краткое описание'),
+
             AdminFormElement::wysiwyg('text', 'Текст')->required(),
             $date
                 ->setVisible(true)
@@ -165,12 +163,16 @@ class News extends Section implements Initializable
     /**
      * @return FormInterface
      */
-    public function onCreate()
+    public function onCreate(): FormInterface
     {
-        return $this->onEdit(null);
+        return $this->onEdit();
     }
 
-    public function isDeletable(Model $model)
+    /**
+     * @param Model $model
+     * @return bool
+     */
+    public function isDeletable(Model $model): bool
     {
         return true;
     }
