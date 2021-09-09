@@ -2,9 +2,9 @@
 
 namespace App\Service;
 
+use App\Events\NewsHasViewed;
 use App\Models\Gallery;
 use App\Models\News;
-use App\Providers\App\Events\NewsHasViewed;
 use Illuminate\Database\Eloquent\Model;
 
 class EntityService
@@ -13,12 +13,7 @@ class EntityService
     protected int $id;
 
     public function __construct(string $entity, int $id){
-        if( $entity === 'news'){
-            $this->entityClass = new News();
-        } else {
-            $this->entityClass = new Gallery();
-        }
-
+        $this->entityClass = $entity === 'news' ? new News() : new Gallery();
         $this->id = $id;
     }
 

@@ -1,11 +1,8 @@
 <?php
 
-namespace App\Providers\App\Listeners;
+namespace App\Listeners;
 
-use App\Providers\App\Events\NewsHasViewed;
-use App\Providers\App\Events\PostHasViewed;
-use Illuminate\Contracts\Queue\ShouldQueue;
-use Illuminate\Queue\InteractsWithQueue;
+use App\Events\NewsHasViewed;
 
 class Counter
 {
@@ -25,7 +22,7 @@ class Counter
      * @param  NewsHasViewed  $event
      * @return void
      */
-    public function handle(NewsHasViewed $event)
+    public function handle(NewsHasViewed $event): void
     {
         $event->news->increment('views');
     }

@@ -3,8 +3,8 @@
 
 namespace Database\Factories;
 
-
 use App\Models\News;
+use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
 
@@ -21,11 +21,13 @@ class NewsFactory extends Factory
     public function definition(): array
     {
         return [
-            'title' => $this->faker->name(),
+            'title' => $this->faker->sentence(random_int(2, 5)),
             'author_id' => 1,
             'image' => 'storage/news/images/a5549186c8adf3d0992908193cda9498.jpg',
-            'text' => $this->faker->text(), // password
-            'is_published'=> 1,
+            'text' => $this->faker->realText(random_int(1000, 5000)),
+            'is_published' => 1,
+            'created_at' => Carbon::now('Europe/Moscow'),
+            'updated_at' => Carbon::now('Europe/Moscow'),
         ];
     }
 

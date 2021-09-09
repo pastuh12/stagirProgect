@@ -8,10 +8,9 @@ use AdminForm;
 use AdminFormElement;
 use App\Models\Role;
 use App\Models\User;
-
+use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Http\UploadedFile;
-use SleepingOwl\Admin\Contracts\Display\DisplayInterface;
 use SleepingOwl\Admin\Contracts\Form\FormInterface;
 use SleepingOwl\Admin\Contracts\Initializable;
 use SleepingOwl\Admin\Form\Buttons\Cancel;
@@ -47,14 +46,10 @@ class Users extends Section implements Initializable
      */
     protected $alias = 'users';
 
-    /**
-     * @return DisplayInterface
-     */
-
-    public function initialize()
+    public function initialize():void
     {
         $this->addToNavigation()->setPriority(100)->setIcon('fa fa-lightbulb-o')
-            ->setTitle('Пользователи');
+            ->setTitle($this->title);
     }
 
     public function onDisplay($payload = [])
@@ -72,7 +67,8 @@ class Users extends Section implements Initializable
 
             AdminColumn::image('avatar', 'Аватар<br/><small>(image)</small>')
                 ->setHtmlAttribute('class', 'hidden-sm hidden-xs foobar')
-                ->setWidth('200px'),
+                ->setWidth('200px')
+                ->setImageWidth('40px'),
 
             AdminColumn::link('name', 'Имя')->setHtmlAttribute('class', 'text-center')
                 ->setWidth('200px')
@@ -98,29 +94,23 @@ class Users extends Section implements Initializable
                 ->setOrderable(function ($query, $direction) {
                     $query->orderBy('role', $direction);
                 }),
-            AdminColumn::text('countComments', 'Кол-во комментариев')->setOrderable(function ($query, $direction) {
-                $query->orderBy('countComments', $direction);
-            })->setHtmlAttribute('class', 'text-center')
-                ->setWidth('80px'),
-
-            AdminColumn::custom('Блокировка', function ($instance) {
-                return $instance->is_published ? '<i class="fa fa-check"></i>' : '<i class="fa fa-minus"></i>';
-            })->setWidth('25px')->setHtmlAttribute('class', 'text-center'),
-
-            AdminColumn::text('created_at', 'Дата создания/изменения', 'updated_at')
-                ->setWidth('160px')
+            AdminColumn::custom('Дата изменения', function ($instance) {
+                return Carbon::parse($instance->updated_at)
+                    ->diffForHumans();
+            })
+                ->setWidth('150px')
                 ->setOrderable(function ($query, $direction) {
                     $query->orderBy('updated_at', $direction);
                 })
-                ->setSearchable(false)
-            ,
+                ->setSearchable(false),
+
         ];
 
         return AdminDisplay::datatables()
             ->setName('usersdatatables')
             ->setOrder([[0, 'asc']])
             ->setDisplaySearch(true)
-            ->paginate(25)
+            ->paginate(100)
             ->setColumns($columns)
             ->setHtmlAttribute('class', 'table-primary table-hover th-center');
     }
@@ -134,43 +124,47 @@ class Users extends Section implements Initializable
     public function onEdit(int $id = null): FormInterface
     {
 
-
-        if($id != null){
-            $password = AdminFormElement::password('password', 'Пароль')
-                ->setVisible(false)
-                ->setReadonly(true)
-                ->HashWithBcrypt();
-
-            } else {
-            $password = AdminFormElement::password('password', 'Пароль')
-                ->required()
-                ->addValidationRule('min:6')
-                ->HashWithBcrypt();
-        }
-
-
-
-        if($id != null){
-            $date = AdminFormElement::datetime('updated_at', 'Дата');
-        } else {
+        if ($id === null) {
             $date = AdminFormElement::datetime('created_at', 'Дата');
+        } else {
+            $date = AdminFormElement::datetime('updated_at', 'Дата');
         }
+
+        if ($id === null) {
+            $password = AdminFormElement::password('password', 'Пароль')
+                ->HashWithBcrypt()
+                ->addValidationRule('min:6');
+        } else {
+            $password = AdminFormElement::password('password', 'Пароль')
+                ->allowEmptyValue()
+                ->HashWithBcrypt()
+                ->addValidationRule('min:6');
+        }
+
 
         $form = AdminForm::form()->setElements([
-            AdminFormElement::text('name', 'Имя')->required(),
+            AdminFormElement::text('name', 'Имя')
+                ->required()
+                ->unique(),
+
             $password,
 
-            AdminFormElement::text('email', 'Email')->required(),
-            $date->setVisible(true)
-                ->setReadonly(false)
-                ->required(),
+            AdminFormElement::text('email', 'Email')
+                ->required()
+                ->unique(),
+
+            $date
+                ->required()
+                ->setCurrentDate(),
 
             AdminFormElement::image('avatar', 'Фото')
-                ->setUploadPath(function(UploadedFile $image) {
+                ->setUploadPath(function (UploadedFile $image) {
                     return 'storage/user/avatar';
                 }),
-//переделать в список со значениями из таблицы
-            AdminFormElement::select('role', 'Роли', Role::getRoles())->setDisplay('role'),
+
+            AdminFormElement::select('role', 'Роли', Role::getRoles())
+                ->setDisplay('role')
+                ->required(),
 
             AdminFormElement::checkbox('is_blocked', 'Блокировка'),
         ]);
@@ -182,19 +176,30 @@ class Users extends Section implements Initializable
             'cancel'  => (new Cancel()),
         ]);
 
-        return $form;
+            return $form;
+
     }
 
     /**
      * @return FormInterface
      */
-    public function onCreate()
+    public function onCreate(): FormInterface
     {
         return $this->onEdit(null);
     }
 
-    public function isDeletable(Model $model)
+    public function isCreatable(): bool
     {
-        return true;
+        return (auth()->user()->role === 'admin');
+    }
+
+    public function isEditable(Model $model): bool
+    {
+    return (auth()->user()->role === 'admin');
+}
+
+    public function isDeletable(Model $model): bool
+    {
+        return (auth()->user()->role === 'admin');
     }
 }

@@ -8,7 +8,6 @@ use AdminDisplayFilter;
 use AdminForm;
 use AdminFormElement;
 use Illuminate\Database\Eloquent\Model;
-use SleepingOwl\Admin\Contracts\Display\DisplayInterface;
 use SleepingOwl\Admin\Contracts\Form\FormInterface;
 use SleepingOwl\Admin\Contracts\Initializable;
 use SleepingOwl\Admin\Form\Buttons\Cancel;
@@ -72,7 +71,7 @@ class Category extends Section implements Initializable
                 }),
 
             AdminColumn::custom('Опубликовано', function ($instance) {
-                return $instance->is_active ? '<i class="fa fa-check"></i>' : '<i class="fa fa-minus"></i>';
+                return $instance->is_published ? '<i class="fa fa-check"></i>' : '<i class="fa fa-minus"></i>';
             })->setWidth('25px')->setHtmlAttribute('class', 'text-center'),
         ];
 
@@ -97,6 +96,10 @@ class Category extends Section implements Initializable
     {
         $form = AdminForm::form()->setElements([
             AdminFormElement::text('title', 'Название')->required(),
+
+            AdminFormElement::select('parent', 'Родительская категория', \App\Models\Category::class)->setDisplay('title'),
+
+            AdminFormElement::checkbox('is_published', 'Опубликовано'),
         ]);
 
         $form->getButtons()->setButtons([
@@ -117,8 +120,18 @@ class Category extends Section implements Initializable
         return $this->onEdit(null);
     }
 
-    public function isDeletable(Model $model)
+    public function isCreatable(): bool
     {
-        return true;
+        return (auth()->user()->role === 'admin');
+    }
+
+    public function isEditable(Model $model): bool
+    {
+        return (auth()->user()->role === 'admin');
+    }
+
+    public function isDeletable(Model $model): bool
+    {
+        return (auth()->user()->role === 'admin');
     }
 }

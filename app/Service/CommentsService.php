@@ -16,7 +16,7 @@ class CommentsService
         $this->entity = $entity;
     }
 
-    public function entityComments(int $id, int $limit = 20)
+    public function entityComments(int $id, int $count = 20)
     {
         $comments = Comment::where('entity_class', $this->entity)
             ->where('entity_id', $id)
@@ -24,11 +24,11 @@ class CommentsService
             ->with('user')
             ->orderByDesc('updated_at');
 
-        if ($limit !== 0) {
-            return $comments->take($limit)->get();
+        if ($count === 0) {
+            return $comments->skip(20)->take(30)->get();
         }
 
-        return $comments->get();
+        return $comments->take($count)->get();
     }
 
     public function addComment(array $request, string $entity, int $id): void

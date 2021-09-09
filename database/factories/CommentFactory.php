@@ -3,8 +3,9 @@
 namespace Database\Factories;
 
 use App\Models\Comment;
-use Illuminate\Database\Eloquent\Factories\Factory;
+use App\Models\Gallery;
 use App\Models\News;
+use Illuminate\Database\Eloquent\Factories\Factory;
 
 class CommentFactory extends Factory
 {
@@ -23,10 +24,10 @@ class CommentFactory extends Factory
     public function definition()
     {
         return [
-            'entity_id' => '1',
-            'entity_class' => News::class,
+            'entity_id' => random_int(1, 50),
+            'entity_class' => array_rand([News::class => 0, Gallery::class => 0]),
             'author_id' => '1',
-            'text'=> $this->faker->text(),
+            'text' => $this->faker->realText(random_int(20, 500)),
             'is_published' => true,
         ];
     }

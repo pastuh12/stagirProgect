@@ -10,20 +10,11 @@ use Carbon\Carbon;
 
 class HomeService
 {
-    /**
-     * @param int $pagination
-     * @return mixed
-     */
-    public static function getLatestNews(int $pagination = 20)
+    public static function getLatestNews()
     {
-        $news = News::where('updated_at', '>', Carbon::now()->locale('ru')->subWeek()->format('Y-m-d'))
+        return News::where('created_at', '>', Carbon::now()->locale('ru')->subWeek()->format('Y-m-d'))
             ->where('is_published', 1)
-            ->orderByDesc('updated_at');
-        if($pagination !== 0) {
-            return $news->paginate($pagination);
-        }
-
-        return $news->paginate($pagination);
+            ->orderByDesc('created_at')->limit(20)->get();
     }
 
     public static function getBestGallery()
