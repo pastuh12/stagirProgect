@@ -1,12 +1,35 @@
-<body class="container">
-<header>
-    Имя пользователя: {{$userName}}
-    Его почта: {{$userEmail}}
-    <hr/>
-</header>
+@extends('layouts.email')
+@section('content')
 
-<main class="p-3">
-    {{$text}}
-</main>
+    <table style=" align:center; width:600px">
+        <tr>
+            <td>
+                Имя пользователя:
+            </td>
+            <td align="left">{{$userName}}</td>
+        </tr>
+        <tr>
+            <td>
+                Почта:
+            </td>
+            <td align="left">
+                {{$userEmail}}
+            </td>
+        </tr>
+        <tr style="height: 20px">
+            <td></td>
+            <td></td>
+            <td></td>
+        </tr>
 
-</body>
+        <tr>Сообщение</tr>
+        <tr style="height: 10px">
+            <td></td>
+            <td></td>
+            <td></td>
+        </tr>
+        <tr align="left">{{$text}}</tr>
+    </table>
+@endsection
+
+
