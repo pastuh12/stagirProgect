@@ -16,12 +16,8 @@ class CreateCategoriesTable extends Migration
         Schema::create('categories', function (Blueprint $table) {
             $table->id();
             $table->string('title');
-            $table->boolean('is_active')->default(1);
-        });
-
-        Schema::create('categories_galleries', function (Blueprint $table) {
-            $table->bigInteger('category_id');
-            $table->bigInteger('gallery_id');
+            $table->bigInteger('parent')->nullable();
+            $table->boolean('is_published')->default(1);
         });
 
         Schema::create('categories_news', function (Blueprint $table) {

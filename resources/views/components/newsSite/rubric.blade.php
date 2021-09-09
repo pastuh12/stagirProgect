@@ -1,1 +1,2 @@
-<li><a class="dropdown-item" href="{{config('app.url') . '/rubrics/'. $rubric->title}}">{{$rubric->title}}</a></li>
+<li><a class="dropdown-item" href="{{route('selection', ['category' => $rubric->id])}}">
+        {{$rubric->title}}</a></li>

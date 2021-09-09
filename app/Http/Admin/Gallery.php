@@ -8,6 +8,8 @@ use AdminDisplayFilter;
 use AdminForm;
 use AdminFormElement;
 use App\Models\Category;
+use App\Models\User;
+use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Facades\Auth;
 use SleepingOwl\Admin\Contracts\Display\DisplayInterface;
@@ -83,19 +85,22 @@ class Gallery extends Section implements Initializable
                     $query->orderBy('title', $direction);
                 }),
 
-            AdminColumn::lists('category.title', 'Категории')->setWidth('150px'),
+            AdminColumn::relatedLink('category.title', 'Категория')->setHtmlAttribute('class', 'text-center'),
 
             AdminColumn::custom('Опубликовано', function ($instance) {
                 return $instance->is_published ? '<i class="fa fa-check"></i>' : '<i class="fa fa-minus"></i>';
             })->setWidth('25px')->setHtmlAttribute('class', 'text-center'),
 
-            AdminColumn::custom('Рейтинг', function(\App\Models\Gallery $gallery) {
+            AdminColumn::custom('Рейтинг', function (\App\Models\Gallery $gallery) {
                 return $gallery->getRating();
             })->setHtmlAttribute('class', 'text-center'),
 
-            AdminColumn::text('created_at', 'Дата создания/изменения', 'updated_at')
-                ->setWidth('160px')
-                ->setOrderable(function($query, $direction) {
+            AdminColumn::custom('Дата изменения', function ($instance) {
+                return Carbon::parse($instance->updated_at)
+                    ->diffForHumans();
+            })
+                ->setWidth('150px')
+                ->setOrderable(function ($query, $direction) {
                     $query->orderBy('updated_at', $direction);
                 })
                 ->setSearchable(false),
@@ -115,11 +120,11 @@ class Gallery extends Section implements Initializable
 
 
     /**
-     * @param int $id
+     * @param int|null $id
      *
      * @return FormInterface
      */
-    public function onEdit($id = null)
+    public function onEdit(int $id = null)
     {
 
         $form = AdminForm::panel()->addScript('custom-image', '/    js/customimage.js', ['admin-default']);
@@ -128,23 +133,39 @@ class Gallery extends Section implements Initializable
             AdminFormElement::columns()
                 ->addColumn(function () {
                     return [
-                        AdminFormElement::text('title', 'Название')->required(),
-                        AdminFormElement::number('author_id', 'Автор')->required(),
-                        AdminFormElement::multiselect('category', 'Категории', Category::class)->setDisplay('title'),
+                        AdminFormElement::text('title', 'Название')
+                            ->addValidationRule('min:10')
+                            ->required(),
 
+                        AdminFormElement::select('author_id', 'Автор', User::getAuthorsId())
+                            ->required(),
+
+                        AdminFormElement::select('category_id', 'Категории', Category::class)
+                            ->setDisplay('title')
                     ];
-                })->addColumn(function () {
+
+                })->addColumn(function ($id) {
+                    if ($id === null) {
+                        $date = AdminFormElement::datetime('created_at', 'Дата');
+                    } else {
+                        $date = AdminFormElement::datetime('updated_at', 'Дата');
+                    }
+
                     return [
                         AdminFormElement::image('image', 'Фото')
-                            ->setUploadPath(function(\Illuminate\Http\UploadedFile $image) {
+                            ->setUploadPath(function (\Illuminate\Http\UploadedFile $image) {
                                 return 'storage/gallery/images';
-                            }),
-                        AdminFormElement::datetime('updated_at', 'Дата')->required(),
+                            })
+                            ->required(),
+
+                        $date
+                            ->required()
+                            ->setCurrentDate(),
 
                         AdminFormElement::checkbox('is_published', 'Опубликовано')
                             ->setReadonly(Auth::user()->role !== 'admin'),
-
                     ];
+
                 }),
         );
 
@@ -166,8 +187,18 @@ class Gallery extends Section implements Initializable
         return $this->onEdit(null);
     }
 
-    public function isDeletable(Model $model)
+    public function isCreatable(): bool
+    {
+        return (auth()->user()->role === 'admin');
+    }
+
+    public function isEditable(Model $model): bool
     {
         return true;
+    }
+
+    public function isDeletable(Model $model): bool
+    {
+        return (auth()->user()->role === 'admin');
     }
 }

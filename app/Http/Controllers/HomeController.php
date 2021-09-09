@@ -19,13 +19,8 @@ class HomeController extends Controller
     {
         $latestNews = HomeService::getLatestNews();
         $bestGallery = HomeService::getBestGallery();
-        $rubrics = Category::all();
+        $rubrics = Category::where('is_published', true);
         return view('page.home', ['news' => $latestNews, 'galleries' => $bestGallery,
             'rubrics' => $rubrics]);
     }
-
-//    public function getLatestNews()
-//    {
-//         return view('components.newsSite.home.getlatestNews', ['news' => $this->getLatestNews()]);
-//    }
 }

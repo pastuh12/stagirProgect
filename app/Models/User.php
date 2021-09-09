@@ -50,10 +50,15 @@ class User extends Authenticatable
         'email_verified_at' => 'datetime',
     ];
 
-//    public function role()
-//    {
-//        return $this->belongsTo(Role::class, 'role', 'role');
-//    }
+    public static function getAuthorsId()
+    {
+        $authorsId = self::where('role', '<>', 'user')->get();
+        $allId = array();
+        foreach($authorsId as $id){
+            $allId[$id->id] = $id->id;
+        }
+        return $allId;
+    }
 
 
 }
