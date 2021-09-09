@@ -130,15 +130,24 @@ class Users extends Section implements Initializable
             $date = AdminFormElement::datetime('updated_at', 'Дата');
         }
 
+        if ($id === null) {
+            $password = AdminFormElement::password('password', 'Пароль')
+                ->HashWithBcrypt()
+                ->addValidationRule('min:6');
+        } else {
+            $password = AdminFormElement::password('password', 'Пароль')
+                ->allowEmptyValue()
+                ->HashWithBcrypt()
+                ->addValidationRule('min:6');
+        }
+
+
         $form = AdminForm::form()->setElements([
             AdminFormElement::text('name', 'Имя')
                 ->required()
                 ->unique(),
 
-            AdminFormElement::password('password', 'Пароль')
-                ->HashWithBcrypt()
-                ->addValidationRule('min:6'),
-
+            $password,
 
             AdminFormElement::text('email', 'Email')
                 ->required()
