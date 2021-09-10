@@ -1,5 +1,5 @@
 <div class="col-5">
-    @if ($errors->any())
+    @if ($errors->get('text'))
         <div class="alert alert-danger" id="errors">
             <ul>
                 @foreach ($errors->all() as $error)
