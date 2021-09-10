@@ -126,6 +126,11 @@ class Gallery extends Section implements Initializable
      */
     public function onEdit(int $id = null)
     {
+        if ($id === null) {
+            $date = AdminFormElement::datetime('created_at', 'Дата');
+        } else {
+            $date = AdminFormElement::datetime('updated_at', 'Дата');
+        }
 
         $form = AdminForm::panel()->addScript('custom-image', '/    js/customimage.js', ['admin-default']);
 
@@ -144,12 +149,8 @@ class Gallery extends Section implements Initializable
                             ->setDisplay('title')
                     ];
 
-                })->addColumn(function ($id) {
-                    if ($id === null) {
-                        $date = AdminFormElement::datetime('created_at', 'Дата');
-                    } else {
-                        $date = AdminFormElement::datetime('updated_at', 'Дата');
-                    }
+                })->addColumn(function () {
+
 
                     return [
                         AdminFormElement::image('image', 'Фото')
@@ -158,15 +159,14 @@ class Gallery extends Section implements Initializable
                             })
                             ->required(),
 
-                        $date
-                            ->required()
-                            ->setCurrentDate(),
-
                         AdminFormElement::checkbox('is_published', 'Опубликовано')
                             ->setReadonly(Auth::user()->role !== 'admin'),
                     ];
-
                 }),
+
+            $date
+                ->required()
+                ->setCurrentDate(),
         );
 
         $form->getButtons()->setButtons([
