@@ -38,14 +38,9 @@
             <div class="d-flex" style="">
                 <div class="account d-flex flex-row align-items-center" style="position: relative">
                     @if(\Illuminate\Support\Facades\Auth::check())
-                        @if(\Illuminate\Support\Facades\Auth::user()->avatar)
-                            <img class="nav-item avatar mx-2"
-                                 src="{{asset(\Illuminate\Support\Facades\Auth::user()->avatar)}}"
-                                 alt="avatar" style="border-radius: 100px; border: 1px solid black;">
-                        @else
-                            <img class="nav-item avatar mx-2" src="{{asset('storage/user/avatar/user.svg')}}"
-                                 alt="avatar" style=" border-radius: 100px; border: 1px solid black;">
-                        @endif
+                        <img class="nav-item avatar mx-2"
+                             src="{{asset(\Illuminate\Support\Facades\Auth::user()->avatar)}}"
+                             alt="avatar" style="border-radius: 100px; border: 1px solid black;">
                         <div class="dropdown py-2">
                             <button class="btn btn-secondary btn-sm dropdown-toggle" type="button"
                                     id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-expanded="false">
@@ -65,6 +60,13 @@
                                         </a>
                                     </form>
                                 </li>
+                                @if(auth()->user()->role === 'admin' || auth()->user()->role === 'editor')
+                                    <li class="px-1">
+                                        <a href="/admin"
+                                           style="width: 150px; color: white; text-decoration: none ">
+                                            Админка</a>
+                                    </li>
+                                @endif
                             </ul>
                         </div>
                     @else

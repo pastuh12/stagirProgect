@@ -7,33 +7,40 @@
                 <!-- Validation Errors -->
                 <div class="d-flex align-center border border-primary border-3 rounded  mb-4"
                      style="width: auto; height: auto;">
-                    <x-auth-validation-errors class="mb-4" :errors="$errors" />
+                    <x-auth-validation-errors class="mb-4" :errors="$errors"/>
 
-                    <form method="POST" action="{{ route('register') }}" style="padding: 20px">
+                    <form method="POST" enctype="multipart/form-data" action="{{ route('register') }}"
+                          style="padding: 20px">
                     @csrf
 
                     <!-- Name -->
                         <div class="mb-3">
-                            <x-label for="name" :value="__('Имя')" />
+                            <x-label for="name" :value="__('Имя')"/>
 
-                            <x-input id="name" class="form-control block mt-1 w-full" type="text" name="name" :value="old('name')" required autofocus />
+                            <x-input id="name" class="form-control block mt-1 w-full" type="text" name="name"
+                                     :value="old('name')" required autofocus/>
                         </div>
 
                         <!-- Email Address -->
                         <div class="mb-3">
-                            <x-label for="email" :value="__('Email')" />
+                            <x-label for="email" :value="__('Email')"/>
 
-                            <x-input id="email" class="form-control block mt-1 w-full" type="email" name="email" :value="old('email')" required />
+                            <x-input id="email" class="form-control block mt-1 w-full" type="email" name="email"
+                                     :value="old('email')" required/>
                         </div>
 
+                        <div class="mb-3">
+                            <x-label for="avatar" :value="__('Аватар')"/>
+                            <input type="file" class="form-control" id="avatar" name="avatar">
+                        </div>
                         <!-- Password -->
                         <div class="mb-3">
-                            <x-label for="password" :value="__('Пароль')" />
+                            <x-label for="password" :value="__('Пароль')"/>
 
                             <x-input id="password" class="form-control block mt-1 w-full"
                                      type="password"
                                      name="password"
-                                     required autocomplete="new-password" />
+                                     required autocomplete="new-password"/>
                         </div>
 
                         <!-- Confirm Password -->

@@ -1,5 +1,5 @@
 @if ($errors->any())
-    <div class="alert alert-danger" id="errors">
+    <div class="alert alert-danger" id="galleryErrors">
         <ul>
             @foreach ($errors->all() as $error)
                 <li>{{ $error }}</li>
@@ -19,18 +19,21 @@
     <h2 class="text-center">
         Добавьте свою фотографию
     </h2>
-    <form class="border border-primary border-3 rounded p-3" method="post" action="{{route('add.photo')}}">
+    <form enctype="multipart/form-data" class="border border-primary border-3 rounded p-3" method="post"
+          action="{{route('add.photo')}}">
         @csrf
         <div class="mb-3">
             <label for="title" class="form-label">Название</label>
-            <input type="text" class="form-control" id="title" name="title" value="{{old('title')}}" required>
+            <input type="text" class="form-control" id="title" name="title"
+                   value="{{old('title')}}" required>
         </div>
         <div class="input-group mb-3">
-            <input type="file" class="form-control" id="image" name="image">
+            <input type="file" class="form-control" id="image" name="image" value="{{old('image')}}">
         </div>
         <div class="mb-3">
             <label for="category" class="form-label">Категория</label>
-            <select id="category" name="category" class="form-select" value="{{old('category')}}">
+            <select id="category" name="category" class="form-select"
+                    value="{{old('category')}}">
                 @foreach ($category as $value)
                     <option value={{$value->id}}>{{$value->title}}</option>
                 @endforeach

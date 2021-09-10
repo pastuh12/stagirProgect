@@ -31,7 +31,7 @@ class AddGalleryRequest extends FormRequest
             ],
             'image' => [
                 'required',
-                'string',
+                'file',
             ],
             'category' => [
                 'numeric',
@@ -46,6 +46,7 @@ class AddGalleryRequest extends FormRequest
             'title.min' => 'Название должено содержать минимум 10 символов',
             'author_id.required' => 'Автор должен быть указан',
             'image.required' => 'Картинка обязательна',
+            'image.file' => 'Загружить нужно картинку',
         ];
     }
 }

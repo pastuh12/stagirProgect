@@ -19,9 +19,9 @@ class GalleryController extends Controller
 
     public function addPhoto(AddGalleryRequest $request )
     {
+
         if (Auth::check()) {
             GalleryService::addPhoto($request->validated());
-
             return redirect(route('get.all.gallery') . '#message')
                 ->with('galleryMessage', 'Фото отправлено');
         }
@@ -29,6 +29,7 @@ class GalleryController extends Controller
         return redirect(route('get.all.gallery') . '#errors')
             ->withErrors('Для этого действия нужно авторизироваться')
             ->withInput();
+
 
     }
 
