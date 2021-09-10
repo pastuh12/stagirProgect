@@ -1,7 +1,7 @@
 <?php
 
+use App\Http\Controllers\Email\FeedbackController;
 use App\Http\Controllers\EntityController;
-use App\Http\Controllers\FeedbackController;
 use App\Http\Controllers\GalleryController;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\NewsController;
