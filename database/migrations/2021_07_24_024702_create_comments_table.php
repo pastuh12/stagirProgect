@@ -22,9 +22,6 @@ class CreateCommentsTable extends Migration
             $table->integer('rating')->nullable();
             $table->boolean('is_published');
             $table->timestamps();
-//            $table->foreign('author_id');
-//                ->references('id')->on('users')
-//                ->onDelete('cascade');
         });
     }
 

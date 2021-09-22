@@ -88,7 +88,6 @@ class Comments extends Section implements Initializable
                 $query->orderBy('entity_class', $direction);
             })
                 ->setHtmlAttribute('class', 'text-center')
-//                ->setLinkAttributes(['target' => '../new_id/edit'])
             ,
 
             AdminColumn::text('author_id', 'Автор')->setOrderable(function ($query, $direction) {
