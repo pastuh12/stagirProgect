@@ -1,4 +1,5 @@
 <div class="col-5">
+
     @if ($errors->get('text'))
         <div class="alert alert-danger" id="errors">
             <ul>
@@ -16,7 +17,7 @@
         </div>
     @endif
     <h4>Форма обратной связи</h4>
-    <form method="GET" action="{{route('send.feedback')}}">
+        <form method="GET" action="{{route('send.feedback')}}">
         <div class="form-group mb-2">
             <label class="mb-1" for="text">Ваше сообщене</label>
             <textarea id="text" class="form-control block w-full" type="text"

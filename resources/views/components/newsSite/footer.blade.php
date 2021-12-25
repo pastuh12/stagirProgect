@@ -7,8 +7,6 @@
             </ul>
             <ul class="nav flex-column">
                 <li class="nav-item">Контактный номер: <a href="tel:+7 (918) 965 07 38">+7 (918)-965-07-38</a></li>
-                <li class="nav-item">
-                    Контактная почта: <a href="mailto:ilyatarasov75@gmail.com">ilyatarasov75@gmail.com</a></li>
             </ul>
         </div>
         @include('components.newsSite.feedback-form')

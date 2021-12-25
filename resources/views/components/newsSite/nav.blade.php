@@ -5,7 +5,7 @@
             <ul class="navbar-nav me-auto mb-2 mb-lg-0">
                 <li>
                     <a class="navbar-brand" href="{{route('home')}}">
-                        <img src="{{asset('assets/img/logo.jpg')}}" alt="logo" width="30" height="24"
+                        <img src={{asset('assets/img/logo.png')}} alt="logo" width="30" height="30"
                              class="d-inline-block align-text-top">
                         MyNews
                     </a>
@@ -62,7 +62,7 @@
                                 </li>
                                 @if(auth()->user()->role === 'admin' || auth()->user()->role === 'editor')
                                     <li class="px-1">
-                                        <a href="/admin"
+                                        <a href="./admin"
                                            style="width: 150px; color: white; text-decoration: none ">
                                             Админка</a>
                                     </li>

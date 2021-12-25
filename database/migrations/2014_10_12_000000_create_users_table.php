@@ -17,7 +17,7 @@ class CreateUsersTable extends Migration
             $table->id();
             $table->string('name');
             $table->string('avatar')->nullable()
-                ->default('storage/user/avatar/user.svg');
+                ->default('storage/user/avatar/account.png');
             $table->string('email')->unique();
             $table->timestamp('email_verified_at')->nullable();
             $table->string('password');

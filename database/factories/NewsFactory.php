@@ -23,9 +23,10 @@ class NewsFactory extends Factory
         return [
             'title' => $this->faker->sentence(random_int(2, 5)),
             'author_id' => 1,
-            'image' => 'storage/news/images/vehicles-cars-nissan-31038.jpg',
+            'image' => 'storage/news/images/car.jpg',
             'text' => $this->faker->realText(random_int(1000, 5000)),
             'is_published' => 1,
+            'rating' => random_int(0, 50) * 0.1,
             'created_at' => Carbon::now('Europe/Moscow'),
             'updated_at' => Carbon::now('Europe/Moscow'),
         ];

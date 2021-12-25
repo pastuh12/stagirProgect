@@ -22,6 +22,7 @@ class CreateNewsTable extends Migration
             $table->longText('text');
             $table->boolean('is_published')->default(0);
             $table->bigInteger('views')->default(0);
+            $table->double('rating')->default(0);
             $table->timestamps();
         });
     }

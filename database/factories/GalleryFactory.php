@@ -25,7 +25,7 @@ class GalleryFactory extends Factory
         return [
             'title' => $this->faker->sentence(random_int(2, 5)),
             'author_id' => 1,
-            'image' => 'storage/gallery/images/default.jfif',
+            'image' => 'storage/gallery/images/sun.jpg',
             'category_id' => random_int(0, 8),
             'rating' => random_int(0, 50) * 0.1,
             'is_published' => 1,
