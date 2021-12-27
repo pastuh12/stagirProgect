@@ -43,7 +43,7 @@ class RegisteredUserController extends Controller
 
         $path = $request->avatar ?
             $path = $request->avatar->store('user/avatar') :
-            null;
+            'user/avatar/account.png';
 
         $user = User::create([
             'name' => $request->name,

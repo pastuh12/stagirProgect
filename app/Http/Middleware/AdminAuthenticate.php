@@ -28,8 +28,12 @@ class AdminAuthenticate
         }
 
         if ( Auth::user()->role !== 'admin') {
-            if(Auth::user()->role !== 'editor'){
-                return response('Access denied.', 401);
+            if(Auth::user()->role !== 'editor') {
+                if (Auth::user()->role !== 'author') {
+                    if (Auth::user()->role !== 'moderator') {
+                        return response('Access denied.', 401);
+                    }
+                }
             }
         }
 
